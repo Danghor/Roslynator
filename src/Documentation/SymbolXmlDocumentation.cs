@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Xml;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 
@@ -77,34 +76,15 @@ namespace Roslynator.Documentation
             return Element(name) != null;
         }
 
-        public string GetInnerXml()
-        {
-            using (XmlReader reader = _element.CreateReader())
-            {
-                if (reader.Read()
-                    && reader.NodeType == XmlNodeType.Element
-                    && reader.Name == "member")
-                {
-                    return reader.ReadInnerXml().Trim();
-                }
-            }
-
-            Debug.Fail(_element.ToString());
-
-            return null;
-        }
-
         public IEnumerable<string> GetElementsAsText(bool skipEmptyElement = false, bool makeSingleLine = false)
         {
             foreach (XElement element in _element.Elements())
             {
                 switch (element.Name.LocalName)
                 {
-                    case "c":
                     case "code":
                     case "example":
                     case "list":
-                    case "para":
                     case "param":
                     case "remarks":
                     case "returns":
@@ -121,21 +101,35 @@ namespace Roslynator.Documentation
                             yield return GetElementXml(element);
                             break;
                         }
-                    case "exception":
-                    case "permission":
-                    case "seealso":
+                    case "c":
+                    case "para":
+                        {
+                            Debug.Fail(element.Name.LocalName);
+
+                            if (skipEmptyElement
+                                && string.IsNullOrWhiteSpace(element.Value))
+                            {
+                                break;
+                            }
+
+                            yield return GetElementXml(element);
+                            break;
+                        }
                     case "see":
                     case "paramref":
                     case "typeparamref":
                         {
+                            Debug.Fail(element.Name.LocalName);
+
                             yield return GetElementXml(element);
                             break;
                         }
-                    case "content":
-                    case "exclude":
-                    case "include":
-                    case "inheritdoc":
+
+                    case "exception":
+                    case "permission":
+                    case "seealso":
                         {
+                            yield return GetElementXml(element);
                             break;
                         }
                     default:

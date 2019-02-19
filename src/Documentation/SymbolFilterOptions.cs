@@ -46,6 +46,7 @@ namespace Roslynator.Documentation
 #if DEBUG
         private static readonly MetadataNameSet _knownVisibleAttributes = new MetadataNameSet(new string[]
         {
+            "Microsoft.CodeAnalysis.CommitHashAttribute",
             "System.AttributeUsageAttribute",
             "System.CLSCompliantAttribute",
             "System.ComVisibleAttribute",
@@ -59,6 +60,7 @@ namespace Roslynator.Documentation
             "System.Reflection.AssemblyDescriptionAttribute",
             "System.Reflection.AssemblyFileVersionAttribute",
             "System.Reflection.AssemblyInformationalVersionAttribute",
+            "System.Reflection.AssemblyMetadataAttribute",
             "System.Reflection.AssemblyProductAttribute",
             "System.Reflection.AssemblyTitleAttribute",
             "System.Reflection.AssemblyTrademarkAttribute",

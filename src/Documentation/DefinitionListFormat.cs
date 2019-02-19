@@ -1,87 +1,98 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
+using Microsoft.CodeAnalysis;
 namespace Roslynator.Documentation
 {
     internal class DefinitionListFormat
     {
         public DefinitionListFormat(
+            SymbolDefinitionListLayout layout = DefaultValues.Layout,
+            SymbolDefinitionPartFilter parts = DefaultValues.Parts,
+            SymbolDefinitionFormatOptions formatOptions = DefaultValues.FormatOptions,
             string indentChars = DefaultValues.IndentChars,
-            bool nestNamespaces = DefaultValues.NestNamespaces,
-            bool hierarchy = DefaultValues.Hierarchy,
             bool emptyLineBetweenMembers = DefaultValues.EmptyLineBetweenMembers,
-            bool omitContainingNamespace = DefaultValues.OmitContainingNamespace,
-            bool includeAttributes = DefaultValues.IncludeAttributes,
-            bool includeAssemblyAttributes = DefaultValues.IncludeAssemblyAttributes,
-            bool includeAttributeArguments = DefaultValues.IncludeAttributeArguments,
-            bool formatAttributes = DefaultValues.FormatAttributes,
-            bool formatParameters = DefaultValues.FormatParameters,
-            bool formatBaseList = DefaultValues.FormatBaseList,
-            bool formatConstraints = DefaultValues.FormatConstraints,
             bool omitIEnumerable = DefaultValues.OmitIEnumerable,
             bool preferDefaultLiteral = DefaultValues.PreferDefaultLiteral)
         {
+            Layout = layout;
+            Parts = parts;
+            FormatOptions = formatOptions;
             IndentChars = indentChars;
-            NestNamespaces = nestNamespaces;
-            Hierarchy = hierarchy;
             EmptyLineBetweenMembers = emptyLineBetweenMembers;
-            OmitContainingNamespace = omitContainingNamespace;
-            IncludeAttributes = includeAttributes;
-            IncludeAssemblyAttributes = includeAssemblyAttributes;
-            IncludeAttributeArguments = includeAttributeArguments;
-            FormatAttributes = formatAttributes;
-            FormatParameters = formatParameters;
-            FormatBaseList = formatBaseList;
-            FormatConstraints = formatConstraints;
             OmitIEnumerable = omitIEnumerable;
             PreferDefaultLiteral = preferDefaultLiteral;
         }
 
         public static DefinitionListFormat Default { get; } = new DefinitionListFormat();
 
+        public SymbolDefinitionListLayout Layout { get; }
+
+        public SymbolDefinitionPartFilter Parts { get; }
+
+        public SymbolDefinitionFormatOptions FormatOptions { get; }
+
         public string IndentChars { get; }
 
-        public bool NestNamespaces { get; }
-
-        public bool Hierarchy { get; }
-
         public bool EmptyLineBetweenMembers { get; }
-
-        public bool OmitContainingNamespace { get; }
-
-        public bool IncludeAttributes { get; }
-
-        public bool IncludeAssemblyAttributes { get; }
-
-        public bool IncludeAttributeArguments { get; }
-
-        public bool FormatAttributes { get; }
-
-        public bool FormatParameters { get; }
-
-        public bool FormatBaseList { get; }
-
-        public bool FormatConstraints { get; }
 
         public bool OmitIEnumerable { get; }
 
         public bool PreferDefaultLiteral { get; }
 
+        public bool Includes(SymbolDefinitionPartFilter parts)
+        {
+            return (Parts & parts) == parts;
+        }
+
+        public bool Includes(SymbolDefinitionFormatOptions formatOptions)
+        {
+            return (FormatOptions & formatOptions) == formatOptions;
+        }
+
+        internal SymbolDisplayFormat Update(SymbolDisplayFormat format)
+        {
+            SymbolDisplayGenericsOptions genericsOptions = SymbolDisplayGenericsOptions.IncludeTypeParameters
+                | SymbolDisplayGenericsOptions.IncludeVariance;
+
+            if (Includes(SymbolDefinitionPartFilter.Constraints))
+                genericsOptions |= SymbolDisplayGenericsOptions.IncludeTypeConstraints;
+
+            SymbolDisplayMemberOptions memberOptions = SymbolDisplayMemberOptions.IncludeType
+                | SymbolDisplayMemberOptions.IncludeExplicitInterface
+                | SymbolDisplayMemberOptions.IncludeParameters
+                | SymbolDisplayMemberOptions.IncludeConstantValue
+                | SymbolDisplayMemberOptions.IncludeRef;
+
+            if (Includes(SymbolDefinitionPartFilter.Modifiers))
+                memberOptions |= SymbolDisplayMemberOptions.IncludeModifiers;
+
+            if (Includes(SymbolDefinitionPartFilter.Accessibility))
+                memberOptions |= SymbolDisplayMemberOptions.IncludeAccessibility;
+
+            SymbolDisplayParameterOptions parameterOptions = SymbolDisplayParameterOptions.IncludeExtensionThis
+                | SymbolDisplayParameterOptions.IncludeParamsRefOut
+                | SymbolDisplayParameterOptions.IncludeType;
+
+            if (Includes(SymbolDefinitionPartFilter.ParameterName))
+                parameterOptions |= SymbolDisplayParameterOptions.IncludeName;
+
+            if (Includes(SymbolDefinitionPartFilter.ParameterDefaultValue))
+                parameterOptions |= SymbolDisplayParameterOptions.IncludeDefaultValue;
+
+            return format.Update(
+                genericsOptions: genericsOptions,
+                memberOptions: memberOptions,
+                parameterOptions: parameterOptions);
+        }
+
         internal static class DefaultValues
         {
+            public const SymbolDefinitionListLayout Layout = SymbolDefinitionListLayout.NamespaceList;
+            public const SymbolDefinitionPartFilter Parts = SymbolDefinitionPartFilter.All;
+            public const SymbolDefinitionFormatOptions FormatOptions = SymbolDefinitionFormatOptions.None;
             public const Visibility Visibility = Roslynator.Visibility.Private;
             public const SymbolGroupFilter SymbolGroupFilter = Roslynator.SymbolGroupFilter.NamespaceOrTypeOrMember;
             public const string IndentChars = "  ";
-            public const bool NestNamespaces = false;
-            public const bool Hierarchy = false;
             public const bool EmptyLineBetweenMembers = false;
-            public const bool OmitContainingNamespace = false;
-            public const bool IncludeAttributes = true;
-            public const bool IncludeAssemblyAttributes = false;
-            public const bool IncludeAttributeArguments = true;
-            public const bool FormatAttributes = false;
-            public const bool FormatParameters = false;
-            public const bool FormatBaseList = false;
-            public const bool FormatConstraints = false;
             public const bool OmitIEnumerable = true;
             public const bool PreferDefaultLiteral = true;
         }

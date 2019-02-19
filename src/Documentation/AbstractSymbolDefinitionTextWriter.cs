@@ -52,7 +52,7 @@ namespace Roslynator.Documentation
 
         public override void WriteAssemblySeparator()
         {
-            if (Format.IncludeAssemblyAttributes)
+            if (Format.Includes(SymbolDefinitionPartFilter.AssemblyAttributes))
                 WriteLine();
         }
 
@@ -71,7 +71,7 @@ namespace Roslynator.Documentation
                 return;
 
             WriteDocumentationComment(namespaceSymbol);
-            Write(namespaceSymbol, format ?? GetNamespaceFormat(namespaceSymbol));
+            Write(namespaceSymbol, format ?? NamespaceFormat);
             WriteLine();
             IncreaseDepth();
         }
@@ -96,7 +96,7 @@ namespace Roslynator.Documentation
         public override void WriteType(INamedTypeSymbol typeSymbol, SymbolDisplayFormat format = null, SymbolDisplayTypeDeclarationOptions? typeDeclarationOptions = null)
         {
             WriteDocumentationComment(typeSymbol);
-            Write(typeSymbol, format ?? GetTypeFormat(typeSymbol), typeDeclarationOptions);
+            Write(typeSymbol, format ?? TypeFormat, typeDeclarationOptions);
             WriteLine();
 
             IncreaseDepth();
@@ -119,7 +119,7 @@ namespace Roslynator.Documentation
         public override void WriteMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
             WriteDocumentationComment(symbol);
-            Write(symbol, format ?? GetMemberFormat(symbol));
+            Write(symbol, format ?? MemberFormat);
             WriteLine();
             IncreaseDepth();
         }
@@ -141,7 +141,7 @@ namespace Roslynator.Documentation
         public override void WriteEnumMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
             WriteDocumentationComment(symbol);
-            Write(symbol, format ?? GetEnumMemberFormat(symbol));
+            Write(symbol, format ?? EnumMemberFormat);
             WriteLine();
             IncreaseDepth();
         }
@@ -185,7 +185,7 @@ namespace Roslynator.Documentation
         public override void WriteAttributeSeparator(bool assemblyAttribute)
         {
             if (assemblyAttribute
-                || (Format.FormatAttributes && SupportsMultilineDefinitions))
+                || (Format.Includes(SymbolDefinitionFormatOptions.Attributes) && SupportsMultilineDefinitions))
             {
                 Write("]");
                 WriteLine();
@@ -199,7 +199,7 @@ namespace Roslynator.Documentation
 
         public override void Write(ISymbol symbol, SymbolDisplayFormat format, SymbolDisplayTypeDeclarationOptions? typeDeclarationOptions = null, SymbolDisplayAdditionalOptions? additionalOptions = null)
         {
-            if (Format.IncludeAttributes)
+            if (Format.Includes(SymbolDefinitionPartFilter.Attributes))
                 WriteAttributes(symbol);
 
             base.Write(symbol, format, typeDeclarationOptions, additionalOptions);

@@ -5,12 +5,14 @@ namespace Roslynator.CommandLine
     internal static class ParameterNames
     {
         public const string Depth = "depth";
+        public const string Format = "format";
         public const string IgnoredMemberParts = "ignored-member-parts";
         public const string IgnoredNamespaceParts = "ignored-namespace-parts";
         public const string IgnoredParts = "ignored-parts";
         public const string IgnoredProjects = "ignored-projects";
         public const string IgnoredRootParts = "ignored-root-parts";
         public const string IgnoredTypeParts = "ignored-type-parts";
+        public const string Layout = "layout";
         public const string MSBuildPath = "msbuild-path";
         public const string OmitContainingNamespaceParts = "omit-containing-namespace-parts";
         public const string Projects = "projects";

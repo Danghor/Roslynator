@@ -87,7 +87,7 @@ namespace Roslynator.Documentation
         {
             if (_elementsById == null)
             {
-                _elementsById = Interlocked.CompareExchange(ref _elementsById, LoadElements(), null);
+                Interlocked.CompareExchange(ref _elementsById, LoadElements(), null);
             }
 
             if (_elementsById.TryGetValue(commentId, out XElement element))

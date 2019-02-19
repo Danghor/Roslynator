@@ -20,25 +20,9 @@ namespace Roslynator.CommandLine
             HelpText = "Indicates whether an empty line should be added between two member definitions.")]
         public bool EmptyLineBetweenMembers { get; set; }
 
-        [Option(longName: "format-attributes",
-            HelpText = "Indicates whether attributes should be formatted on a multiple lines.")]
-        public bool FormatAttributes { get; set; }
-
-        [Option(longName: "format-base-list",
-            HelpText = "Indicates whether a base list should be formatted on a multiple lines.")]
-        public bool FormatBaseList { get; set; }
-
-        [Option(longName: "format-constraints",
-            HelpText = "Indicates whether constraints should be formatted on a multiple lines.")]
-        public bool FormatConstraints { get; set; }
-
-        [Option(longName: "format-parameters",
-            HelpText = "Indicates whether parameters should be formatted on a multiple lines.")]
-        public bool FormatParameters { get; set; }
-
-        [Option(longName: "hierarchy",
-            HelpText = "Indicates whether symbol should be displayed in hierarchy.")]
-        public bool Hierarchy { get; set; }
+        [Option(longName: ParameterNames.Format,
+            HelpText = "Specifies parts of a symbol definition that should be formatted.")]
+        public IEnumerable<string> Format { get; set; }
 
         [Option(longName: "ignored-attribute-names",
             HelpText = "Defines a list of attributes' names that should be ignored, i.e. if the symbol has an attribute with the specified name it will be ignored.",
@@ -50,25 +34,14 @@ namespace Roslynator.CommandLine
             MetaValue = "<FULLY_QUALIFIED_METADATA_NAME>")]
         public IEnumerable<string> IgnoredNames { get; set; }
 
-        [Option(longName: "include-assembly-attributes",
-            HelpText = "Indicates whether assembly attributes should be displayed.")]
-        public bool IncludeAssemblyAttributes { get; set; }
-
-        [Option(longName: "include-attributes",
-            HelpText = "Indicates whether attributes should be displayed.")]
-        public bool IncludeAttributes { get; set; }
-
-        [Option(longName: "include-attribute-arguments",
-            HelpText = "Indicates whether attribute arguments should be included when displaying an attribute.")]
-        public bool IncludedAttributeArguments { get; set; }
+        [Option(longName: ParameterNames.IgnoredParts,
+            HelpText = "Defines parts of a symbol definition that should be excluded.",
+            MetaValue = "<IGNORED_PARTS>")]
+        public IEnumerable<string> IgnoredParts { get; set; }
 
         [Option(longName: "include-documentation",
-            HelpText = "Indicates whether XML documentation should be included. This option is relevant only for XML output.")]
+            HelpText = "Indicates whether a documentation should be included.")]
         public bool IncludeDocumentation { get; set; }
-
-        //[Option(longName: "include-ienumerable",
-        //    HelpText = "Indicates whether interface System.Collections.IEnumerable should be included in a documentation if a type also implements interface System.Collections.Generic.IEnumerable<T>.")]
-        //public bool IncludeIEnumerable { get; set; }
 
         [Option(longName: "indent-chars",
             Default = DefinitionListFormat.DefaultValues.IndentChars,
@@ -76,17 +49,9 @@ namespace Roslynator.CommandLine
             MetaValue = "<INDENT_CHARS>")]
         public string IndentChars { get; set; }
 
-        [Option(longName: "nest-namespaces",
-            HelpText = "Indicates whether namespaces should be nested.")]
-        public bool NestNamespaces { get; set; }
-
-        //[Option(longName: "no-precedence-for-system",
-        //    HelpText = "Indicates whether symbols contained in 'System' namespace should be ordered as any other symbols and not before other symbols.")]
-        //public bool NoPrecedenceForSystem { get; set; }
-
-        [Option(longName: "omit-containing-namespace",
-            HelpText = "Indicates whether containing namespace should be omitted when displayed a symbol.")]
-        public bool OmitContainingNamespace { get; set; }
+        [Option(longName: ParameterNames.Layout,
+            HelpText = "Defines layout of a list of symbol definitions.")]
+        public string Layout { get; set; }
 
         [Option(longName: "output",
             HelpText = "Defines path to file(s) that will store a list of symbol definitions.",
@@ -106,5 +71,13 @@ namespace Roslynator.CommandLine
             HelpText = "Defines one or more visibility of a type or a member. Allowed values are public, internal or private.",
             MetaValue = "<VISIBILITY>")]
         public IEnumerable<string> Visibility { get; set; }
+
+        //[Option(longName: "include-ienumerable",
+        //    HelpText = "Indicates whether interface System.Collections.IEnumerable should be included in a documentation if a type also implements interface System.Collections.Generic.IEnumerable<T>.")]
+        //public bool IncludeIEnumerable { get; set; }
+
+        //[Option(longName: "no-precedence-for-system",
+        //    HelpText = "Indicates whether symbols contained in 'System' namespace should be ordered as any other symbols and not before other symbols.")]
+        //public bool NoPrecedenceForSystem { get; set; }
     }
 }

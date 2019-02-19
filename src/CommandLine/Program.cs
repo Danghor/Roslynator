@@ -202,16 +202,25 @@ namespace Roslynator.CommandLine
             if (!options.TryGetProjectFilter(out ProjectFilter projectFilter))
                 return 1;
 
-            if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFilterOptions.Default.VisibilityFilter))
+            if (!TryParseOptionValueAsEnum(options.Depth, ParameterNames.Depth, out DocumentationDepth depth, DocumentationDepth.Member))
                 return 1;
 
-            if (!TryParseOptionValueAsEnum(options.Depth, ParameterNames.Depth, out DocumentationDepth depth, DocumentationDepth.Member))
+            if (!TryParseOptionValueAsEnumFlags(options.Format, ParameterNames.Format, out SymbolDefinitionFormatOptions formatOptions))
+                return 1;
+
+            if (!TryParseMetadataNames(options.IgnoredAttributeNames, out ImmutableArray<MetadataName> ignoredAttributeNames))
                 return 1;
 
             if (!TryParseMetadataNames(options.IgnoredNames, out ImmutableArray<MetadataName> ignoredNames))
                 return 1;
 
-            if (!TryParseMetadataNames(options.IgnoredAttributeNames, out ImmutableArray<MetadataName> ignoredAttributeNames))
+            if (!TryParseOptionValueAsEnumFlags(options.IgnoredParts, ParameterNames.IgnoredParts, out SymbolDefinitionPartFilter ignoredParts))
+                return 1;
+
+            if (!TryParseOptionValueAsEnum(options.Layout, ParameterNames.Layout, out SymbolDefinitionListLayout layout, SymbolDefinitionListLayout.NamespaceList))
+                return 1;
+
+            if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFilterOptions.Default.VisibilityFilter))
                 return 1;
 
             var symbolFilterOptions = new SymbolFilterOptions(
@@ -223,6 +232,9 @@ namespace Roslynator.CommandLine
             var command = new ListSymbolsCommand(
                 options: options,
                 symbolFilterOptions: symbolFilterOptions,
+                formatOptions: formatOptions,
+                layout: layout,
+                ignoredParts: ignoredParts,
                 rootDirectoryUrl: options.RootDirectoryUrl,
                 projectFilter: projectFilter);
 

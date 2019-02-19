@@ -24,17 +24,29 @@ namespace Roslynator.CommandLine
         public ListSymbolsCommand(
             ListSymbolsCommandLineOptions options,
             SymbolFilterOptions symbolFilterOptions,
+            SymbolDefinitionFormatOptions formatOptions,
+            SymbolDefinitionListLayout layout,
+            SymbolDefinitionPartFilter ignoredParts,
             string rootDirectoryUrl,
             in ProjectFilter projectFilter) : base(projectFilter)
         {
             Options = options;
             SymbolFilterOptions = symbolFilterOptions;
+            FormatOptions = formatOptions;
+            Layout = layout;
+            IgnoredParts = ignoredParts;
             RootDirectoryUrl = rootDirectoryUrl;
         }
 
         public ListSymbolsCommandLineOptions Options { get; }
 
         public SymbolFilterOptions SymbolFilterOptions { get; }
+
+        public SymbolDefinitionFormatOptions FormatOptions { get; }
+
+        public SymbolDefinitionListLayout Layout { get; }
+
+        public SymbolDefinitionPartFilter IgnoredParts { get; }
 
         public string RootDirectoryUrl { get; }
 
@@ -43,19 +55,13 @@ namespace Roslynator.CommandLine
             AssemblyResolver.Register();
 
             var format = new DefinitionListFormat(
+                layout: Layout,
+                parts: SymbolDefinitionPartFilter.All & ~IgnoredParts,
+                formatOptions: FormatOptions,
                 indentChars: Options.IndentChars,
-                nestNamespaces: Options.NestNamespaces,
-                hierarchy: Options.Hierarchy,
                 emptyLineBetweenMembers: Options.EmptyLineBetweenMembers,
-                omitContainingNamespace: Options.OmitContainingNamespace,
-                includeAttributes: Options.IncludeAttributes,
-                includeAssemblyAttributes: Options.IncludeAssemblyAttributes,
-                includeAttributeArguments: Options.IncludedAttributeArguments,
-                formatAttributes: Options.FormatAttributes,
-                formatParameters: Options.FormatParameters,
-                formatBaseList: Options.FormatBaseList,
-                formatConstraints: Options.FormatConstraints,
-                omitIEnumerable: true);
+                omitIEnumerable: true,
+                preferDefaultLiteral: true);
 
             ImmutableArray<Compilation> compilations = await GetCompilationsAsync(projectOrSolution, cancellationToken);
 
