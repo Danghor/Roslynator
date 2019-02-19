@@ -15,7 +15,8 @@ namespace Roslynator.Documentation
             TextWriter writer,
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
-            IComparer<ISymbol> comparer = null) : base(filter, format, comparer)
+            SymbolDocumentationProvider documentationProvider = null,
+            IComparer<ISymbol> comparer = null) : base(filter, format, documentationProvider, comparer)
         {
             _writer = writer;
         }
@@ -85,6 +86,31 @@ namespace Roslynator.Documentation
             for (int i = 0; i < Depth; i++)
             {
                 Write(Format.IndentChars);
+            }
+        }
+
+        public override void WriteDocumentationComment(ISymbol symbol)
+        {
+            IEnumerable<string> elements = DocumentationProvider?.GetXmlDocumentation(symbol)?.GetElementsAsText(skipEmptyElement: true, makeSingleLine: true);
+
+            if (elements == null)
+                return;
+
+            foreach (string element in elements)
+                WriteDocumentation(element);
+
+            void WriteDocumentation(string element)
+            {
+                using (var sr = new StringReader(element))
+                {
+                    string line = null;
+
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        WriteLine(line);
+                        WriteIndentation();
+                    }
+                }
             }
         }
     }

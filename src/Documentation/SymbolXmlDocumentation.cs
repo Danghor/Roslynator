@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
@@ -12,6 +13,13 @@ namespace Roslynator.Documentation
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class SymbolXmlDocumentation
     {
+        private static readonly Regex _simpleElementRegex = new Regex(@"
+(?<=^\<(?<name>\w+)\>)
+\r?\n
+([^\r\n]+)
+\r?\n
+(?=\</\k<name>\>)", RegexOptions.IgnorePatternWhitespace);
+
         private readonly XElement _element;
 
         internal static SymbolXmlDocumentation Default { get; } = new SymbolXmlDocumentation(null, null);
@@ -75,19 +83,78 @@ namespace Roslynator.Documentation
             {
                 if (reader.Read()
                     && reader.NodeType == XmlNodeType.Element
-                    && reader.Name == "member"
-                    && reader.Read()
-                    && reader.NodeType == XmlNodeType.Text
-                    && reader.Read()
-                    && reader.NodeType == XmlNodeType.Element)
+                    && reader.Name == "member")
                 {
-                    return reader.ReadOuterXml();
+                    return reader.ReadInnerXml().Trim();
                 }
             }
 
             Debug.Fail(_element.ToString());
 
             return null;
+        }
+
+        public IEnumerable<string> GetElementsAsText(bool skipEmptyElement = false, bool makeSingleLine = false)
+        {
+            foreach (XElement element in _element.Elements())
+            {
+                switch (element.Name.LocalName)
+                {
+                    case "c":
+                    case "code":
+                    case "example":
+                    case "list":
+                    case "para":
+                    case "param":
+                    case "remarks":
+                    case "returns":
+                    case "summary":
+                    case "typeparam":
+                    case "value":
+                        {
+                            if (skipEmptyElement
+                                && string.IsNullOrWhiteSpace(element.Value))
+                            {
+                                break;
+                            }
+
+                            yield return GetElementXml(element);
+                            break;
+                        }
+                    case "exception":
+                    case "permission":
+                    case "seealso":
+                    case "see":
+                    case "paramref":
+                    case "typeparamref":
+                        {
+                            yield return GetElementXml(element);
+                            break;
+                        }
+                    case "content":
+                    case "exclude":
+                    case "include":
+                    case "inheritdoc":
+                        {
+                            break;
+                        }
+                    default:
+                        {
+                            Debug.Fail(element.Name.LocalName);
+                            break;
+                        }
+                }
+            }
+
+            string GetElementXml(XElement element)
+            {
+                string xml = element.ToString(SaveOptions.DisableFormatting).Trim();
+
+                if (makeSingleLine)
+                    xml = _simpleElementRegex.Replace(xml, "$1");
+
+                return xml;
+            }
         }
     }
 }

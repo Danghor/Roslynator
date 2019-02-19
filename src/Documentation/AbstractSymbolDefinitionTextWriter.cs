@@ -10,7 +10,8 @@ namespace Roslynator.Documentation
         protected AbstractSymbolDefinitionTextWriter(
             SymbolFilterOptions filter,
             DefinitionListFormat format = null,
-            IComparer<ISymbol> comparer = null) : base(filter, format, comparer)
+            SymbolDocumentationProvider documentationProvider = null,
+            IComparer<ISymbol> comparer = null) : base(filter, format, documentationProvider, comparer)
         {
         }
 
@@ -69,6 +70,7 @@ namespace Roslynator.Documentation
             if (namespaceSymbol.IsGlobalNamespace)
                 return;
 
+            WriteDocumentationComment(namespaceSymbol);
             Write(namespaceSymbol, format ?? GetNamespaceFormat(namespaceSymbol));
             WriteLine();
             IncreaseDepth();
@@ -93,6 +95,7 @@ namespace Roslynator.Documentation
 
         public override void WriteType(INamedTypeSymbol typeSymbol, SymbolDisplayFormat format = null, SymbolDisplayTypeDeclarationOptions? typeDeclarationOptions = null)
         {
+            WriteDocumentationComment(typeSymbol);
             Write(typeSymbol, format ?? GetTypeFormat(typeSymbol), typeDeclarationOptions);
             WriteLine();
 
@@ -115,6 +118,7 @@ namespace Roslynator.Documentation
 
         public override void WriteMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
+            WriteDocumentationComment(symbol);
             Write(symbol, format ?? GetMemberFormat(symbol));
             WriteLine();
             IncreaseDepth();
@@ -136,6 +140,7 @@ namespace Roslynator.Documentation
 
         public override void WriteEnumMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
+            WriteDocumentationComment(symbol);
             Write(symbol, format ?? GetEnumMemberFormat(symbol));
             WriteLine();
             IncreaseDepth();

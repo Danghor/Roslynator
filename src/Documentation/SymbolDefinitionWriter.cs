@@ -15,16 +15,20 @@ namespace Roslynator.Documentation
         protected SymbolDefinitionWriter(
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
+            SymbolDocumentationProvider documentationProvider = null,
             IComparer<ISymbol> comparer = null)
         {
             Filter = filter ?? SymbolFilterOptions.Default;
             Format = format ?? DefinitionListFormat.Default;
+            DocumentationProvider = documentationProvider;
             Comparer = comparer ?? SymbolDefinitionComparer.SystemNamespaceFirstInstance;
         }
 
         public SymbolFilterOptions Filter { get; }
 
         public DefinitionListFormat Format { get; }
+
+        public SymbolDocumentationProvider DocumentationProvider { get; }
 
         public IComparer<ISymbol> Comparer { get; }
 
@@ -118,6 +122,8 @@ namespace Roslynator.Documentation
         public abstract void WriteEndAttribute(AttributeData attribute, bool assemblyAttribute);
 
         public abstract void WriteAttributeSeparator(bool assemblyAttribute);
+
+        public abstract void WriteDocumentationComment(ISymbol symbol);
 
         public virtual SymbolDisplayTypeDeclarationOptions GetTypeDeclarationOptions()
         {
@@ -266,26 +272,20 @@ namespace Roslynator.Documentation
             WriteTypeHierarchy(hierarchy.Root);
             WriteEndTypes();
 
-            WriteStartTypes();
-
-            foreach (SymbolHierarchyItem item in hierarchy.StaticRoot.Children())
-                WriteTypeHierarchy(item);
-
-            WriteEndTypes();
-
             void WriteTypeHierarchy(SymbolHierarchyItem item)
             {
                 WriteStartType(item.Symbol);
 
-                WriteType(
-                    item.Symbol,
-                    format: SymbolDefinitionDisplayFormats.HierarchyType);
+                WriteType(item.Symbol, format: SymbolDefinitionDisplayFormats.HierarchyType);
 
                 if (!item.IsExternal)
                     WriteMembers(item.Symbol);
 
                 foreach (SymbolHierarchyItem derivedItem in item.Children())
+                {
+                    WriteTypeSeparator();
                     WriteTypeHierarchy(derivedItem);
+                }
 
                 WriteEndType(item.Symbol);
             }
@@ -824,70 +824,6 @@ namespace Roslynator.Documentation
         {
             Write(value);
             WriteLine();
-        }
-
-        public void WriteTypeHierarchy(IEnumerable<IAssemblySymbol> assemblies)
-        {
-            IEnumerable<INamedTypeSymbol> types = assemblies
-                .SelectMany(a => a.GetTypes(t => !t.IsStatic
-                    && Filter.IsVisibleType(t)
-                    && Filter.IsVisibleNamespace(t.ContainingNamespace)));
-
-            INamedTypeSymbol objectType = FindObjectType();
-
-            INamedTypeSymbol FindObjectType()
-            {
-                foreach (INamedTypeSymbol type in types)
-                {
-                    INamedTypeSymbol t = type;
-
-                    do
-                    {
-                        if (t.SpecialType == SpecialType.System_Object)
-                            return t;
-
-                        t = t.BaseType;
-                    }
-                    while (t != null);
-                }
-
-                return null;
-            }
-
-            var allTypes = new HashSet<INamedTypeSymbol>(types) { objectType };
-
-            foreach (INamedTypeSymbol type in types)
-            {
-                INamedTypeSymbol t = type.BaseType;
-
-                while (t != null)
-                {
-                    allTypes.Add(t.OriginalDefinition);
-                    t = t.BaseType;
-                }
-            }
-
-            WriteTypeHierarchy(objectType);
-
-            void WriteTypeHierarchy(INamedTypeSymbol baseType)
-            {
-                WriteStartType(baseType);
-
-                WriteType(baseType);
-
-                allTypes.Remove(baseType);
-
-                List<INamedTypeSymbol> derivedTypes = allTypes
-                    .Where(f => f.BaseType?.OriginalDefinition == baseType.OriginalDefinition || f.Interfaces.Any(i => i.OriginalDefinition == baseType.OriginalDefinition))
-                    .ToList();
-
-                derivedTypes.Sort(Comparer);
-
-                foreach (INamedTypeSymbol type in derivedTypes)
-                    WriteTypeHierarchy(type);
-
-                WriteEndType(baseType);
-            }
         }
     }
 }

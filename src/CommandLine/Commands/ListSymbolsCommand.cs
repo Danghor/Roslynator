@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -80,36 +81,13 @@ namespace Roslynator.CommandLine
             if (externalAssemblies != null)
                 assemblies = assemblies.Concat(externalAssemblies);
 
-#if DEBUG
-            SymbolDefinitionWriter textWriter = new SymbolDefinitionTextWriter(
-                ConsoleOut,
-                filter: SymbolFilterOptions,
-                format: format,
-                comparer: comparer);
+            TestOutput(compilations, assemblies, format, comparer);
 
-            textWriter.WriteDocument(assemblies);
-
-            WriteLine();
-
-            using (XmlWriter xmlWriter = XmlWriter.Create(ConsoleOut, new XmlWriterSettings() { Indent = true, IndentChars = Options.IndentChars }))
-            {
-                SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, new SymbolDocumentationProvider(compilations), comparer);
-
-                writer.WriteDocument(assemblies);
-            }
-
-            WriteLine();
-
-            using (MarkdownWriter markdownWriter = MarkdownWriter.Create(ConsoleOut))
-            {
-                SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, comparer, RootDirectoryUrl);
-
-                writer.WriteDocument(assemblies);
-            }
-
-            WriteLine();
-#endif
             string text = null;
+
+            SymbolDocumentationProvider documentationProvider = (Options.IncludeDocumentation)
+                ? new SymbolDocumentationProvider(compilations)
+                : null;
 
             using (var stringWriter = new StringWriter())
             {
@@ -117,6 +95,7 @@ namespace Roslynator.CommandLine
                     stringWriter,
                     filter: SymbolFilterOptions,
                     format: format,
+                    documentationProvider: documentationProvider,
                     comparer: comparer);
 
                 writer.WriteDocument(assemblies);
@@ -135,10 +114,6 @@ namespace Roslynator.CommandLine
 
                 if (string.Equals(extension, ".xml", StringComparison.OrdinalIgnoreCase))
                 {
-                    SymbolDocumentationProvider documentationProvider = (Options.IncludeDocumentation)
-                        ? new SymbolDocumentationProvider(compilations)
-                        : null;
-
                     var xmlWriterSettings = new XmlWriterSettings() { Indent = true, IndentChars = Options.IndentChars };
 
                     using (XmlWriter xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
@@ -156,7 +131,7 @@ namespace Roslynator.CommandLine
                     using (var streamWriter = new StreamWriter(fileStream, Encodings.UTF8NoBom))
                     using (MarkdownWriter markdownWriter = MarkdownWriter.Create(streamWriter, markdownWriterSettings))
                     {
-                        SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, comparer, RootDirectoryUrl);
+                        SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, comparer, RootDirectoryUrl);
 
                         writer.WriteDocument(assemblies);
                     }
@@ -232,6 +207,42 @@ namespace Roslynator.CommandLine
             }
 
             return null;
+        }
+
+        [Conditional("DEBUG")]
+        private void TestOutput(
+            ImmutableArray<Compilation> compilations,
+            IEnumerable<IAssemblySymbol> assemblies,
+            DefinitionListFormat format,
+            SymbolDefinitionComparer comparer)
+        {
+            SymbolDefinitionWriter textWriter = new SymbolDefinitionTextWriter(
+                ConsoleOut,
+                filter: SymbolFilterOptions,
+                format: format,
+                comparer: comparer);
+
+            textWriter.WriteDocument(assemblies);
+
+            WriteLine();
+
+            using (XmlWriter xmlWriter = XmlWriter.Create(ConsoleOut, new XmlWriterSettings() { Indent = true, IndentChars = Options.IndentChars }))
+            {
+                SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, new SymbolDocumentationProvider(compilations), comparer);
+
+                writer.WriteDocument(assemblies);
+            }
+
+            WriteLine();
+
+            using (MarkdownWriter markdownWriter = MarkdownWriter.Create(ConsoleOut))
+            {
+                SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, comparer, RootDirectoryUrl);
+
+                writer.WriteDocument(assemblies);
+            }
+
+            WriteLine();
         }
     }
 }

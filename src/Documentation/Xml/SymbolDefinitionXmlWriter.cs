@@ -18,15 +18,12 @@ namespace Roslynator.Documentation.Xml
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
             SymbolDocumentationProvider documentationProvider = null,
-            IComparer<ISymbol> comparer = null) : base(filter, format, comparer)
+            IComparer<ISymbol> comparer = null) : base(filter, format, documentationProvider, comparer)
         {
             _writer = writer;
-            DocumentationProvider = documentationProvider;
         }
 
         public override bool SupportsMultilineDefinitions => false;
-
-        public SymbolDocumentationProvider DocumentationProvider { get; }
 
         public override SymbolDisplayFormat GetNamespaceFormat(INamespaceSymbol namespaceSymbol)
         {
@@ -102,6 +99,7 @@ namespace Roslynator.Documentation.Xml
                 Write(namespaceSymbol, format ?? GetNamespaceFormat(namespaceSymbol));
 
             WriteEndAttribute();
+            WriteDocumentationComment(namespaceSymbol);
         }
 
         public override void WriteEndNamespace(INamespaceSymbol namespaceSymbol)
@@ -133,7 +131,7 @@ namespace Roslynator.Documentation.Xml
             WriteStartAttribute("def");
             Write(typeSymbol, format ?? GetTypeFormat(typeSymbol), typeDeclarationOptions);
             WriteEndAttribute();
-            WriteDocumentation(typeSymbol);
+            WriteDocumentationComment(typeSymbol);
 
             if (Format.IncludeAttributes)
                 WriteAttributes(typeSymbol);
@@ -168,7 +166,7 @@ namespace Roslynator.Documentation.Xml
             WriteStartAttribute("def");
             Write(symbol, format ?? GetMemberFormat(symbol));
             WriteEndAttribute();
-            WriteDocumentation(symbol);
+            WriteDocumentationComment(symbol);
 
             if (Format.IncludeAttributes)
                 WriteAttributes(symbol);
@@ -203,6 +201,7 @@ namespace Roslynator.Documentation.Xml
             WriteStartAttribute("def");
             Write(symbol, format ?? GetEnumMemberFormat(symbol));
             WriteEndAttribute();
+            WriteDocumentationComment(symbol);
 
             if (Format.IncludeAttributes)
                 WriteAttributes(symbol);
@@ -281,39 +280,50 @@ namespace Roslynator.Documentation.Xml
             _writer.WriteEndAttribute();
         }
 
-        private void WriteDocumentation(ISymbol symbol)
+        public override void WriteDocumentationComment(ISymbol symbol)
         {
-            if (DocumentationProvider == null)
+            IEnumerable<string> elements = DocumentationProvider?.GetXmlDocumentation(symbol)?.GetElementsAsText(skipEmptyElement: true, makeSingleLine: true);
+
+            if (elements == null)
                 return;
 
-            SymbolXmlDocumentation xmlDocumentation = DocumentationProvider.GetXmlDocumentation(symbol);
-
-            if (xmlDocumentation == null)
-                return;
-
-            WriteStartElement("doc");
-
-            string xml = xmlDocumentation.GetInnerXml();
-
-            _writer.WriteWhitespace(_writer.Settings.NewLineChars);
-
-            using (var sr = new StringReader(xml))
+            using (IEnumerator<string> en = elements.GetEnumerator())
             {
-                string line = null;
-                while ((line = sr.ReadLine()) != null)
+                if (en.MoveNext())
                 {
-                    for (int i = 0; i < Depth; i++)
+                    WriteStartElement("doc");
+
+                    do
+                    {
+                        WriteDocumentation(en.Current);
+                    }
+                    while (en.MoveNext());
+
+                    _writer.WriteWhitespace(_writer.Settings.NewLineChars);
+
+                    for (int i = 1; i < Depth; i++)
                         _writer.WriteWhitespace(_writer.Settings.IndentChars);
 
-                    _writer.WriteRaw(line);
-                    _writer.WriteWhitespace(_writer.Settings.NewLineChars);
+                    WriteEndElement();
                 }
             }
 
-            for (int i = 1; i < Depth; i++)
-                _writer.WriteWhitespace(_writer.Settings.IndentChars);
+            void WriteDocumentation(string element)
+            {
+                using (var sr = new StringReader(element))
+                {
+                    string line = null;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        _writer.WriteWhitespace(_writer.Settings.NewLineChars);
 
-            WriteEndElement();
+                        for (int i = 0; i < Depth; i++)
+                            _writer.WriteWhitespace(_writer.Settings.IndentChars);
+
+                        _writer.WriteRaw(line);
+                    }
+                }
+            }
         }
     }
 }

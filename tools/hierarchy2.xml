@@ -1,0 +1,1786 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <assemblies>
+    <assembly name="Roslynator.Core, Version=1.0.0.10, Culture=neutral, PublicKeyToken=3aeedfaf14b2cebf" />
+    <assembly name="Roslynator.CSharp, Version=1.0.0.10, Culture=neutral, PublicKeyToken=390be46f77b79f52" />
+    <assembly name="Roslynator.CSharp.Workspaces, Version=1.0.0.10, Culture=neutral, PublicKeyToken=ec3f0c29a7973f23" />
+    <assembly name="Roslynator.Workspaces.Core, Version=1.0.0.10, Culture=neutral, PublicKeyToken=be1ec334fe31b7bb" />
+  </assemblies>
+  <types>
+    <type def="public class System.Object">
+      <type def="public abstract class System.ValueType">
+        <type def="public abstract class System.Enum : ValueType, IComparable, IConvertible, IFormattable">
+          <type def="public enum Roslynator.Visibility">
+            <members>
+              <member def="NotApplicable = 0" />
+              <member def="Private = 1" />
+              <member def="Internal = 2" />
+              <member def="Public = 3" />
+            </members>
+          </type>
+          <type def="public enum Roslynator.CSharp.CommentKinds">
+            <members>
+              <member def="None = 0" />
+              <member def="SingleLine = 1" />
+              <member def="MultiLine = 2" />
+              <member def="NonDocumentation = SingleLine | MultiLine" />
+              <member def="SingleLineDocumentation = 4" />
+              <member def="MultiLineDocumentation = 8" />
+              <member def="Documentation = SingleLineDocumentation | MultiLineDocumentation" />
+              <member def="All = NonDocumentation | Documentation" />
+            </members>
+          </type>
+          <type def="public enum Roslynator.CSharp.ModifierKinds">
+            <members>
+              <member def="None = 0" />
+              <member def="New = 1" />
+              <member def="Public = 2" />
+              <member def="Private = 4" />
+              <member def="Protected = 8" />
+              <member def="Internal = 16" />
+              <member def="Accessibility = Public | Private | Protected | Internal" />
+              <member def="Const = 32" />
+              <member def="Static = 64" />
+              <member def="Virtual = 128" />
+              <member def="Sealed = 256" />
+              <member def="Override = 512" />
+              <member def="Abstract = 1024" />
+              <member def="AbstractVirtualOverride = Virtual | Override | Abstract" />
+              <member def="ReadOnly = 2048" />
+              <member def="Extern = 4096" />
+              <member def="Unsafe = 8192" />
+              <member def="Volatile = 16384" />
+              <member def="Async = 32768" />
+              <member def="Partial = 65536" />
+              <member def="Ref = 131072" />
+              <member def="Out = 262144" />
+              <member def="In = 524288" />
+              <member def="Params = 1048576" />
+              <member def="This = 2097152" />
+            </members>
+          </type>
+          <type def="public enum Roslynator.CSharp.NullCheckStyles">
+            <members>
+              <member def="None = 0" />
+              <member def="EqualsToNull = 1" />
+              <member def="NotEqualsToNull = 2" />
+              <member def="ComparisonToNull = EqualsToNull | NotEqualsToNull" />
+              <member def="IsNull = 4" />
+              <member def="NotIsNull = 8" />
+              <member def="IsPattern = IsNull | NotIsNull" />
+              <member def="NotHasValue = 16" />
+              <member def="CheckingNull = EqualsToNull | IsNull | NotHasValue" />
+              <member def="HasValue = 32" />
+              <member def="CheckingNotNull = NotEqualsToNull | NotIsNull | HasValue" />
+              <member def="HasValueProperty = NotHasValue | HasValue" />
+              <member def="All = ComparisonToNull | IsPattern | HasValueProperty" />
+            </members>
+          </type>
+          <type def="public enum Roslynator.CSharp.PreprocessorDirectiveKinds">
+            <members>
+              <member def="None = 0" />
+              <member def="If = 1" />
+              <member def="Elif = 2" />
+              <member def="Else = 4" />
+              <member def="EndIf = 8" />
+              <member def="Region = 16" />
+              <member def="EndRegion = 32" />
+              <member def="Define = 64" />
+              <member def="Undef = 128" />
+              <member def="Error = 256" />
+              <member def="Warning = 512" />
+              <member def="Line = 1024" />
+              <member def="PragmaWarning = 2048" />
+              <member def="PragmaChecksum = 4096" />
+              <member def="Pragma = PragmaWarning | PragmaChecksum" />
+              <member def="Reference = 8192" />
+              <member def="Load = 16384" />
+              <member def="Bad = 32768" />
+              <member def="Shebang = 65536" />
+              <member def="All = If | Elif | Else | EndIf | Region | EndRegion | Define | Undef | Error | Warning | Line | Pragma | Reference | Load | Bad | Shebang" />
+            </members>
+          </type>
+        </type>
+        <type def="public readonly struct Roslynator.ExtensionMethodSymbolInfo : IEquatable&lt;ExtensionMethodSymbolInfo&gt;">
+          <members>
+            <member def="public bool IsReduced { get; }" />
+            <member def="public IMethodSymbol ReducedSymbol { get; }" />
+            <member def="public IMethodSymbol ReducedSymbolOrSymbol { get; }" />
+            <member def="public IMethodSymbol Symbol { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(ExtensionMethodSymbolInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public static bool operator ==(in ExtensionMethodSymbolInfo info1, in ExtensionMethodSymbolInfo info2)" />
+            <member def="public static bool operator !=(in ExtensionMethodSymbolInfo info1, in ExtensionMethodSymbolInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.MetadataName : IEquatable&lt;MetadataName&gt;">
+          <members>
+            <member def="public MetadataName(IEnumerable&lt;string&gt; containingNamespaces, string name)" />
+            <member def="public MetadataName(ImmutableArray&lt;string&gt; containingNamespaces, string name)" />
+            <member def="public MetadataName(IEnumerable&lt;string&gt; containingNamespaces, IEnumerable&lt;string&gt; containingTypes, string name)" />
+            <member def="public MetadataName(ImmutableArray&lt;string&gt; containingNamespaces, ImmutableArray&lt;string&gt; containingTypes, string name)" />
+            <member def="public ImmutableArray&lt;string&gt; ContainingNamespaces { get; }" />
+            <member def="public ImmutableArray&lt;string&gt; ContainingTypes { get; }" />
+            <member def="public bool IsDefault { get; }" />
+            <member def="public string Name { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(MetadataName other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public static MetadataName Parse(string name)" />
+            <member def="public override string ToString()" />
+            <member def="public static bool TryParse(string name, out MetadataName metadataName)" />
+            <member def="public static bool operator ==(in MetadataName metadataName1, in MetadataName metadataName2)" />
+            <member def="public static bool operator !=(in MetadataName metadataName1, in MetadataName metadataName2)" />
+          </members>
+        </type>
+        <type def="public struct Roslynator.SeparatedSyntaxListSelection&lt;TNode&gt;.Enumerator">
+          <members>
+            <member def="public TNode Current { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public bool MoveNext()" />
+            <member def="public void Reset()" />
+          </members>
+        </type>
+        <type def="public struct Roslynator.SyntaxListSelection&lt;TNode&gt;.Enumerator">
+          <members>
+            <member def="public TNode Current { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public bool MoveNext()" />
+            <member def="public void Reset()" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.ExpressionChain : IEnumerable&lt;ExpressionSyntax&gt;, IEquatable&lt;ExpressionChain&gt;">
+          <members>
+            <member def="public BinaryExpressionSyntax BinaryExpression { get; }" />
+            <member def="public TextSpan? Span { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(ExpressionChain other)" />
+            <member def="public ExpressionChain.Enumerator GetEnumerator()" />
+            <member def="public override int GetHashCode()" />
+            <member def="public ExpressionChain.Reversed Reverse()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in ExpressionChain info1, in ExpressionChain info2)" />
+            <member def="public static bool operator !=(in ExpressionChain info1, in ExpressionChain info2)" />
+          </members>
+        </type>
+        <type def="public struct Roslynator.CSharp.ExpressionChain.Enumerator">
+          <members>
+            <member def="public ExpressionSyntax Current { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public bool MoveNext()" />
+            <member def="public void Reset()" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.ExpressionChain.Reversed : IEnumerable&lt;ExpressionSyntax&gt;, IEquatable&lt;ExpressionChain.Reversed&gt;">
+          <members>
+            <member def="public Reversed(in ExpressionChain chain)" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(ExpressionChain.Reversed other)" />
+            <member def="public ExpressionChain.Reversed.Enumerator GetEnumerator()" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in ExpressionChain.Reversed reversed1, in ExpressionChain.Reversed reversed2)" />
+            <member def="public static bool operator !=(in ExpressionChain.Reversed reversed1, in ExpressionChain.Reversed reversed2)" />
+          </members>
+        </type>
+        <type def="public struct Roslynator.CSharp.ExpressionChain.Reversed.Enumerator">
+          <members>
+            <member def="public ExpressionSyntax Current { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public bool MoveNext()" />
+            <member def="public void Reset()" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.IfStatementCascade : IEnumerable&lt;IfStatementOrElseClause&gt;, IEquatable&lt;IfStatementCascade&gt;">
+          <members>
+            <member def="public IfStatementSyntax IfStatement { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(IfStatementCascade other)" />
+            <member def="public IfStatementCascade.Enumerator GetEnumerator()" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in IfStatementCascade cascade1, in IfStatementCascade cascade2)" />
+            <member def="public static bool operator !=(in IfStatementCascade cascade1, in IfStatementCascade cascade2)" />
+          </members>
+        </type>
+        <type def="public struct Roslynator.CSharp.IfStatementCascade.Enumerator">
+          <members>
+            <member def="public IfStatementOrElseClause Current { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public bool MoveNext()" />
+            <member def="public void Reset()" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.IfStatementCascadeInfo : IEquatable&lt;IfStatementCascadeInfo&gt;">
+          <members>
+            <member def="public IfStatementCascadeInfo(IfStatementSyntax ifStatement)" />
+            <member def="public int Count { get; }" />
+            <member def="public bool EndsWithElse { get; }" />
+            <member def="public bool EndsWithIf { get; }" />
+            <member def="public IfStatementSyntax IfStatement { get; }" />
+            <member def="public bool IsSimpleIf { get; }" />
+            <member def="public bool IsSimpleIfElse { get; }" />
+            <member def="public IfStatementOrElseClause Last { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(IfStatementCascadeInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in IfStatementCascadeInfo info1, in IfStatementCascadeInfo info2)" />
+            <member def="public static bool operator !=(in IfStatementCascadeInfo info1, in IfStatementCascadeInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.IfStatementOrElseClause : IEquatable&lt;IfStatementOrElseClause&gt;">
+          <members>
+            <member def="public IfStatementOrElseClause(ElseClauseSyntax elseClause)" />
+            <member def="public IfStatementOrElseClause(IfStatementSyntax ifStatement)" />
+            <member def="public TextSpan FullSpan { get; }" />
+            <member def="public bool IsElse { get; }" />
+            <member def="public bool IsIf { get; }" />
+            <member def="public SyntaxKind Kind { get; }" />
+            <member def="public SyntaxNode Parent { get; }" />
+            <member def="public TextSpan Span { get; }" />
+            <member def="public StatementSyntax Statement { get; }" />
+            <member def="public ElseClauseSyntax AsElse()" />
+            <member def="public IfStatementSyntax AsIf()" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(IfStatementOrElseClause other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static implicit operator IfStatementOrElseClause(IfStatementSyntax ifStatement)" />
+            <member def="public static implicit operator IfStatementSyntax(in IfStatementOrElseClause ifOrElse)" />
+            <member def="public static implicit operator IfStatementOrElseClause(ElseClauseSyntax elseClause)" />
+            <member def="public static implicit operator ElseClauseSyntax(in IfStatementOrElseClause ifOrElse)" />
+            <member def="public static bool operator ==(in IfStatementOrElseClause left, in IfStatementOrElseClause right)" />
+            <member def="public static bool operator !=(in IfStatementOrElseClause left, in IfStatementOrElseClause right)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.AsExpressionInfo : IEquatable&lt;AsExpressionInfo&gt;">
+          <members>
+            <member def="public BinaryExpressionSyntax AsExpression { get; }" />
+            <member def="public ExpressionSyntax Expression { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public TypeSyntax Type { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(AsExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in AsExpressionInfo info1, in AsExpressionInfo info2)" />
+            <member def="public static bool operator !=(in AsExpressionInfo info1, in AsExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.AssignmentExpressionInfo : IEquatable&lt;AssignmentExpressionInfo&gt;">
+          <members>
+            <member def="public AssignmentExpressionSyntax AssignmentExpression { get; }" />
+            <member def="public SyntaxKind Kind { get; }" />
+            <member def="public ExpressionSyntax Left { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public ExpressionSyntax Right { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(AssignmentExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in AssignmentExpressionInfo info1, in AssignmentExpressionInfo info2)" />
+            <member def="public static bool operator !=(in AssignmentExpressionInfo info1, in AssignmentExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.BinaryExpressionInfo : IEquatable&lt;BinaryExpressionInfo&gt;">
+          <members>
+            <member def="public BinaryExpressionSyntax BinaryExpression { get; }" />
+            <member def="public SyntaxKind Kind { get; }" />
+            <member def="public ExpressionSyntax Left { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public ExpressionSyntax Right { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public ExpressionChain AsChain()" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(BinaryExpressionInfo other)" />
+            <member def="public IEnumerable&lt;ExpressionSyntax&gt; Expressions(bool leftToRight = false)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in BinaryExpressionInfo info1, in BinaryExpressionInfo info2)" />
+            <member def="public static bool operator !=(in BinaryExpressionInfo info1, in BinaryExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.ConditionalExpressionInfo : IEquatable&lt;ConditionalExpressionInfo&gt;">
+          <members>
+            <member def="public SyntaxToken ColonToken { get; }" />
+            <member def="public ExpressionSyntax Condition { get; }" />
+            <member def="public ConditionalExpressionSyntax ConditionalExpression { get; }" />
+            <member def="public SyntaxToken QuestionToken { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public ExpressionSyntax WhenFalse { get; }" />
+            <member def="public ExpressionSyntax WhenTrue { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(ConditionalExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in ConditionalExpressionInfo info1, in ConditionalExpressionInfo info2)" />
+            <member def="public static bool operator !=(in ConditionalExpressionInfo info1, in ConditionalExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.GenericInfo : IEquatable&lt;GenericInfo&gt;">
+          <members>
+            <member def="public SyntaxList&lt;TypeParameterConstraintClauseSyntax&gt; ConstraintClauses { get; }" />
+            <member def="public SyntaxKind Kind { get; }" />
+            <member def="public SyntaxNode Node { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public TypeParameterListSyntax TypeParameterList { get; }" />
+            <member def="public SeparatedSyntaxList&lt;TypeParameterSyntax&gt; TypeParameters { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(GenericInfo other)" />
+            <member def="public TypeParameterConstraintClauseSyntax FindConstraintClause(string typeParameterName)" />
+            <member def="public TypeParameterSyntax FindTypeParameter(string name)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public GenericInfo RemoveAllConstraintClauses()" />
+            <member def="public GenericInfo RemoveConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)" />
+            <member def="public GenericInfo RemoveTypeParameter(TypeParameterSyntax typeParameter)" />
+            <member def="public override string ToString()" />
+            <member def="public GenericInfo WithConstraintClauses(SyntaxList&lt;TypeParameterConstraintClauseSyntax&gt; constraintClauses)" />
+            <member def="public GenericInfo WithTypeParameterList(TypeParameterListSyntax typeParameterList)" />
+            <member def="public static bool operator ==(in GenericInfo info1, in GenericInfo info2)" />
+            <member def="public static bool operator !=(in GenericInfo info1, in GenericInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.IsExpressionInfo : IEquatable&lt;IsExpressionInfo&gt;">
+          <members>
+            <member def="public ExpressionSyntax Expression { get; }" />
+            <member def="public BinaryExpressionSyntax IsExpression { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public TypeSyntax Type { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(IsExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in IsExpressionInfo info1, in IsExpressionInfo info2)" />
+            <member def="public static bool operator !=(in IsExpressionInfo info1, in IsExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.LocalDeclarationStatementInfo : IEquatable&lt;LocalDeclarationStatementInfo&gt;">
+          <members>
+            <member def="public VariableDeclarationSyntax Declaration { get; }" />
+            <member def="public SyntaxTokenList Modifiers { get; }" />
+            <member def="public SyntaxToken SemicolonToken { get; }" />
+            <member def="public LocalDeclarationStatementSyntax Statement { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public TypeSyntax Type { get; }" />
+            <member def="public SeparatedSyntaxList&lt;VariableDeclaratorSyntax&gt; Variables { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(LocalDeclarationStatementInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in LocalDeclarationStatementInfo info1, in LocalDeclarationStatementInfo info2)" />
+            <member def="public static bool operator !=(in LocalDeclarationStatementInfo info1, in LocalDeclarationStatementInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.MemberDeclarationListInfo : IEquatable&lt;MemberDeclarationListInfo&gt;, IReadOnlyList&lt;MemberDeclarationSyntax&gt;">
+          <members>
+            <member def="public int Count { get; }" />
+            <member def="public SyntaxList&lt;MemberDeclarationSyntax&gt; Members { get; }" />
+            <member def="public SyntaxNode Parent { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public MemberDeclarationSyntax this[int index] { get; }" />
+            <member def="public MemberDeclarationListInfo Add(MemberDeclarationSyntax member)" />
+            <member def="public MemberDeclarationListInfo AddRange(IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+            <member def="public bool Any()" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(MemberDeclarationListInfo other)" />
+            <member def="public MemberDeclarationSyntax First()" />
+            <member def="public MemberDeclarationSyntax FirstOrDefault()" />
+            <member def="public SyntaxList&lt;MemberDeclarationSyntax&gt;.Enumerator GetEnumerator()" />
+            <member def="public override int GetHashCode()" />
+            <member def="public int IndexOf(MemberDeclarationSyntax member)" />
+            <member def="public int IndexOf(Func&lt;MemberDeclarationSyntax, bool&gt; predicate)" />
+            <member def="public MemberDeclarationListInfo Insert(int index, MemberDeclarationSyntax member)" />
+            <member def="public MemberDeclarationListInfo InsertRange(int index, IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+            <member def="public MemberDeclarationSyntax Last()" />
+            <member def="public int LastIndexOf(MemberDeclarationSyntax member)" />
+            <member def="public int LastIndexOf(Func&lt;MemberDeclarationSyntax, bool&gt; predicate)" />
+            <member def="public MemberDeclarationSyntax LastOrDefault()" />
+            <member def="public MemberDeclarationListInfo Remove(MemberDeclarationSyntax member)" />
+            <member def="public MemberDeclarationListInfo RemoveAt(int index)" />
+            <member def="public MemberDeclarationListInfo RemoveNode(SyntaxNode node, SyntaxRemoveOptions options)" />
+            <member def="public MemberDeclarationListInfo Replace(MemberDeclarationSyntax memberInList, MemberDeclarationSyntax newMember)" />
+            <member def="public MemberDeclarationListInfo ReplaceAt(int index, MemberDeclarationSyntax newMember)" />
+            <member def="public MemberDeclarationListInfo ReplaceNode(SyntaxNode oldNode, SyntaxNode newNode)" />
+            <member def="public MemberDeclarationListInfo ReplaceRange(MemberDeclarationSyntax memberInList, IEnumerable&lt;MemberDeclarationSyntax&gt; newMembers)" />
+            <member def="public override string ToString()" />
+            <member def="public MemberDeclarationListInfo WithMembers(IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+            <member def="public MemberDeclarationListInfo WithMembers(SyntaxList&lt;MemberDeclarationSyntax&gt; members)" />
+            <member def="public static bool operator ==(in MemberDeclarationListInfo info1, in MemberDeclarationListInfo info2)" />
+            <member def="public static bool operator !=(in MemberDeclarationListInfo info1, in MemberDeclarationListInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.ModifierListInfo : IEquatable&lt;ModifierListInfo&gt;">
+          <members>
+            <member def="public Accessibility ExplicitAccessibility { get; }" />
+            <member def="public bool IsAbstract { get; }" />
+            <member def="public bool IsAsync { get; }" />
+            <member def="public bool IsConst { get; }" />
+            <member def="public bool IsExtern { get; }" />
+            <member def="public bool IsIn { get; }" />
+            <member def="public bool IsNew { get; }" />
+            <member def="public bool IsOut { get; }" />
+            <member def="public bool IsOverride { get; }" />
+            <member def="public bool IsParams { get; }" />
+            <member def="public bool IsPartial { get; }" />
+            <member def="public bool IsReadOnly { get; }" />
+            <member def="public bool IsRef { get; }" />
+            <member def="public bool IsSealed { get; }" />
+            <member def="public bool IsStatic { get; }" />
+            <member def="public bool IsUnsafe { get; }" />
+            <member def="public bool IsVirtual { get; }" />
+            <member def="public bool IsVolatile { get; }" />
+            <member def="public SyntaxTokenList Modifiers { get; }" />
+            <member def="public SyntaxNode Parent { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(ModifierListInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public ModifierKinds GetKinds()" />
+            <member def="public override string ToString()" />
+            <member def="public ModifierListInfo WithExplicitAccessibility(Accessibility newAccessibility, IComparer&lt;SyntaxKind&gt; comparer = null)" />
+            <member def="public ModifierListInfo WithModifiers(SyntaxTokenList modifiers)" />
+            <member def="public ModifierListInfo WithoutExplicitAccessibility()" />
+            <member def="public static bool operator ==(in ModifierListInfo info1, in ModifierListInfo info2)" />
+            <member def="public static bool operator !=(in ModifierListInfo info1, in ModifierListInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.NullCheckExpressionInfo : IEquatable&lt;NullCheckExpressionInfo&gt;">
+          <members>
+            <member def="public ExpressionSyntax Expression { get; }" />
+            <member def="public bool IsCheckingNotNull { get; }" />
+            <member def="public bool IsCheckingNull { get; }" />
+            <member def="public ExpressionSyntax NullCheckExpression { get; }" />
+            <member def="public NullCheckStyles Style { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(NullCheckExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in NullCheckExpressionInfo info1, in NullCheckExpressionInfo info2)" />
+            <member def="public static bool operator !=(in NullCheckExpressionInfo info1, in NullCheckExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.RegionInfo : IEquatable&lt;RegionInfo&gt;">
+          <members>
+            <member def="public RegionDirectiveTriviaSyntax Directive { get; }" />
+            <member def="public EndRegionDirectiveTriviaSyntax EndDirective { get; }" />
+            <member def="public TextSpan FullSpan { get; }" />
+            <member def="public bool IsEmpty { get; }" />
+            <member def="public TextSpan Span { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(RegionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in RegionInfo info1, in RegionInfo info2)" />
+            <member def="public static bool operator !=(in RegionInfo info1, in RegionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SimpleAssignmentExpressionInfo : IEquatable&lt;SimpleAssignmentExpressionInfo&gt;">
+          <members>
+            <member def="public AssignmentExpressionSyntax AssignmentExpression { get; }" />
+            <member def="public ExpressionSyntax Left { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public ExpressionSyntax Right { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SimpleAssignmentExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SimpleAssignmentExpressionInfo info1, in SimpleAssignmentExpressionInfo info2)" />
+            <member def="public static bool operator !=(in SimpleAssignmentExpressionInfo info1, in SimpleAssignmentExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SimpleAssignmentStatementInfo : IEquatable&lt;SimpleAssignmentStatementInfo&gt;">
+          <members>
+            <member def="public AssignmentExpressionSyntax AssignmentExpression { get; }" />
+            <member def="public ExpressionSyntax Left { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public ExpressionSyntax Right { get; }" />
+            <member def="public ExpressionStatementSyntax Statement { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SimpleAssignmentStatementInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SimpleAssignmentStatementInfo info1, in SimpleAssignmentStatementInfo info2)" />
+            <member def="public static bool operator !=(in SimpleAssignmentStatementInfo info1, in SimpleAssignmentStatementInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SimpleIfElseInfo : IEquatable&lt;SimpleIfElseInfo&gt;">
+          <members>
+            <member def="public ExpressionSyntax Condition { get; }" />
+            <member def="public ElseClauseSyntax Else { get; }" />
+            <member def="public IfStatementSyntax IfStatement { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public StatementSyntax WhenFalse { get; }" />
+            <member def="public StatementSyntax WhenTrue { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SimpleIfElseInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SimpleIfElseInfo info1, in SimpleIfElseInfo info2)" />
+            <member def="public static bool operator !=(in SimpleIfElseInfo info1, in SimpleIfElseInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SimpleIfStatementInfo : IEquatable&lt;SimpleIfStatementInfo&gt;">
+          <members>
+            <member def="public ExpressionSyntax Condition { get; }" />
+            <member def="public IfStatementSyntax IfStatement { get; }" />
+            <member def="public StatementSyntax Statement { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SimpleIfStatementInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SimpleIfStatementInfo info1, in SimpleIfStatementInfo info2)" />
+            <member def="public static bool operator !=(in SimpleIfStatementInfo info1, in SimpleIfStatementInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SimpleMemberInvocationExpressionInfo : IEquatable&lt;SimpleMemberInvocationExpressionInfo&gt;">
+          <members>
+            <member def="public ArgumentListSyntax ArgumentList { get; }" />
+            <member def="public SeparatedSyntaxList&lt;ArgumentSyntax&gt; Arguments { get; }" />
+            <member def="public ExpressionSyntax Expression { get; }" />
+            <member def="public InvocationExpressionSyntax InvocationExpression { get; }" />
+            <member def="public MemberAccessExpressionSyntax MemberAccessExpression { get; }" />
+            <member def="public SimpleNameSyntax Name { get; }" />
+            <member def="public string NameText { get; }" />
+            <member def="public SyntaxToken OperatorToken { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SimpleMemberInvocationExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SimpleMemberInvocationExpressionInfo info1, in SimpleMemberInvocationExpressionInfo info2)" />
+            <member def="public static bool operator !=(in SimpleMemberInvocationExpressionInfo info1, in SimpleMemberInvocationExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SimpleMemberInvocationStatementInfo : IEquatable&lt;SimpleMemberInvocationStatementInfo&gt;">
+          <members>
+            <member def="public ArgumentListSyntax ArgumentList { get; }" />
+            <member def="public SeparatedSyntaxList&lt;ArgumentSyntax&gt; Arguments { get; }" />
+            <member def="public ExpressionSyntax Expression { get; }" />
+            <member def="public InvocationExpressionSyntax InvocationExpression { get; }" />
+            <member def="public MemberAccessExpressionSyntax MemberAccessExpression { get; }" />
+            <member def="public SimpleNameSyntax Name { get; }" />
+            <member def="public string NameText { get; }" />
+            <member def="public ExpressionStatementSyntax Statement { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SimpleMemberInvocationStatementInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SimpleMemberInvocationStatementInfo info1, in SimpleMemberInvocationStatementInfo info2)" />
+            <member def="public static bool operator !=(in SimpleMemberInvocationStatementInfo info1, in SimpleMemberInvocationStatementInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SingleLocalDeclarationStatementInfo : IEquatable&lt;SingleLocalDeclarationStatementInfo&gt;">
+          <members>
+            <member def="public VariableDeclarationSyntax Declaration { get; }" />
+            <member def="public VariableDeclaratorSyntax Declarator { get; }" />
+            <member def="public SyntaxToken EqualsToken { get; }" />
+            <member def="public SyntaxToken Identifier { get; }" />
+            <member def="public string IdentifierText { get; }" />
+            <member def="public EqualsValueClauseSyntax Initializer { get; }" />
+            <member def="public SyntaxTokenList Modifiers { get; }" />
+            <member def="public SyntaxToken SemicolonToken { get; }" />
+            <member def="public LocalDeclarationStatementSyntax Statement { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public TypeSyntax Type { get; }" />
+            <member def="public ExpressionSyntax Value { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SingleLocalDeclarationStatementInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SingleLocalDeclarationStatementInfo info1, in SingleLocalDeclarationStatementInfo info2)" />
+            <member def="public static bool operator !=(in SingleLocalDeclarationStatementInfo info1, in SingleLocalDeclarationStatementInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.SingleParameterLambdaExpressionInfo : IEquatable&lt;SingleParameterLambdaExpressionInfo&gt;">
+          <members>
+            <member def="public CSharpSyntaxNode Body { get; }" />
+            <member def="public bool IsParenthesizedLambda { get; }" />
+            <member def="public bool IsSimpleLambda { get; }" />
+            <member def="public LambdaExpressionSyntax LambdaExpression { get; }" />
+            <member def="public ParameterSyntax Parameter { get; }" />
+            <member def="public ParameterListSyntax ParameterList { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(SingleParameterLambdaExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in SingleParameterLambdaExpressionInfo info1, in SingleParameterLambdaExpressionInfo info2)" />
+            <member def="public static bool operator !=(in SingleParameterLambdaExpressionInfo info1, in SingleParameterLambdaExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.StatementListInfo : IEquatable&lt;StatementListInfo&gt;, IReadOnlyList&lt;StatementSyntax&gt;">
+          <members>
+            <member def="public int Count { get; }" />
+            <member def="public bool IsParentBlock { get; }" />
+            <member def="public bool IsParentSwitchSection { get; }" />
+            <member def="public SyntaxNode Parent { get; }" />
+            <member def="public BlockSyntax ParentAsBlock { get; }" />
+            <member def="public SwitchSectionSyntax ParentAsSwitchSection { get; }" />
+            <member def="public SyntaxList&lt;StatementSyntax&gt; Statements { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public StatementSyntax this[int index] { get; }" />
+            <member def="public StatementListInfo Add(StatementSyntax statement)" />
+            <member def="public StatementListInfo AddRange(IEnumerable&lt;StatementSyntax&gt; statements)" />
+            <member def="public bool Any()" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(StatementListInfo other)" />
+            <member def="public StatementSyntax First()" />
+            <member def="public StatementSyntax FirstOrDefault()" />
+            <member def="public SyntaxList&lt;StatementSyntax&gt;.Enumerator GetEnumerator()" />
+            <member def="public override int GetHashCode()" />
+            <member def="public int IndexOf(Func&lt;StatementSyntax, bool&gt; predicate)" />
+            <member def="public int IndexOf(StatementSyntax statement)" />
+            <member def="public StatementListInfo Insert(int index, StatementSyntax statement)" />
+            <member def="public StatementListInfo InsertRange(int index, IEnumerable&lt;StatementSyntax&gt; statements)" />
+            <member def="public StatementSyntax Last()" />
+            <member def="public int LastIndexOf(Func&lt;StatementSyntax, bool&gt; predicate)" />
+            <member def="public int LastIndexOf(StatementSyntax statement)" />
+            <member def="public StatementSyntax LastOrDefault()" />
+            <member def="public StatementListInfo Remove(StatementSyntax statement)" />
+            <member def="public StatementListInfo RemoveAt(int index)" />
+            <member def="public StatementListInfo RemoveNode(SyntaxNode node, SyntaxRemoveOptions options)" />
+            <member def="public StatementListInfo Replace(StatementSyntax statementInList, StatementSyntax newStatement)" />
+            <member def="public StatementListInfo ReplaceAt(int index, StatementSyntax newStatement)" />
+            <member def="public StatementListInfo ReplaceNode(SyntaxNode oldNode, SyntaxNode newNode)" />
+            <member def="public StatementListInfo ReplaceRange(StatementSyntax statementInList, IEnumerable&lt;StatementSyntax&gt; newStatements)" />
+            <member def="public override string ToString()" />
+            <member def="public StatementListInfo WithStatements(IEnumerable&lt;StatementSyntax&gt; statements)" />
+            <member def="public StatementListInfo WithStatements(SyntaxList&lt;StatementSyntax&gt; statements)" />
+            <member def="public static bool operator ==(in StatementListInfo info1, in StatementListInfo info2)" />
+            <member def="public static bool operator !=(in StatementListInfo info1, in StatementListInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.StringConcatenationExpressionInfo : IEquatable&lt;StringConcatenationExpressionInfo&gt;">
+          <members>
+            <member def="public BinaryExpressionSyntax BinaryExpression { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public ExpressionChain AsChain()" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(StringConcatenationExpressionInfo other)" />
+            <member def="public IEnumerable&lt;ExpressionSyntax&gt; Expressions(bool leftToRight = false)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in StringConcatenationExpressionInfo info1, in StringConcatenationExpressionInfo info2)" />
+            <member def="public static bool operator !=(in StringConcatenationExpressionInfo info1, in StringConcatenationExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.StringLiteralExpressionInfo : IEquatable&lt;StringLiteralExpressionInfo&gt;">
+          <members>
+            <member def="public bool ContainsEscapeSequence { get; }" />
+            <member def="public bool ContainsLinefeed { get; }" />
+            <member def="public LiteralExpressionSyntax Expression { get; }" />
+            <member def="public string InnerText { get; }" />
+            <member def="public bool IsRegular { get; }" />
+            <member def="public bool IsVerbatim { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public string Text { get; }" />
+            <member def="public SyntaxToken Token { get; }" />
+            <member def="public string ValueText { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(StringLiteralExpressionInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in StringLiteralExpressionInfo info1, in StringLiteralExpressionInfo info2)" />
+            <member def="public static bool operator !=(in StringLiteralExpressionInfo info1, in StringLiteralExpressionInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.UsingDirectiveListInfo : IEquatable&lt;UsingDirectiveListInfo&gt;, IReadOnlyList&lt;UsingDirectiveSyntax&gt;">
+          <members>
+            <member def="public int Count { get; }" />
+            <member def="public SyntaxNode Parent { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public SyntaxList&lt;UsingDirectiveSyntax&gt; Usings { get; }" />
+            <member def="public UsingDirectiveSyntax this[int index] { get; }" />
+            <member def="public UsingDirectiveListInfo Add(UsingDirectiveSyntax usingDirective)" />
+            <member def="public UsingDirectiveListInfo AddRange(IEnumerable&lt;UsingDirectiveSyntax&gt; usings)" />
+            <member def="public bool Any()" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(UsingDirectiveListInfo other)" />
+            <member def="public UsingDirectiveSyntax First()" />
+            <member def="public UsingDirectiveSyntax FirstOrDefault()" />
+            <member def="public SyntaxList&lt;UsingDirectiveSyntax&gt;.Enumerator GetEnumerator()" />
+            <member def="public override int GetHashCode()" />
+            <member def="public int IndexOf(Func&lt;UsingDirectiveSyntax, bool&gt; predicate)" />
+            <member def="public int IndexOf(UsingDirectiveSyntax usingDirective)" />
+            <member def="public UsingDirectiveListInfo Insert(int index, UsingDirectiveSyntax usingDirective)" />
+            <member def="public UsingDirectiveListInfo InsertRange(int index, IEnumerable&lt;UsingDirectiveSyntax&gt; usings)" />
+            <member def="public UsingDirectiveSyntax Last()" />
+            <member def="public int LastIndexOf(Func&lt;UsingDirectiveSyntax, bool&gt; predicate)" />
+            <member def="public int LastIndexOf(UsingDirectiveSyntax usingDirective)" />
+            <member def="public UsingDirectiveSyntax LastOrDefault()" />
+            <member def="public UsingDirectiveListInfo Remove(UsingDirectiveSyntax usingDirective)" />
+            <member def="public UsingDirectiveListInfo RemoveAt(int index)" />
+            <member def="public UsingDirectiveListInfo RemoveNode(SyntaxNode node, SyntaxRemoveOptions options)" />
+            <member def="public UsingDirectiveListInfo Replace(UsingDirectiveSyntax usingInLine, UsingDirectiveSyntax newUsingDirective)" />
+            <member def="public UsingDirectiveListInfo ReplaceAt(int index, UsingDirectiveSyntax newUsingDirective)" />
+            <member def="public UsingDirectiveListInfo ReplaceNode(SyntaxNode oldNode, SyntaxNode newNode)" />
+            <member def="public UsingDirectiveListInfo ReplaceRange(UsingDirectiveSyntax usingInLine, IEnumerable&lt;UsingDirectiveSyntax&gt; newUsingDirectives)" />
+            <member def="public override string ToString()" />
+            <member def="public UsingDirectiveListInfo WithUsings(IEnumerable&lt;UsingDirectiveSyntax&gt; usings)" />
+            <member def="public UsingDirectiveListInfo WithUsings(SyntaxList&lt;UsingDirectiveSyntax&gt; usings)" />
+            <member def="public static bool operator ==(in UsingDirectiveListInfo info1, in UsingDirectiveListInfo info2)" />
+            <member def="public static bool operator !=(in UsingDirectiveListInfo info1, in UsingDirectiveListInfo info2)" />
+          </members>
+        </type>
+        <type def="public readonly struct Roslynator.CSharp.Syntax.XmlElementInfo : IEquatable&lt;XmlElementInfo&gt;">
+          <members>
+            <member def="public XmlNodeSyntax Element { get; }" />
+            <member def="public bool IsEmptyElement { get; }" />
+            <member def="public SyntaxKind Kind { get; }" />
+            <member def="public string LocalName { get; }" />
+            <member def="public bool Success { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public bool Equals(XmlElementInfo other)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public override string ToString()" />
+            <member def="public static bool operator ==(in XmlElementInfo info1, in XmlElementInfo info2)" />
+            <member def="public static bool operator !=(in XmlElementInfo info1, in XmlElementInfo info2)" />
+          </members>
+        </type>
+        <type def="public struct Roslynator.Text.TextLineCollectionSelection.Enumerator">
+          <members>
+            <member def="public TextLine Current { get; }" />
+            <member def="public override bool Equals(object obj)" />
+            <member def="public override int GetHashCode()" />
+            <member def="public bool MoveNext()" />
+            <member def="public void Reset()" />
+          </members>
+        </type>
+      </type>
+      <type def="public abstract class System.Collections.Generic.EqualityComparer&lt;T&gt; : IEqualityComparer, IEqualityComparer&lt;T&gt;">
+        <type def="public sealed class Roslynator.MetadataNameEqualityComparer&lt;TSymbol&gt; : EqualityComparer&lt;TSymbol&gt; where TSymbol : Microsoft.CodeAnalysis.ISymbol">
+          <members>
+            <member def="public static MetadataNameEqualityComparer&lt;TSymbol&gt; Instance { get; }" />
+            <member def="public override bool Equals(TSymbol x, TSymbol y)" />
+            <member def="public override int GetHashCode(TSymbol obj)" />
+          </members>
+        </type>
+      </type>
+      <type def="public abstract class Roslynator.NameGenerator">
+        <members>
+          <member def="protected NameGenerator()" />
+          <member def="public static NameGenerator Default { get; }" />
+          <member def="public static string CreateName(ITypeSymbol typeSymbol, bool firstCharToLower = false)" />
+          <member def="public string EnsureUniqueEnumMemberName(string baseName, INamedTypeSymbol enumType, bool isCaseSensitive = true)" />
+          <member def="public string EnsureUniqueLocalName(string baseName, SemanticModel semanticModel, int position, bool isCaseSensitive = true, CancellationToken cancellationToken = default)" />
+          <member def="public string EnsureUniqueMemberName(string baseName, INamedTypeSymbol typeSymbol, bool isCaseSensitive = true)" />
+          <member def="public string EnsureUniqueMemberName(string baseName, SemanticModel semanticModel, int position, bool isCaseSensitive = true, CancellationToken cancellationToken = default)" />
+          <member def="public abstract string EnsureUniqueName(string baseName, IEnumerable&lt;string&gt; reservedNames, bool isCaseSensitive = true)" />
+          <member def="public abstract string EnsureUniqueName(string baseName, ImmutableArray&lt;ISymbol&gt; symbols, bool isCaseSensitive = true)" />
+          <member def="public string EnsureUniqueName(string baseName, SemanticModel semanticModel, int position, bool isCaseSensitive = true)" />
+          <member def="public static bool IsUniqueName(string name, IEnumerable&lt;string&gt; reservedNames, bool isCaseSensitive = true)" />
+          <member def="public static bool IsUniqueName(string name, ImmutableArray&lt;ISymbol&gt; symbols, bool isCaseSensitive = true)" />
+        </members>
+      </type>
+      <type def="public class Roslynator.SeparatedSyntaxListSelection&lt;TNode&gt; : ISelection&lt;TNode&gt; where TNode : Microsoft.CodeAnalysis.SyntaxNode">
+        <members>
+          <member def="protected SeparatedSyntaxListSelection(SeparatedSyntaxList&lt;TNode&gt; list, TextSpan span, int firstIndex, int lastIndex)" />
+          <member def="public int Count { get; }" />
+          <member def="public int FirstIndex { get; }" />
+          <member def="public int LastIndex { get; }" />
+          <member def="public TextSpan OriginalSpan { get; }" />
+          <member def="public SeparatedSyntaxList&lt;TNode&gt; UnderlyingList { get; }" />
+          <member def="public TNode this[int index] { get; }" />
+          <member def="public static SeparatedSyntaxListSelection&lt;TNode&gt; Create(SeparatedSyntaxList&lt;TNode&gt; list, TextSpan span)" />
+          <member def="public TNode First()" />
+          <member def="public SeparatedSyntaxListSelection&lt;TNode&gt;.Enumerator GetEnumerator()" />
+          <member def="public TNode Last()" />
+          <member def="public static bool TryCreate(SeparatedSyntaxList&lt;TNode&gt; list, TextSpan span, out SeparatedSyntaxListSelection&lt;TNode&gt; selection)" />
+        </members>
+      </type>
+      <type def="public class Roslynator.SyntaxListSelection&lt;TNode&gt; : ISelection&lt;TNode&gt; where TNode : Microsoft.CodeAnalysis.SyntaxNode">
+        <members>
+          <member def="protected SyntaxListSelection(SyntaxList&lt;TNode&gt; list, TextSpan span, int firstIndex, int lastIndex)" />
+          <member def="public int Count { get; }" />
+          <member def="public int FirstIndex { get; }" />
+          <member def="public int LastIndex { get; }" />
+          <member def="public TextSpan OriginalSpan { get; }" />
+          <member def="public SyntaxList&lt;TNode&gt; UnderlyingList { get; }" />
+          <member def="public TNode this[int index] { get; }" />
+          <member def="public static SyntaxListSelection&lt;TNode&gt; Create(SyntaxList&lt;TNode&gt; list, TextSpan span)" />
+          <member def="public TNode First()" />
+          <member def="public SyntaxListSelection&lt;TNode&gt;.Enumerator GetEnumerator()" />
+          <member def="public TNode Last()" />
+          <member def="public static bool TryCreate(SyntaxList&lt;TNode&gt; list, TextSpan span, out SyntaxListSelection&lt;TNode&gt; selection)" />
+        </members>
+        <type def="public sealed class Roslynator.CSharp.MemberDeclarationListSelection : SyntaxListSelection&lt;MemberDeclarationSyntax&gt;">
+          <members>
+            <member def="public SyntaxNode Parent { get; }" />
+            <member def="public static MemberDeclarationListSelection Create(CompilationUnitSyntax compilationUnit, TextSpan span)" />
+            <member def="public static MemberDeclarationListSelection Create(NamespaceDeclarationSyntax namespaceDeclaration, TextSpan span)" />
+            <member def="public static MemberDeclarationListSelection Create(TypeDeclarationSyntax typeDeclaration, TextSpan span)" />
+            <member def="public static bool TryCreate(NamespaceDeclarationSyntax namespaceDeclaration, TextSpan span, out MemberDeclarationListSelection selectedMembers)" />
+            <member def="public static bool TryCreate(TypeDeclarationSyntax typeDeclaration, TextSpan span, out MemberDeclarationListSelection selectedMembers)" />
+          </members>
+        </type>
+        <type def="public sealed class Roslynator.CSharp.StatementListSelection : SyntaxListSelection&lt;StatementSyntax&gt;">
+          <members>
+            <member def="public static StatementListSelection Create(BlockSyntax block, TextSpan span)" />
+            <member def="public static StatementListSelection Create(SwitchSectionSyntax switchSection, TextSpan span)" />
+            <member def="public static StatementListSelection Create(in StatementListInfo statementsInfo, TextSpan span)" />
+            <member def="public static bool TryCreate(BlockSyntax block, TextSpan span, out StatementListSelection selectedStatements)" />
+            <member def="public static bool TryCreate(SwitchSectionSyntax switchSection, TextSpan span, out StatementListSelection selectedStatements)" />
+          </members>
+        </type>
+      </type>
+      <type def="public abstract class Roslynator.CSharp.ModifierList&lt;TNode&gt; where TNode : Microsoft.CodeAnalysis.SyntaxNode">
+        <members>
+          <member def="public static ModifierList&lt;TNode&gt; Instance { get; }" />
+          <member def="public TNode Insert(TNode node, SyntaxKind kind, IComparer&lt;SyntaxKind&gt; comparer = null)" />
+          <member def="public TNode Insert(TNode node, SyntaxToken modifier, IComparer&lt;SyntaxToken&gt; comparer = null)" />
+          <member def="public TNode Remove(TNode node, SyntaxKind kind)" />
+          <member def="public TNode Remove(TNode node, SyntaxToken modifier)" />
+          <member def="public TNode RemoveAll(TNode node)" />
+          <member def="public TNode RemoveAll(TNode node, Func&lt;SyntaxToken, bool&gt; predicate)" />
+          <member def="public TNode RemoveAt(TNode node, int index)" />
+        </members>
+      </type>
+      <type def="public class Roslynator.Text.TextLineCollectionSelection : ISelection&lt;TextLine&gt;">
+        <members>
+          <member def="protected TextLineCollectionSelection(TextLineCollection lines, TextSpan span, int firstIndex, int lastIndex)" />
+          <member def="public int Count { get; }" />
+          <member def="public int FirstIndex { get; }" />
+          <member def="public int LastIndex { get; }" />
+          <member def="public TextSpan OriginalSpan { get; }" />
+          <member def="public TextLineCollection UnderlyingLines { get; }" />
+          <member def="public TextLine this[int index] { get; }" />
+          <member def="public static TextLineCollectionSelection Create(TextLineCollection lines, TextSpan span)" />
+          <member def="public TextLine First()" />
+          <member def="public TextLineCollectionSelection.Enumerator GetEnumerator()" />
+          <member def="public TextLine Last()" />
+          <member def="public static bool TryCreate(TextLineCollection lines, TextSpan span, out TextLineCollectionSelection selectedLines)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.DiagnosticsExtensions">
+        <members>
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxNode node, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxNode node, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxNode node, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxToken token, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxToken token, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxToken token, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxTrivia trivia, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxTrivia trivia, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, SyntaxTrivia trivia, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, Location location, IEnumerable&lt;Location&gt; additionalLocations, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, IEnumerable&lt;Location&gt; additionalLocations, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, IEnumerable&lt;Location&gt; additionalLocations, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, Location location, ImmutableDictionary&lt;string, string&gt; properties, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, ImmutableDictionary&lt;string, string&gt; properties, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, ImmutableDictionary&lt;string, string&gt; properties, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SymbolAnalysisContext context, DiagnosticDescriptor descriptor, Location location, IEnumerable&lt;Location&gt; additionalLocations, ImmutableDictionary&lt;string, string&gt; properties, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, IEnumerable&lt;Location&gt; additionalLocations, ImmutableDictionary&lt;string, string&gt; properties, params object[] messageArgs)" />
+          <member def="public static void ReportDiagnostic(this SyntaxTreeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, IEnumerable&lt;Location&gt; additionalLocations, ImmutableDictionary&lt;string, string&gt; properties, params object[] messageArgs)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.EnumExtensions">
+        <members>
+          <member def="public static bool Is(this Accessibility accessibility, Accessibility accessibility1, Accessibility accessibility2)" />
+          <member def="public static bool Is(this MethodKind methodKind, MethodKind methodKind1, MethodKind methodKind2)" />
+          <member def="public static bool Is(this SpecialType specialType, SpecialType specialType1, SpecialType specialType2)" />
+          <member def="public static bool Is(this TypeKind typeKind, TypeKind typeKind1, TypeKind typeKind2)" />
+          <member def="public static bool Is(this Accessibility accessibility, Accessibility accessibility1, Accessibility accessibility2, Accessibility accessibility3)" />
+          <member def="public static bool Is(this MethodKind methodKind, MethodKind methodKind1, MethodKind methodKind2, MethodKind methodKind3)" />
+          <member def="public static bool Is(this SpecialType specialType, SpecialType specialType1, SpecialType specialType2, SpecialType specialType3)" />
+          <member def="public static bool Is(this TypeKind typeKind, TypeKind typeKind1, TypeKind typeKind2, TypeKind typeKind3)" />
+          <member def="public static bool Is(this Accessibility accessibility, Accessibility accessibility1, Accessibility accessibility2, Accessibility accessibility3, Accessibility accessibility4)" />
+          <member def="public static bool Is(this MethodKind methodKind, MethodKind methodKind1, MethodKind methodKind2, MethodKind methodKind3, MethodKind methodKind4)" />
+          <member def="public static bool Is(this SpecialType specialType, SpecialType specialType1, SpecialType specialType2, SpecialType specialType3, SpecialType specialType4)" />
+          <member def="public static bool Is(this TypeKind typeKind, TypeKind typeKind1, TypeKind typeKind2, TypeKind typeKind3, TypeKind typeKind4)" />
+          <member def="public static bool Is(this Accessibility accessibility, Accessibility accessibility1, Accessibility accessibility2, Accessibility accessibility3, Accessibility accessibility4, Accessibility accessibility5)" />
+          <member def="public static bool Is(this MethodKind methodKind, MethodKind methodKind1, MethodKind methodKind2, MethodKind methodKind3, MethodKind methodKind4, MethodKind methodKind5)" />
+          <member def="public static bool Is(this SpecialType specialType, SpecialType specialType1, SpecialType specialType2, SpecialType specialType3, SpecialType specialType4, SpecialType specialType5)" />
+          <member def="public static bool Is(this TypeKind typeKind, TypeKind typeKind1, TypeKind typeKind2, TypeKind typeKind3, TypeKind typeKind4, TypeKind typeKind5)" />
+          <member def="public static bool IsMoreRestrictiveThan(this Accessibility accessibility, Accessibility other)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.FileLinePositionSpanExtensions">
+        <members>
+          <member def="public static int EndLine(this FileLinePositionSpan fileLinePositionSpan)" />
+          <member def="public static bool IsMultiLine(this FileLinePositionSpan fileLinePositionSpan)" />
+          <member def="public static bool IsSingleLine(this FileLinePositionSpan fileLinePositionSpan)" />
+          <member def="public static int StartLine(this FileLinePositionSpan fileLinePositionSpan)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.SemanticModelExtensions">
+        <members>
+          <member def="public static INamedTypeSymbol GetEnclosingNamedType(this SemanticModel semanticModel, int position, CancellationToken cancellationToken = default)" />
+          <member def="public static TSymbol GetEnclosingSymbol&lt;TSymbol&gt;(this SemanticModel semanticModel, int position, CancellationToken cancellationToken = default) where TSymbol : ISymbol" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, SyntaxNode node, CancellationToken cancellationToken = default)" />
+          <member def="public static INamedTypeSymbol GetTypeByMetadataName(this SemanticModel semanticModel, string fullyQualifiedMetadataName)" />
+          <member def="public static ITypeSymbol GetTypeSymbol(this SemanticModel semanticModel, SyntaxNode node, CancellationToken cancellationToken = default)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.SymbolExtensions">
+        <members>
+          <member def="public static IEnumerable&lt;INamedTypeSymbol&gt; BaseTypes(this ITypeSymbol type)" />
+          <member def="public static IEnumerable&lt;ITypeSymbol&gt; BaseTypesAndSelf(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool EqualsOrInheritsFrom(this ITypeSymbol type, ITypeSymbol baseType, bool includeInterfaces = false)" />
+          <member def="public static bool EqualsOrInheritsFrom(this ITypeSymbol type, in MetadataName baseTypeName, bool includeInterfaces = false)" />
+          <member def="public static TSymbol FindMember&lt;TSymbol&gt;(this ITypeSymbol typeSymbol, Func&lt;TSymbol, bool&gt; predicate = null) where TSymbol : ISymbol" />
+          <member def="public static TSymbol FindMember&lt;TSymbol&gt;(this ITypeSymbol typeSymbol, string name, Func&lt;TSymbol, bool&gt; predicate = null) where TSymbol : ISymbol" />
+          <member def="public static TSymbol FindMember&lt;TSymbol&gt;(this INamedTypeSymbol typeSymbol, Func&lt;TSymbol, bool&gt; predicate, bool includeBaseTypes = false) where TSymbol : ISymbol" />
+          <member def="public static TSymbol FindMember&lt;TSymbol&gt;(this INamedTypeSymbol typeSymbol, string name, Func&lt;TSymbol, bool&gt; predicate = null, bool includeBaseTypes = false) where TSymbol : ISymbol" />
+          <member def="public static INamedTypeSymbol FindTypeMember(this INamedTypeSymbol typeSymbol, Func&lt;INamedTypeSymbol, bool&gt; predicate, bool includeBaseTypes = false)" />
+          <member def="public static INamedTypeSymbol FindTypeMember(this INamedTypeSymbol typeSymbol, string name, Func&lt;INamedTypeSymbol, bool&gt; predicate = null, bool includeBaseTypes = false)" />
+          <member def="public static INamedTypeSymbol FindTypeMember(this INamedTypeSymbol typeSymbol, string name, int arity, Func&lt;INamedTypeSymbol, bool&gt; predicate = null, bool includeBaseTypes = false)" />
+          <member def="public static AttributeData GetAttribute(this ISymbol symbol, INamedTypeSymbol attributeClass)" />
+          <member def="public static AttributeData GetAttribute(this ISymbol symbol, in MetadataName attributeName)" />
+          <member def="public static bool HasAttribute(this ISymbol symbol, INamedTypeSymbol attributeClass)" />
+          <member def="public static bool HasAttribute(this ISymbol symbol, in MetadataName attributeName)" />
+          <member def="public static bool HasAttribute(this ITypeSymbol typeSymbol, INamedTypeSymbol attributeClass, bool includeBaseTypes)" />
+          <member def="public static bool HasAttribute(this ITypeSymbol typeSymbol, in MetadataName attributeName, bool includeBaseTypes)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, bool value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, char value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, sbyte value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, byte value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, short value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, ushort value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, int value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, uint value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, long value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, ulong value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, decimal value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, float value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, double value)" />
+          <member def="public static bool HasConstantValue(this IFieldSymbol fieldSymbol, string value)" />
+          <member def="public static bool HasMetadataName(this ISymbol symbol, in MetadataName metadataName)" />
+          <member def="public static bool Implements(this ITypeSymbol typeSymbol, INamedTypeSymbol interfaceSymbol, bool allInterfaces = false)" />
+          <member def="public static bool Implements(this ITypeSymbol typeSymbol, SpecialType interfaceType, bool allInterfaces = false)" />
+          <member def="public static bool Implements(this ITypeSymbol typeSymbol, in MetadataName interfaceName, bool allInterfaces = false)" />
+          <member def="public static bool ImplementsAny(this ITypeSymbol typeSymbol, SpecialType interfaceType1, SpecialType interfaceType2, bool allInterfaces = false)" />
+          <member def="public static bool ImplementsAny(this ITypeSymbol typeSymbol, SpecialType interfaceType1, SpecialType interfaceType2, SpecialType interfaceType3, bool allInterfaces = false)" />
+          <member def="public static bool ImplementsInterfaceMember(this ISymbol symbol, bool allInterfaces = false)" />
+          <member def="public static bool ImplementsInterfaceMember(this ISymbol symbol, INamedTypeSymbol interfaceSymbol, bool allInterfaces = false)" />
+          <member def="public static bool ImplementsInterfaceMember&lt;TSymbol&gt;(this ISymbol symbol, bool allInterfaces = false) where TSymbol : ISymbol" />
+          <member def="public static bool ImplementsInterfaceMember&lt;TSymbol&gt;(this ISymbol symbol, INamedTypeSymbol interfaceSymbol, bool allInterfaces = false) where TSymbol : ISymbol" />
+          <member def="public static bool InheritsFrom(this ITypeSymbol type, ITypeSymbol baseType, bool includeInterfaces = false)" />
+          <member def="public static bool InheritsFrom(this ITypeSymbol type, in MetadataName baseTypeName, bool includeInterfaces = false)" />
+          <member def="public static bool IsAsyncMethod(this ISymbol symbol)" />
+          <member def="public static bool IsErrorType(this ISymbol symbol)" />
+          <member def="public static bool IsIEnumerableOfT(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool IsIEnumerableOrIEnumerableOfT(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool IsKind(this ISymbol symbol, SymbolKind kind)" />
+          <member def="public static bool IsKind(this ISymbol symbol, SymbolKind kind1, SymbolKind kind2)" />
+          <member def="public static bool IsKind(this ISymbol symbol, SymbolKind kind1, SymbolKind kind2, SymbolKind kind3)" />
+          <member def="public static bool IsKind(this ISymbol symbol, SymbolKind kind1, SymbolKind kind2, SymbolKind kind3, SymbolKind kind4)" />
+          <member def="public static bool IsKind(this ISymbol symbol, SymbolKind kind1, SymbolKind kind2, SymbolKind kind3, SymbolKind kind4, SymbolKind kind5)" />
+          <member def="public static bool IsNullableOf(this INamedTypeSymbol namedTypeSymbol, SpecialType specialType)" />
+          <member def="public static bool IsNullableOf(this INamedTypeSymbol namedTypeSymbol, ITypeSymbol typeArgument)" />
+          <member def="public static bool IsNullableOf(this ITypeSymbol typeSymbol, SpecialType specialType)" />
+          <member def="public static bool IsNullableOf(this ITypeSymbol typeSymbol, ITypeSymbol typeArgument)" />
+          <member def="public static bool IsNullableType(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool IsObject(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool IsOrdinaryExtensionMethod(this IMethodSymbol methodSymbol)" />
+          <member def="public static bool IsParameterArrayOf(this IParameterSymbol parameterSymbol, SpecialType elementType)" />
+          <member def="public static bool IsParameterArrayOf(this IParameterSymbol parameterSymbol, SpecialType elementType1, SpecialType elementType2)" />
+          <member def="public static bool IsParameterArrayOf(this IParameterSymbol parameterSymbol, SpecialType elementType1, SpecialType elementType2, SpecialType elementType3)" />
+          <member def="public static bool IsPubliclyVisible(this ISymbol symbol)" />
+          <member def="public static bool IsReducedExtensionMethod(this IMethodSymbol methodSymbol)" />
+          <member def="public static bool IsRefOrOut(this IParameterSymbol parameterSymbol)" />
+          <member def="public static bool IsReferenceTypeOrNullableType(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool IsString(this ITypeSymbol typeSymbol)" />
+          <member def="public static bool IsVoid(this ITypeSymbol typeSymbol)" />
+          <member def="public static IMethodSymbol ReducedFromOrSelf(this IMethodSymbol methodSymbol)" />
+          <member def="public static bool SupportsExplicitDeclaration(this ITypeSymbol typeSymbol)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.SyntaxExtensions">
+        <members>
+          <member def="public static bool All(this SyntaxTokenList list, Func&lt;SyntaxToken, bool&gt; predicate)" />
+          <member def="public static bool All(this SyntaxTriviaList list, Func&lt;SyntaxTrivia, bool&gt; predicate)" />
+          <member def="public static bool All&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, Func&lt;TNode, bool&gt; predicate) where TNode : SyntaxNode" />
+          <member def="public static bool All&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, Func&lt;TNode, bool&gt; predicate) where TNode : SyntaxNode" />
+          <member def="public static bool Any(this SyntaxTokenList list, Func&lt;SyntaxToken, bool&gt; predicate)" />
+          <member def="public static bool Any(this SyntaxTriviaList list, Func&lt;SyntaxTrivia, bool&gt; predicate)" />
+          <member def="public static bool Any&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, Func&lt;TNode, bool&gt; predicate) where TNode : SyntaxNode" />
+          <member def="public static bool Any&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, Func&lt;TNode, bool&gt; predicate) where TNode : SyntaxNode" />
+          <member def="public static SyntaxToken AppendToLeadingTrivia(this SyntaxToken token, IEnumerable&lt;SyntaxTrivia&gt; trivia)" />
+          <member def="public static SyntaxToken AppendToLeadingTrivia(this SyntaxToken token, SyntaxTrivia trivia)" />
+          <member def="public static TNode AppendToLeadingTrivia&lt;TNode&gt;(this TNode node, IEnumerable&lt;SyntaxTrivia&gt; trivia) where TNode : SyntaxNode" />
+          <member def="public static TNode AppendToLeadingTrivia&lt;TNode&gt;(this TNode node, SyntaxTrivia trivia) where TNode : SyntaxNode" />
+          <member def="public static SyntaxToken AppendToTrailingTrivia(this SyntaxToken token, IEnumerable&lt;SyntaxTrivia&gt; trivia)" />
+          <member def="public static SyntaxToken AppendToTrailingTrivia(this SyntaxToken token, SyntaxTrivia trivia)" />
+          <member def="public static TNode AppendToTrailingTrivia&lt;TNode&gt;(this TNode node, IEnumerable&lt;SyntaxTrivia&gt; trivia) where TNode : SyntaxNode" />
+          <member def="public static TNode AppendToTrailingTrivia&lt;TNode&gt;(this TNode node, SyntaxTrivia trivia) where TNode : SyntaxNode" />
+          <member def="public static bool Contains(this SyntaxTokenList tokens, SyntaxToken token)" />
+          <member def="public static bool Contains&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, TNode node) where TNode : SyntaxNode" />
+          <member def="public static bool Contains&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, TNode node) where TNode : SyntaxNode" />
+          <member def="public static bool ContainsDirectives(this SyntaxNode node, TextSpan span)" />
+          <member def="public static IEnumerable&lt;SyntaxTrivia&gt; DescendantTrivia&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, Func&lt;SyntaxNode, bool&gt; descendIntoChildren = null, bool descendIntoTrivia = false) where TNode : SyntaxNode" />
+          <member def="public static IEnumerable&lt;SyntaxTrivia&gt; DescendantTrivia&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, TextSpan span, Func&lt;SyntaxNode, bool&gt; descendIntoChildren = null, bool descendIntoTrivia = false) where TNode : SyntaxNode" />
+          <member def="public static TNode FirstAncestor&lt;TNode&gt;(this SyntaxNode node, Func&lt;TNode, bool&gt; predicate = null, bool ascendOutOfTrivia = true) where TNode : SyntaxNode" />
+          <member def="public static TNode FirstDescendant&lt;TNode&gt;(this SyntaxNode node, Func&lt;SyntaxNode, bool&gt; descendIntoChildren = null, bool descendIntoTrivia = false) where TNode : SyntaxNode" />
+          <member def="public static TNode FirstDescendant&lt;TNode&gt;(this SyntaxNode node, TextSpan span, Func&lt;SyntaxNode, bool&gt; descendIntoChildren = null, bool descendIntoTrivia = false) where TNode : SyntaxNode" />
+          <member def="public static TNode FirstDescendantOrSelf&lt;TNode&gt;(this SyntaxNode node, Func&lt;SyntaxNode, bool&gt; descendIntoChildren = null, bool descendIntoTrivia = false) where TNode : SyntaxNode" />
+          <member def="public static TNode FirstDescendantOrSelf&lt;TNode&gt;(this SyntaxNode node, TextSpan span, Func&lt;SyntaxNode, bool&gt; descendIntoChildren = null, bool descendIntoTrivia = false) where TNode : SyntaxNode" />
+          <member def="public static SyntaxTriviaList GetLeadingAndTrailingTrivia(this SyntaxNode node)" />
+          <member def="public static SyntaxToken GetTrailingSeparator&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list) where TNode : SyntaxNode" />
+          <member def="public static bool HasTrailingSeparator&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list) where TNode : SyntaxNode" />
+          <member def="public static int IndexOf(this SyntaxTokenList tokens, Func&lt;SyntaxToken, bool&gt; predicate)" />
+          <member def="public static int IndexOf(this SyntaxTriviaList triviaList, Func&lt;SyntaxTrivia, bool&gt; predicate)" />
+          <member def="public static bool IsFirst&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, TNode node) where TNode : SyntaxNode" />
+          <member def="public static bool IsFirst&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, TNode node) where TNode : SyntaxNode" />
+          <member def="public static bool IsLast&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, TNode node) where TNode : SyntaxNode" />
+          <member def="public static bool IsLast&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, TNode node) where TNode : SyntaxNode" />
+          <member def="public static SyntaxTriviaList LeadingAndTrailingTrivia(this SyntaxToken token)" />
+          <member def="public static SyntaxToken PrependToLeadingTrivia(this SyntaxToken token, IEnumerable&lt;SyntaxTrivia&gt; trivia)" />
+          <member def="public static SyntaxToken PrependToLeadingTrivia(this SyntaxToken token, SyntaxTrivia trivia)" />
+          <member def="public static TNode PrependToLeadingTrivia&lt;TNode&gt;(this TNode node, IEnumerable&lt;SyntaxTrivia&gt; trivia) where TNode : SyntaxNode" />
+          <member def="public static TNode PrependToLeadingTrivia&lt;TNode&gt;(this TNode node, SyntaxTrivia trivia) where TNode : SyntaxNode" />
+          <member def="public static SyntaxToken PrependToTrailingTrivia(this SyntaxToken token, IEnumerable&lt;SyntaxTrivia&gt; trivia)" />
+          <member def="public static SyntaxToken PrependToTrailingTrivia(this SyntaxToken token, SyntaxTrivia trivia)" />
+          <member def="public static TNode PrependToTrailingTrivia&lt;TNode&gt;(this TNode node, IEnumerable&lt;SyntaxTrivia&gt; trivia) where TNode : SyntaxNode" />
+          <member def="public static TNode PrependToTrailingTrivia&lt;TNode&gt;(this TNode node, SyntaxTrivia trivia) where TNode : SyntaxNode" />
+          <member def="public static SyntaxTokenList ReplaceAt(this SyntaxTokenList tokenList, int index, SyntaxToken newToken)" />
+          <member def="public static SyntaxTriviaList ReplaceAt(this SyntaxTriviaList triviaList, int index, SyntaxTrivia newTrivia)" />
+          <member def="public static SeparatedSyntaxList&lt;TNode&gt; ReplaceAt&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, int index, TNode newNode) where TNode : SyntaxNode" />
+          <member def="public static SyntaxList&lt;TNode&gt; ReplaceAt&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, int index, TNode newNode) where TNode : SyntaxNode" />
+          <member def="public static bool SpanContainsDirectives(this SyntaxNode node)" />
+          <member def="public static bool TryGetContainingList(this SyntaxTrivia trivia, out SyntaxTriviaList triviaList, bool allowLeading = true, bool allowTrailing = true)" />
+          <member def="public static SyntaxToken WithTriviaFrom(this SyntaxToken token, SyntaxNode node)" />
+          <member def="public static SeparatedSyntaxList&lt;TNode&gt; WithTriviaFrom&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, SyntaxNode node) where TNode : SyntaxNode" />
+          <member def="public static SyntaxList&lt;TNode&gt; WithTriviaFrom&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, SyntaxNode node) where TNode : SyntaxNode" />
+          <member def="public static TNode WithTriviaFrom&lt;TNode&gt;(this TNode node, SyntaxToken token) where TNode : SyntaxNode" />
+          <member def="public static SyntaxNodeOrToken WithoutLeadingTrivia(this SyntaxNodeOrToken nodeOrToken)" />
+          <member def="public static SyntaxToken WithoutLeadingTrivia(this SyntaxToken token)" />
+          <member def="public static SyntaxNodeOrToken WithoutTrailingTrivia(this SyntaxNodeOrToken nodeOrToken)" />
+          <member def="public static SyntaxToken WithoutTrailingTrivia(this SyntaxToken token)" />
+          <member def="public static SyntaxNodeOrToken WithoutTrivia(this SyntaxNodeOrToken nodeOrToken)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.SyntaxTreeExtensions">
+        <members>
+          <member def="public static int GetEndLine(this SyntaxTree syntaxTree, TextSpan span, CancellationToken cancellationToken = default)" />
+          <member def="public static int GetStartLine(this SyntaxTree syntaxTree, TextSpan span, CancellationToken cancellationToken = default)" />
+          <member def="public static bool IsMultiLineSpan(this SyntaxTree syntaxTree, TextSpan span, CancellationToken cancellationToken = default)" />
+          <member def="public static bool IsSingleLineSpan(this SyntaxTree syntaxTree, TextSpan span, CancellationToken cancellationToken = default)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.WorkspaceExtensions">
+        <members>
+          <member def="public static Task&lt;Document&gt; InsertNodeAfterAsync(this Document document, SyntaxNode nodeInList, SyntaxNode newNode, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; InsertNodeBeforeAsync(this Document document, SyntaxNode nodeInList, SyntaxNode newNode, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; InsertNodesAfterAsync(this Document document, SyntaxNode nodeInList, IEnumerable&lt;SyntaxNode&gt; newNodes, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; InsertNodesBeforeAsync(this Document document, SyntaxNode nodeInList, IEnumerable&lt;SyntaxNode&gt; newNodes, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemoveNodeAsync(this Document document, SyntaxNode node, SyntaxRemoveOptions options, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemoveNodesAsync(this Document document, IEnumerable&lt;SyntaxNode&gt; nodes, SyntaxRemoveOptions options, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; ReplaceNodeAsync(this Document document, SyntaxNode oldNode, SyntaxNode newNode, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; ReplaceNodeAsync(this Document document, SyntaxNode oldNode, IEnumerable&lt;SyntaxNode&gt; newNodes, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Solution&gt; ReplaceNodeAsync&lt;TNode&gt;(this Solution solution, TNode oldNode, TNode newNode, CancellationToken cancellationToken = default) where TNode : SyntaxNode" />
+          <member def="public static Task&lt;Document&gt; ReplaceNodesAsync&lt;TNode&gt;(this Document document, IEnumerable&lt;TNode&gt; nodes, Func&lt;TNode, TNode, SyntaxNode&gt; computeReplacementNode, CancellationToken cancellationToken = default) where TNode : SyntaxNode" />
+          <member def="public static Task&lt;Solution&gt; ReplaceNodesAsync&lt;TNode&gt;(this Solution solution, IEnumerable&lt;TNode&gt; nodes, Func&lt;TNode, TNode, SyntaxNode&gt; computeReplacementNodes, CancellationToken cancellationToken = default) where TNode : SyntaxNode" />
+          <member def="public static Task&lt;Document&gt; ReplaceTokenAsync(this Document document, SyntaxToken oldToken, SyntaxToken newToken, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; ReplaceTokenAsync(this Document document, SyntaxToken oldToken, IEnumerable&lt;SyntaxToken&gt; newTokens, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; ReplaceTriviaAsync(this Document document, SyntaxTrivia oldTrivia, SyntaxTrivia newTrivia, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; ReplaceTriviaAsync(this Document document, SyntaxTrivia oldTrivia, IEnumerable&lt;SyntaxTrivia&gt; newTrivia, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; WithTextChangeAsync(this Document document, TextChange textChange, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; WithTextChangesAsync(this Document document, TextChange[] textChanges, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; WithTextChangesAsync(this Document document, IEnumerable&lt;TextChange&gt; textChanges, CancellationToken cancellationToken = default)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.CSharpExtensions">
+        <members>
+          <member def="public static IParameterSymbol DetermineParameter(this SemanticModel semanticModel, ArgumentSyntax argument, bool allowParams = false, bool allowCandidate = false, CancellationToken cancellationToken = default)" />
+          <member def="public static IParameterSymbol DetermineParameter(this SemanticModel semanticModel, AttributeArgumentSyntax attributeArgument, bool allowParams = false, bool allowCandidate = false, CancellationToken cancellationToken = default)" />
+          <member def="public static ExtensionMethodSymbolInfo GetExtensionMethodInfo(this SemanticModel semanticModel, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static IMethodSymbol GetMethodSymbol(this SemanticModel semanticModel, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static ExtensionMethodSymbolInfo GetReducedExtensionMethodInfo(this SemanticModel semanticModel, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, AttributeSyntax attribute, CancellationToken cancellationToken = default)" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, ConstructorInitializerSyntax constructorInitializer, CancellationToken cancellationToken = default)" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, CrefSyntax cref, CancellationToken cancellationToken = default)" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, OrderingSyntax ordering, CancellationToken cancellationToken = default)" />
+          <member def="public static ISymbol GetSymbol(this SemanticModel semanticModel, SelectOrGroupClauseSyntax selectOrGroupClause, CancellationToken cancellationToken = default)" />
+          <member def="public static ITypeSymbol GetTypeSymbol(this SemanticModel semanticModel, AttributeSyntax attribute, CancellationToken cancellationToken = default)" />
+          <member def="public static ITypeSymbol GetTypeSymbol(this SemanticModel semanticModel, ConstructorInitializerSyntax constructorInitializer, CancellationToken cancellationToken = default)" />
+          <member def="public static ITypeSymbol GetTypeSymbol(this SemanticModel semanticModel, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static ITypeSymbol GetTypeSymbol(this SemanticModel semanticModel, SelectOrGroupClauseSyntax selectOrGroupClause, CancellationToken cancellationToken = default)" />
+          <member def="public static bool HasConstantValue(this SemanticModel semanticModel, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static bool IsDefaultValue(this SemanticModel semanticModel, ITypeSymbol typeSymbol, ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.CSharpFactory">
+        <members>
+          <member def="public static AccessorListSyntax AccessorList(AccessorDeclarationSyntax accessor)" />
+          <member def="public static AccessorListSyntax AccessorList(params AccessorDeclarationSyntax[] accessors)" />
+          <member def="public static AccessorDeclarationSyntax AddAccessorDeclaration(BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax AddAccessorDeclaration(ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AccessorDeclarationSyntax AddAccessorDeclaration(SyntaxTokenList modifiers, BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax AddAccessorDeclaration(SyntaxTokenList modifiers, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AssignmentExpressionSyntax AddAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax AddAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax AddExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax AddExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static PrefixUnaryExpressionSyntax AddressOfExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax AddressOfExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static AssignmentExpressionSyntax AndAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax AndAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static ArgumentSyntax Argument(NameColonSyntax nameColon, ExpressionSyntax expression)" />
+          <member def="public static ArgumentListSyntax ArgumentList(ArgumentSyntax argument)" />
+          <member def="public static ArgumentListSyntax ArgumentList(params ArgumentSyntax[] arguments)" />
+          <member def="public static InitializerExpressionSyntax ArrayInitializerExpression(SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions = default)" />
+          <member def="public static InitializerExpressionSyntax ArrayInitializerExpression(SyntaxToken openBraceToken, SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions, SyntaxToken closeBraceToken)" />
+          <member def="public static BinaryExpressionSyntax AsExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax AsExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static AttributeSyntax Attribute(NameSyntax name, AttributeArgumentSyntax argument)" />
+          <member def="public static AttributeArgumentSyntax AttributeArgument(NameColonSyntax nameColon, ExpressionSyntax expression)" />
+          <member def="public static AttributeArgumentSyntax AttributeArgument(NameEqualsSyntax nameEquals, ExpressionSyntax expression)" />
+          <member def="public static AttributeArgumentListSyntax AttributeArgumentList(AttributeArgumentSyntax attributeArgument)" />
+          <member def="public static AttributeArgumentListSyntax AttributeArgumentList(params AttributeArgumentSyntax[] attributeArguments)" />
+          <member def="public static AttributeListSyntax AttributeList(AttributeSyntax attribute)" />
+          <member def="public static AttributeListSyntax AttributeList(params AttributeSyntax[] attributes)" />
+          <member def="public static AccessorDeclarationSyntax AutoGetAccessorDeclaration(SyntaxTokenList modifiers = default)" />
+          <member def="public static AccessorDeclarationSyntax AutoSetAccessorDeclaration(SyntaxTokenList modifiers = default)" />
+          <member def="public static ConstructorInitializerSyntax BaseConstructorInitializer(ArgumentListSyntax argumentList = null)" />
+          <member def="public static ConstructorInitializerSyntax BaseConstructorInitializer(SyntaxToken semicolonToken, ArgumentListSyntax argumentList)" />
+          <member def="public static BaseListSyntax BaseList(BaseTypeSyntax type)" />
+          <member def="public static BaseListSyntax BaseList(params BaseTypeSyntax[] types)" />
+          <member def="public static BaseListSyntax BaseList(SyntaxToken colonToken, BaseTypeSyntax baseType)" />
+          <member def="public static BaseListSyntax BaseList(SyntaxToken colonToken, params BaseTypeSyntax[] types)" />
+          <member def="public static BinaryExpressionSyntax BitwiseAndExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax BitwiseAndExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static PrefixUnaryExpressionSyntax BitwiseNotExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax BitwiseNotExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static BinaryExpressionSyntax BitwiseOrExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax BitwiseOrExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BlockSyntax Block(StatementSyntax statement)" />
+          <member def="public static BlockSyntax Block(SyntaxToken openBrace, StatementSyntax statement, SyntaxToken closeBrace)" />
+          <member def="public static LiteralExpressionSyntax BooleanLiteralExpression(bool value)" />
+          <member def="public static BracketedArgumentListSyntax BracketedArgumentList(ArgumentSyntax argument)" />
+          <member def="public static BracketedArgumentListSyntax BracketedArgumentList(params ArgumentSyntax[] arguments)" />
+          <member def="public static BracketedParameterListSyntax BracketedParameterList(ParameterSyntax parameter)" />
+          <member def="public static BracketedParameterListSyntax BracketedParameterList(params ParameterSyntax[] parameters)" />
+          <member def="public static LiteralExpressionSyntax CharacterLiteralExpression(char value)" />
+          <member def="public static CheckedExpressionSyntax CheckedExpression(ExpressionSyntax expression)" />
+          <member def="public static CheckedExpressionSyntax CheckedExpression(SyntaxToken openParenToken, ExpressionSyntax expression, SyntaxToken closeParenToken)" />
+          <member def="public static ClassOrStructConstraintSyntax ClassConstraint()" />
+          <member def="public static ClassDeclarationSyntax ClassDeclaration(SyntaxTokenList modifiers, string identifier, SyntaxList&lt;MemberDeclarationSyntax&gt; members = default)" />
+          <member def="public static ClassDeclarationSyntax ClassDeclaration(SyntaxTokenList modifiers, SyntaxToken identifier, SyntaxList&lt;MemberDeclarationSyntax&gt; members = default)" />
+          <member def="public static BinaryExpressionSyntax CoalesceExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax CoalesceExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static InitializerExpressionSyntax CollectionInitializerExpression(SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions = default)" />
+          <member def="public static InitializerExpressionSyntax CollectionInitializerExpression(SyntaxToken openBraceToken, SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions, SyntaxToken closeBraceToken)" />
+          <member def="public static CompilationUnitSyntax CompilationUnit(MemberDeclarationSyntax member)" />
+          <member def="public static CompilationUnitSyntax CompilationUnit(SyntaxList&lt;UsingDirectiveSyntax&gt; usings, MemberDeclarationSyntax member)" />
+          <member def="public static CompilationUnitSyntax CompilationUnit(SyntaxList&lt;UsingDirectiveSyntax&gt; usings, SyntaxList&lt;MemberDeclarationSyntax&gt; members)" />
+          <member def="public static InitializerExpressionSyntax ComplexElementInitializerExpression(SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions = default)" />
+          <member def="public static InitializerExpressionSyntax ComplexElementInitializerExpression(SyntaxToken openBraceToken, SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions, SyntaxToken closeBraceToken)" />
+          <member def="public static ConstructorDeclarationSyntax ConstructorDeclaration(SyntaxTokenList modifiers, SyntaxToken identifier, ParameterListSyntax parameterList, BlockSyntax body)" />
+          <member def="public static ConstructorDeclarationSyntax ConstructorDeclaration(SyntaxTokenList modifiers, SyntaxToken identifier, ParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static LiteralExpressionSyntax DefaultLiteralExpression()" />
+          <member def="public static SwitchSectionSyntax DefaultSwitchSection(StatementSyntax statement)" />
+          <member def="public static SwitchSectionSyntax DefaultSwitchSection(SyntaxList&lt;StatementSyntax&gt; statements)" />
+          <member def="public static DelegateDeclarationSyntax DelegateDeclaration(SyntaxTokenList modifiers, TypeSyntax returnType, string identifier, ParameterListSyntax parameterList)" />
+          <member def="public static DelegateDeclarationSyntax DelegateDeclaration(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken identifier, ParameterListSyntax parameterList)" />
+          <member def="public static AssignmentExpressionSyntax DivideAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax DivideAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax DivideExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax DivideExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static SyntaxTrivia EmptyWhitespace()" />
+          <member def="public static EnumDeclarationSyntax EnumDeclaration(SyntaxTokenList modifiers, SyntaxToken identifier, SeparatedSyntaxList&lt;EnumMemberDeclarationSyntax&gt; members)" />
+          <member def="public static EnumMemberDeclarationSyntax EnumMemberDeclaration(SyntaxToken identifier, ExpressionSyntax value)" />
+          <member def="public static EnumMemberDeclarationSyntax EnumMemberDeclaration(SyntaxToken identifier, EqualsValueClauseSyntax value)" />
+          <member def="public static EnumMemberDeclarationSyntax EnumMemberDeclaration(string name, ExpressionSyntax value)" />
+          <member def="public static EnumMemberDeclarationSyntax EnumMemberDeclaration(string name, EqualsValueClauseSyntax value)" />
+          <member def="public static BinaryExpressionSyntax EqualsExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax EqualsExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static EventDeclarationSyntax EventDeclaration(SyntaxTokenList modifiers, TypeSyntax type, string identifier, AccessorListSyntax accessorList)" />
+          <member def="public static EventDeclarationSyntax EventDeclaration(SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier, AccessorListSyntax accessorList)" />
+          <member def="public static EventFieldDeclarationSyntax EventFieldDeclaration(SyntaxTokenList modifiers, TypeSyntax type, string identifier)" />
+          <member def="public static EventFieldDeclarationSyntax EventFieldDeclaration(SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier)" />
+          <member def="public static AssignmentExpressionSyntax ExclusiveOrAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax ExclusiveOrAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax ExclusiveOrExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax ExclusiveOrExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static ConversionOperatorDeclarationSyntax ExplicitConversionOperatorDeclaration(SyntaxTokenList modifiers, TypeSyntax type, ParameterListSyntax parameterList, BlockSyntax body)" />
+          <member def="public static ConversionOperatorDeclarationSyntax ExplicitConversionOperatorDeclaration(SyntaxTokenList modifiers, TypeSyntax type, ParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static LiteralExpressionSyntax FalseLiteralExpression()" />
+          <member def="public static FieldDeclarationSyntax FieldDeclaration(SyntaxTokenList modifiers, TypeSyntax type, string identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static FieldDeclarationSyntax FieldDeclaration(SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static FieldDeclarationSyntax FieldDeclaration(SyntaxTokenList modifiers, TypeSyntax type, string identifier, ExpressionSyntax value = null)" />
+          <member def="public static FieldDeclarationSyntax FieldDeclaration(SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier, ExpressionSyntax value = null)" />
+          <member def="public static GenericNameSyntax GenericName(string identifier, TypeSyntax typeArgument)" />
+          <member def="public static GenericNameSyntax GenericName(SyntaxToken identifier, TypeSyntax typeArgument)" />
+          <member def="public static AccessorDeclarationSyntax GetAccessorDeclaration(BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax GetAccessorDeclaration(ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AccessorDeclarationSyntax GetAccessorDeclaration(SyntaxTokenList modifiers, BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax GetAccessorDeclaration(SyntaxTokenList modifiers, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static BinaryExpressionSyntax GreaterThanExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax GreaterThanExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax GreaterThanOrEqualExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax GreaterThanOrEqualExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static ConversionOperatorDeclarationSyntax ImplicitConversionOperatorDeclaration(SyntaxTokenList modifiers, TypeSyntax type, ParameterListSyntax parameterList, BlockSyntax body)" />
+          <member def="public static ConversionOperatorDeclarationSyntax ImplicitConversionOperatorDeclaration(SyntaxTokenList modifiers, TypeSyntax type, ParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static IndexerDeclarationSyntax IndexerDeclaration(SyntaxTokenList modifiers, TypeSyntax type, BracketedParameterListSyntax parameterList, AccessorListSyntax accessorList)" />
+          <member def="public static IndexerDeclarationSyntax IndexerDeclaration(SyntaxTokenList modifiers, TypeSyntax type, BracketedParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static InterfaceDeclarationSyntax InterfaceDeclaration(SyntaxTokenList modifiers, string identifier, SyntaxList&lt;MemberDeclarationSyntax&gt; members = default)" />
+          <member def="public static InterfaceDeclarationSyntax InterfaceDeclaration(SyntaxTokenList modifiers, SyntaxToken identifier, SyntaxList&lt;MemberDeclarationSyntax&gt; members = default)" />
+          <member def="public static BinaryExpressionSyntax IsExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax IsExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax LeftShiftAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax LeftShiftAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LeftShiftExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LeftShiftExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LessThanExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LessThanExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LessThanOrEqualExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LessThanOrEqualExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static LiteralExpressionSyntax LiteralExpression(object value)" />
+          <member def="public static LocalDeclarationStatementSyntax LocalDeclarationStatement(TypeSyntax type, string identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static LocalDeclarationStatementSyntax LocalDeclarationStatement(TypeSyntax type, SyntaxToken identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static LocalDeclarationStatementSyntax LocalDeclarationStatement(TypeSyntax type, string identifier, ExpressionSyntax value = null)" />
+          <member def="public static LocalDeclarationStatementSyntax LocalDeclarationStatement(TypeSyntax type, SyntaxToken identifier, ExpressionSyntax value = null)" />
+          <member def="public static LocalFunctionStatementSyntax LocalFunctionStatement(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken identifier, ParameterListSyntax parameterList, BlockSyntax body)" />
+          <member def="public static LocalFunctionStatementSyntax LocalFunctionStatement(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken identifier, ParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static BinaryExpressionSyntax LogicalAndExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LogicalAndExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static PrefixUnaryExpressionSyntax LogicalNotExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax LogicalNotExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static BinaryExpressionSyntax LogicalOrExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax LogicalOrExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static MethodDeclarationSyntax MethodDeclaration(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken identifier, ParameterListSyntax parameterList, BlockSyntax body)" />
+          <member def="public static MethodDeclarationSyntax MethodDeclaration(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken identifier, ParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AssignmentExpressionSyntax ModuloAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax ModuloAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax ModuloExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax ModuloExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax MultiplyAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax MultiplyAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax MultiplyExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax MultiplyExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static InvocationExpressionSyntax NameOfExpression(ExpressionSyntax expression)" />
+          <member def="public static InvocationExpressionSyntax NameOfExpression(string identifier)" />
+          <member def="public static NamespaceDeclarationSyntax NamespaceDeclaration(NameSyntax name, MemberDeclarationSyntax member)" />
+          <member def="public static NamespaceDeclarationSyntax NamespaceDeclaration(NameSyntax name, SyntaxList&lt;MemberDeclarationSyntax&gt; members)" />
+          <member def="public static SyntaxTrivia NewLine()" />
+          <member def="public static BinaryExpressionSyntax NotEqualsExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax NotEqualsExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static LiteralExpressionSyntax NullLiteralExpression()" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(int value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(uint value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(sbyte value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(decimal value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(double value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(float value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(long value)" />
+          <member def="public static LiteralExpressionSyntax NumericLiteralExpression(ulong value)" />
+          <member def="public static ObjectCreationExpressionSyntax ObjectCreationExpression(TypeSyntax type, ArgumentListSyntax argumentList)" />
+          <member def="public static InitializerExpressionSyntax ObjectInitializerExpression(SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions = default)" />
+          <member def="public static InitializerExpressionSyntax ObjectInitializerExpression(SyntaxToken openBraceToken, SeparatedSyntaxList&lt;ExpressionSyntax&gt; expressions, SyntaxToken closeBraceToken)" />
+          <member def="public static OperatorDeclarationSyntax OperatorDeclaration(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken operatorToken, ParameterListSyntax parameterList, BlockSyntax body)" />
+          <member def="public static OperatorDeclarationSyntax OperatorDeclaration(SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken operatorToken, ParameterListSyntax parameterList, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AssignmentExpressionSyntax OrAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax OrAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static ParameterSyntax Parameter(TypeSyntax type, string identifier, ExpressionSyntax @default = null)" />
+          <member def="public static ParameterSyntax Parameter(TypeSyntax type, SyntaxToken identifier, ExpressionSyntax @default = null)" />
+          <member def="public static ParameterSyntax Parameter(TypeSyntax type, SyntaxToken identifier, EqualsValueClauseSyntax @default)" />
+          <member def="public static ParameterListSyntax ParameterList(ParameterSyntax parameter)" />
+          <member def="public static ParameterListSyntax ParameterList(params ParameterSyntax[] parameters)" />
+          <member def="public static PrefixUnaryExpressionSyntax PointerIndirectionExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax PointerIndirectionExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static PostfixUnaryExpressionSyntax PostDecrementExpression(ExpressionSyntax operand)" />
+          <member def="public static PostfixUnaryExpressionSyntax PostDecrementExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static PostfixUnaryExpressionSyntax PostIncrementExpression(ExpressionSyntax operand)" />
+          <member def="public static PostfixUnaryExpressionSyntax PostIncrementExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static PrefixUnaryExpressionSyntax PreDecrementExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax PreDecrementExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static PrefixUnaryExpressionSyntax PreIncrementExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax PreIncrementExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static PredefinedTypeSyntax PredefinedBoolType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedByteType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedCharType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedDecimalType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedDoubleType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedFloatType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedIntType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedLongType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedObjectType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedSByteType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedShortType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedStringType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedUIntType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedULongType()" />
+          <member def="public static PredefinedTypeSyntax PredefinedUShortType()" />
+          <member def="public static PropertyDeclarationSyntax PropertyDeclaration(SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static PropertyDeclarationSyntax PropertyDeclaration(SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier, AccessorListSyntax accessorList, ExpressionSyntax value = null)" />
+          <member def="public static AccessorDeclarationSyntax RemoveAccessorDeclaration(BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax RemoveAccessorDeclaration(ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AccessorDeclarationSyntax RemoveAccessorDeclaration(SyntaxTokenList modifiers, BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax RemoveAccessorDeclaration(SyntaxTokenList modifiers, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AssignmentExpressionSyntax RightShiftAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax RightShiftAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax RightShiftExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax RightShiftExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static AccessorDeclarationSyntax SetAccessorDeclaration(BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax SetAccessorDeclaration(ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AccessorDeclarationSyntax SetAccessorDeclaration(SyntaxTokenList modifiers, BlockSyntax body)" />
+          <member def="public static AccessorDeclarationSyntax SetAccessorDeclaration(SyntaxTokenList modifiers, ArrowExpressionClauseSyntax expressionBody)" />
+          <member def="public static AssignmentExpressionSyntax SimpleAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax SimpleAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static ExpressionStatementSyntax SimpleAssignmentStatement(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static ExpressionStatementSyntax SimpleAssignmentStatement(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static MemberAccessExpressionSyntax SimpleMemberAccessExpression(ExpressionSyntax expression, SimpleNameSyntax name)" />
+          <member def="public static MemberAccessExpressionSyntax SimpleMemberAccessExpression(ExpressionSyntax expression, SyntaxToken operatorToken, SimpleNameSyntax name)" />
+          <member def="public static InvocationExpressionSyntax SimpleMemberInvocationExpression(ExpressionSyntax expression, SimpleNameSyntax name)" />
+          <member def="public static InvocationExpressionSyntax SimpleMemberInvocationExpression(ExpressionSyntax expression, SimpleNameSyntax name, ArgumentSyntax argument)" />
+          <member def="public static InvocationExpressionSyntax SimpleMemberInvocationExpression(ExpressionSyntax expression, SimpleNameSyntax name, ArgumentListSyntax argumentList)" />
+          <member def="public static LiteralExpressionSyntax StringLiteralExpression(string value)" />
+          <member def="public static ClassOrStructConstraintSyntax StructConstraint()" />
+          <member def="public static StructDeclarationSyntax StructDeclaration(SyntaxTokenList modifiers, string identifier, SyntaxList&lt;MemberDeclarationSyntax&gt; members = default)" />
+          <member def="public static StructDeclarationSyntax StructDeclaration(SyntaxTokenList modifiers, SyntaxToken identifier, SyntaxList&lt;MemberDeclarationSyntax&gt; members = default)" />
+          <member def="public static AssignmentExpressionSyntax SubtractAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static AssignmentExpressionSyntax SubtractAssignmentExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax SubtractExpression(ExpressionSyntax left, ExpressionSyntax right)" />
+          <member def="public static BinaryExpressionSyntax SubtractExpression(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)" />
+          <member def="public static SwitchSectionSyntax SwitchSection(SwitchLabelSyntax switchLabel, StatementSyntax statement)" />
+          <member def="public static SwitchSectionSyntax SwitchSection(SwitchLabelSyntax switchLabel, SyntaxList&lt;StatementSyntax&gt; statements)" />
+          <member def="public static SwitchSectionSyntax SwitchSection(SyntaxList&lt;SwitchLabelSyntax&gt; switchLabels, StatementSyntax statement)" />
+          <member def="public static ConstructorInitializerSyntax ThisConstructorInitializer(ArgumentListSyntax argumentList = null)" />
+          <member def="public static ConstructorInitializerSyntax ThisConstructorInitializer(SyntaxToken semicolonToken, ArgumentListSyntax argumentList)" />
+          <member def="public static SyntaxTokenList TokenList(Accessibility accessibility)" />
+          <member def="public static SyntaxTokenList TokenList(SyntaxKind kind)" />
+          <member def="public static SyntaxTokenList TokenList(SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static SyntaxTokenList TokenList(SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static LiteralExpressionSyntax TrueLiteralExpression()" />
+          <member def="public static TryStatementSyntax TryStatement(BlockSyntax block, CatchClauseSyntax @catch, FinallyClauseSyntax @finally = null)" />
+          <member def="public static TypeArgumentListSyntax TypeArgumentList(TypeSyntax argument)" />
+          <member def="public static TypeArgumentListSyntax TypeArgumentList(params TypeSyntax[] arguments)" />
+          <member def="public static TypeParameterConstraintClauseSyntax TypeParameterConstraintClause(IdentifierNameSyntax identifierName, TypeParameterConstraintSyntax typeParameterConstraint)" />
+          <member def="public static TypeParameterConstraintClauseSyntax TypeParameterConstraintClause(string name, TypeParameterConstraintSyntax typeParameterConstraint)" />
+          <member def="public static TypeParameterListSyntax TypeParameterList(TypeParameterSyntax parameter)" />
+          <member def="public static TypeParameterListSyntax TypeParameterList(params TypeParameterSyntax[] parameters)" />
+          <member def="public static PrefixUnaryExpressionSyntax UnaryMinusExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax UnaryMinusExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static PrefixUnaryExpressionSyntax UnaryPlusExpression(ExpressionSyntax operand)" />
+          <member def="public static PrefixUnaryExpressionSyntax UnaryPlusExpression(ExpressionSyntax operand, SyntaxToken operatorToken)" />
+          <member def="public static CheckedExpressionSyntax UncheckedExpression(ExpressionSyntax expression)" />
+          <member def="public static CheckedExpressionSyntax UncheckedExpression(SyntaxToken openParenToken, ExpressionSyntax expression, SyntaxToken closeParenToken)" />
+          <member def="public static UsingDirectiveSyntax UsingStaticDirective(NameSyntax name)" />
+          <member def="public static UsingDirectiveSyntax UsingStaticDirective(SyntaxToken usingKeyword, SyntaxToken staticKeyword, NameSyntax name, SyntaxToken semicolonToken)" />
+          <member def="public static IdentifierNameSyntax VarType()" />
+          <member def="public static VariableDeclarationSyntax VariableDeclaration(TypeSyntax type, VariableDeclaratorSyntax variable)" />
+          <member def="public static VariableDeclarationSyntax VariableDeclaration(TypeSyntax type, SyntaxToken identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static VariableDeclarationSyntax VariableDeclaration(TypeSyntax type, string identifier, ExpressionSyntax value = null)" />
+          <member def="public static VariableDeclarationSyntax VariableDeclaration(TypeSyntax type, SyntaxToken identifier, ExpressionSyntax value = null)" />
+          <member def="public static VariableDeclaratorSyntax VariableDeclarator(string identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static VariableDeclaratorSyntax VariableDeclarator(SyntaxToken identifier, EqualsValueClauseSyntax initializer)" />
+          <member def="public static PredefinedTypeSyntax VoidType()" />
+          <member def="public static YieldStatementSyntax YieldBreakStatement()" />
+          <member def="public static YieldStatementSyntax YieldReturnStatement(ExpressionSyntax expression)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.CSharpFacts">
+        <members>
+          <member def="public static bool CanBeEmbeddedStatement(SyntaxKind kind)" />
+          <member def="public static bool CanHaveEmbeddedStatement(SyntaxKind kind)" />
+          <member def="public static bool CanHaveExpressionBody(SyntaxKind kind)" />
+          <member def="public static bool CanHaveMembers(SyntaxKind kind)" />
+          <member def="public static bool CanHaveModifiers(SyntaxKind kind)" />
+          <member def="public static bool CanHaveStatements(SyntaxKind kind)" />
+          <member def="public static bool IsAnonymousFunctionExpression(SyntaxKind kind)" />
+          <member def="public static bool IsBooleanExpression(SyntaxKind kind)" />
+          <member def="public static bool IsBooleanLiteralExpression(SyntaxKind kind)" />
+          <member def="public static bool IsCommentTrivia(SyntaxKind kind)" />
+          <member def="public static bool IsCompoundAssignmentExpression(SyntaxKind kind)" />
+          <member def="public static bool IsConstraint(SyntaxKind kind)" />
+          <member def="public static bool IsFunction(SyntaxKind kind)" />
+          <member def="public static bool IsIfElseDirective(SyntaxKind kind)" />
+          <member def="public static bool IsIncrementOrDecrementExpression(SyntaxKind kind)" />
+          <member def="public static bool IsIterationStatement(SyntaxKind kind)" />
+          <member def="public static bool IsJumpStatement(SyntaxKind kind)" />
+          <member def="public static bool IsLambdaExpression(SyntaxKind kind)" />
+          <member def="public static bool IsLiteralExpression(SyntaxKind kind)" />
+          <member def="public static bool IsPredefinedType(SpecialType specialType)" />
+          <member def="public static bool IsSimpleType(SpecialType specialType)" />
+          <member def="public static bool IsSwitchLabel(SyntaxKind kind)" />
+          <member def="public static bool SupportsPrefixOrPostfixUnaryOperator(SpecialType specialType)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.EnumExtensions">
+        <members>
+          <member def="public static bool Is(this SyntaxKind kind, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool Is(this SyntaxKind kind, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool Is(this SyntaxKind kind, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool Is(this SyntaxKind kind, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool Is(this SyntaxKind kind, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5, SyntaxKind kind6)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.ModifierList">
+        <members>
+          <member def="public static int GetInsertIndex(SyntaxTokenList tokens, SyntaxKind kind, IComparer&lt;SyntaxKind&gt; comparer = null)" />
+          <member def="public static int GetInsertIndex(SyntaxTokenList tokens, SyntaxToken token, IComparer&lt;SyntaxToken&gt; comparer = null)" />
+          <member def="public static SyntaxTokenList Insert(SyntaxTokenList modifiers, SyntaxKind kind, IComparer&lt;SyntaxKind&gt; comparer = null)" />
+          <member def="public static SyntaxTokenList Insert(SyntaxTokenList modifiers, SyntaxToken modifier, IComparer&lt;SyntaxToken&gt; comparer = null)" />
+          <member def="public static TNode Insert&lt;TNode&gt;(TNode node, SyntaxKind kind, IComparer&lt;SyntaxKind&gt; comparer = null) where TNode : SyntaxNode" />
+          <member def="public static TNode Insert&lt;TNode&gt;(TNode node, SyntaxToken modifier, IComparer&lt;SyntaxToken&gt; comparer = null) where TNode : SyntaxNode" />
+          <member def="public static TNode Remove&lt;TNode&gt;(TNode node, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static TNode Remove&lt;TNode&gt;(TNode node, SyntaxToken modifier) where TNode : SyntaxNode" />
+          <member def="public static TNode RemoveAll&lt;TNode&gt;(TNode node) where TNode : SyntaxNode" />
+          <member def="public static TNode RemoveAll&lt;TNode&gt;(TNode node, Func&lt;SyntaxToken, bool&gt; predicate) where TNode : SyntaxNode" />
+          <member def="public static TNode RemoveAt&lt;TNode&gt;(TNode node, int index) where TNode : SyntaxNode" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.Modifiers">
+        <members>
+          <member def="public static SyntaxTokenList Const()" />
+          <member def="public static SyntaxTokenList Internal()" />
+          <member def="public static SyntaxTokenList Internal_Abstract()" />
+          <member def="public static SyntaxTokenList Internal_Const()" />
+          <member def="public static SyntaxTokenList Internal_Override()" />
+          <member def="public static SyntaxTokenList Internal_Partial()" />
+          <member def="public static SyntaxTokenList Internal_ReadOnly()" />
+          <member def="public static SyntaxTokenList Internal_Static()" />
+          <member def="public static SyntaxTokenList Internal_Static_Partial()" />
+          <member def="public static SyntaxTokenList Internal_Static_ReadOnly()" />
+          <member def="public static SyntaxTokenList Internal_Virtual()" />
+          <member def="public static SyntaxTokenList Partial()" />
+          <member def="public static SyntaxTokenList Private()" />
+          <member def="public static SyntaxTokenList Private_Const()" />
+          <member def="public static SyntaxTokenList Private_Partial()" />
+          <member def="public static SyntaxTokenList Private_Protected()" />
+          <member def="public static SyntaxTokenList Private_ReadOnly()" />
+          <member def="public static SyntaxTokenList Private_Static()" />
+          <member def="public static SyntaxTokenList Private_Static_Partial()" />
+          <member def="public static SyntaxTokenList Private_Static_ReadOnly()" />
+          <member def="public static SyntaxTokenList Protected()" />
+          <member def="public static SyntaxTokenList Protected_Abstract()" />
+          <member def="public static SyntaxTokenList Protected_Const()" />
+          <member def="public static SyntaxTokenList Protected_Internal()" />
+          <member def="public static SyntaxTokenList Protected_Override()" />
+          <member def="public static SyntaxTokenList Protected_ReadOnly()" />
+          <member def="public static SyntaxTokenList Protected_Static()" />
+          <member def="public static SyntaxTokenList Protected_Static_ReadOnly()" />
+          <member def="public static SyntaxTokenList Protected_Virtual()" />
+          <member def="public static SyntaxTokenList Public()" />
+          <member def="public static SyntaxTokenList Public_Abstract()" />
+          <member def="public static SyntaxTokenList Public_Const()" />
+          <member def="public static SyntaxTokenList Public_Override()" />
+          <member def="public static SyntaxTokenList Public_Partial()" />
+          <member def="public static SyntaxTokenList Public_ReadOnly()" />
+          <member def="public static SyntaxTokenList Public_Static()" />
+          <member def="public static SyntaxTokenList Public_Static_Partial()" />
+          <member def="public static SyntaxTokenList Public_Static_ReadOnly()" />
+          <member def="public static SyntaxTokenList Public_Virtual()" />
+          <member def="public static SyntaxTokenList ReadOnly()" />
+          <member def="public static SyntaxTokenList Ref_ReadOnly()" />
+          <member def="public static SyntaxTokenList Static()" />
+          <member def="public static SyntaxTokenList Static_ReadOnly()" />
+          <member def="public static SyntaxTokenList Virtual()" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.SymbolExtensions">
+        <members>
+          <member def="public static bool SupportsConstantValue(this ITypeSymbol typeSymbol)" />
+          <member def="public static TypeSyntax ToMinimalTypeSyntax(this INamespaceOrTypeSymbol namespaceOrTypeSymbol, SemanticModel semanticModel, int position, SymbolDisplayFormat format = null)" />
+          <member def="public static TypeSyntax ToMinimalTypeSyntax(this INamespaceSymbol namespaceSymbol, SemanticModel semanticModel, int position, SymbolDisplayFormat format = null)" />
+          <member def="public static TypeSyntax ToMinimalTypeSyntax(this ITypeSymbol typeSymbol, SemanticModel semanticModel, int position, SymbolDisplayFormat format = null)" />
+          <member def="public static TypeSyntax ToTypeSyntax(this INamespaceOrTypeSymbol namespaceOrTypeSymbol, SymbolDisplayFormat format = null)" />
+          <member def="public static TypeSyntax ToTypeSyntax(this INamespaceSymbol namespaceSymbol, SymbolDisplayFormat format = null)" />
+          <member def="public static TypeSyntax ToTypeSyntax(this ITypeSymbol typeSymbol, SymbolDisplayFormat format = null)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.SyntaxAccessibility">
+        <members>
+          <member def="public static Accessibility GetAccessibility(SyntaxNode declaration)" />
+          <member def="public static Accessibility GetDefaultAccessibility(SyntaxNode declaration)" />
+          <member def="public static Accessibility GetDefaultExplicitAccessibility(SyntaxNode declaration)" />
+          <member def="public static Accessibility GetExplicitAccessibility(SyntaxNode declaration)" />
+          <member def="public static Accessibility GetExplicitAccessibility(SyntaxTokenList modifiers)" />
+          <member def="public static bool IsPubliclyVisible(MemberDeclarationSyntax declaration)" />
+          <member def="public static bool IsValidAccessibility(SyntaxNode node, Accessibility accessibility, bool ignoreOverride = false)" />
+          <member def="public static TNode WithExplicitAccessibility&lt;TNode&gt;(TNode node, Accessibility newAccessibility, IComparer&lt;SyntaxKind&gt; comparer = null) where TNode : SyntaxNode" />
+          <member def="public static TNode WithoutExplicitAccessibility&lt;TNode&gt;(TNode node) where TNode : SyntaxNode" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.SyntaxExtensions">
+        <members>
+          <member def="public static SyntaxList&lt;StatementSyntax&gt; Add(this SyntaxList&lt;StatementSyntax&gt; statements, StatementSyntax statement, bool ignoreLocalFunctions)" />
+          <member def="public static ClassDeclarationSyntax AddAttributeLists(this ClassDeclarationSyntax classDeclaration, bool keepDocumentationCommentOnTop, params AttributeListSyntax[] attributeLists)" />
+          <member def="public static InterfaceDeclarationSyntax AddAttributeLists(this InterfaceDeclarationSyntax interfaceDeclaration, bool keepDocumentationCommentOnTop, params AttributeListSyntax[] attributeLists)" />
+          <member def="public static StructDeclarationSyntax AddAttributeLists(this StructDeclarationSyntax structDeclaration, bool keepDocumentationCommentOnTop, params AttributeListSyntax[] attributeLists)" />
+          <member def="public static CompilationUnitSyntax AddUsings(this CompilationUnitSyntax compilationUnit, bool keepSingleLineCommentsOnTop, params UsingDirectiveSyntax[] usings)" />
+          <member def="public static IfStatementCascade AsCascade(this IfStatementSyntax ifStatement)" />
+          <member def="public static ExpressionChain AsChain(this BinaryExpressionSyntax binaryExpression, TextSpan? span = null)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this AccessorDeclarationSyntax accessorDeclaration)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this ConstructorDeclarationSyntax constructorDeclaration)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this ConversionOperatorDeclarationSyntax conversionOperatorDeclaration)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this DestructorDeclarationSyntax destructorDeclaration)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this LocalFunctionStatementSyntax localFunctionStatement)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this MethodDeclarationSyntax methodDeclaration)" />
+          <member def="public static CSharpSyntaxNode BodyOrExpressionBody(this OperatorDeclarationSyntax operatorDeclaration)" />
+          <member def="public static TextSpan BracesSpan(this ClassDeclarationSyntax classDeclaration)" />
+          <member def="public static TextSpan BracesSpan(this EnumDeclarationSyntax enumDeclaration)" />
+          <member def="public static TextSpan BracesSpan(this InterfaceDeclarationSyntax interfaceDeclaration)" />
+          <member def="public static TextSpan BracesSpan(this NamespaceDeclarationSyntax namespaceDeclaration)" />
+          <member def="public static TextSpan BracesSpan(this StructDeclarationSyntax structDeclaration)" />
+          <member def="public static bool Contains(this SyntaxTokenList tokenList, SyntaxKind kind)" />
+          <member def="public static bool Contains(this SyntaxTriviaList triviaList, SyntaxKind kind)" />
+          <member def="public static bool Contains&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static bool Contains&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static bool ContainsAny(this SyntaxTokenList tokenList, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool ContainsAny(this SyntaxTokenList tokenList, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool ContainsAny(this SyntaxTokenList tokenList, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool ContainsAny(this SyntaxTokenList tokenList, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool ContainsDefaultLabel(this SwitchSectionSyntax switchSection)" />
+          <member def="public static bool ContainsYield(this LocalFunctionStatementSyntax localFunctionStatement)" />
+          <member def="public static bool ContainsYield(this MethodDeclarationSyntax methodDeclaration)" />
+          <member def="public static CSharpSyntaxNode DeclarationOrExpression(this UsingStatementSyntax usingStatement)" />
+          <member def="public static SwitchSectionSyntax DefaultSection(this SwitchStatementSyntax switchStatement)" />
+          <member def="public static IEnumerable&lt;XmlElementSyntax&gt; Elements(this DocumentationCommentTriviaSyntax documentationComment, string localName)" />
+          <member def="public static SyntaxToken Find(this SyntaxTokenList tokenList, SyntaxKind kind)" />
+          <member def="public static SyntaxTrivia Find(this SyntaxTriviaList triviaList, SyntaxKind kind)" />
+          <member def="public static TNode Find&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static TNode Find&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static SyntaxNode FirstAncestor(this SyntaxNode node, SyntaxKind kind, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestor(this SyntaxNode node, Func&lt;SyntaxNode, bool&gt; predicate, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestor(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestor(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestorOrSelf(this SyntaxNode node, SyntaxKind kind, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestorOrSelf(this SyntaxNode node, Func&lt;SyntaxNode, bool&gt; predicate, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestorOrSelf(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, bool ascendOutOfTrivia = true)" />
+          <member def="public static SyntaxNode FirstAncestorOrSelf(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, bool ascendOutOfTrivia = true)" />
+          <member def="public static IfStatementCascadeInfo GetCascadeInfo(this IfStatementSyntax ifStatement)" />
+          <member def="public static DocumentationCommentTriviaSyntax GetDocumentationComment(this MemberDeclarationSyntax member)" />
+          <member def="public static SyntaxTrivia GetDocumentationCommentTrivia(this MemberDeclarationSyntax member)" />
+          <member def="public static EndRegionDirectiveTriviaSyntax GetEndRegionDirective(this RegionDirectiveTriviaSyntax regionDirective)" />
+          <member def="public static DirectiveTriviaSyntax GetFirstDirective(this SyntaxNode node, TextSpan span, Func&lt;DirectiveTriviaSyntax, bool&gt; predicate = null)" />
+          <member def="public static DirectiveTriviaSyntax GetNextRelatedDirective(this DirectiveTriviaSyntax directiveTrivia)" />
+          <member def="public static SyntaxTrivia GetPreprocessingMessageTrivia(this EndRegionDirectiveTriviaSyntax endRegionDirective)" />
+          <member def="public static SyntaxTrivia GetPreprocessingMessageTrivia(this RegionDirectiveTriviaSyntax regionDirective)" />
+          <member def="public static RegionDirectiveTriviaSyntax GetRegionDirective(this EndRegionDirectiveTriviaSyntax endRegionDirective)" />
+          <member def="public static DocumentationCommentTriviaSyntax GetSingleLineDocumentationComment(this MemberDeclarationSyntax member)" />
+          <member def="public static SyntaxTrivia GetSingleLineDocumentationCommentTrivia(this MemberDeclarationSyntax member)" />
+          <member def="public static IfStatementSyntax GetTopmostIf(this ElseClauseSyntax elseClause)" />
+          <member def="public static IfStatementSyntax GetTopmostIf(this IfStatementSyntax ifStatement)" />
+          <member def="public static AccessorDeclarationSyntax Getter(this AccessorListSyntax accessorList)" />
+          <member def="public static AccessorDeclarationSyntax Getter(this IndexerDeclarationSyntax indexerDeclaration)" />
+          <member def="public static AccessorDeclarationSyntax Getter(this PropertyDeclarationSyntax propertyDeclaration)" />
+          <member def="public static bool HasDocumentationComment(this MemberDeclarationSyntax member)" />
+          <member def="public static bool HasSingleLineDocumentationComment(this MemberDeclarationSyntax member)" />
+          <member def="public static bool IsAutoImplemented(this AccessorDeclarationSyntax accessorDeclaration)" />
+          <member def="public static bool IsDescendantOf(this SyntaxNode node, SyntaxKind kind, bool ascendOutOfTrivia = true)" />
+          <member def="public static bool IsEmbedded(this StatementSyntax statement, bool canBeBlock = false, bool canBeIfInsideElse = true, bool canBeUsingInsideUsing = true)" />
+          <member def="public static bool IsEmptyOrWhitespace(this SyntaxTriviaList triviaList)" />
+          <member def="public static bool IsEndOfLineTrivia(this SyntaxTrivia trivia)" />
+          <member def="public static bool IsHexNumericLiteral(this LiteralExpressionSyntax literalExpression)" />
+          <member def="public static bool IsKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool IsKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool IsKind(this SyntaxTrivia trivia, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool IsKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool IsKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool IsKind(this SyntaxTrivia trivia, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool IsKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool IsKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool IsKind(this SyntaxTrivia trivia, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool IsKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool IsKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool IsKind(this SyntaxTrivia trivia, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool IsKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5, SyntaxKind kind6)" />
+          <member def="public static bool IsKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5, SyntaxKind kind6)" />
+          <member def="public static bool IsKind(this SyntaxTrivia trivia, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5, SyntaxKind kind6)" />
+          <member def="public static bool IsLast(this SyntaxList&lt;StatementSyntax&gt; statements, StatementSyntax statement, bool ignoreLocalFunctions)" />
+          <member def="public static bool IsParams(this ParameterSyntax parameter)" />
+          <member def="public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind)" />
+          <member def="public static bool IsParentKind(this SyntaxToken token, SyntaxKind kind)" />
+          <member def="public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool IsParentKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2)" />
+          <member def="public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool IsParentKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3)" />
+          <member def="public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool IsParentKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4)" />
+          <member def="public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool IsParentKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5)" />
+          <member def="public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5, SyntaxKind kind6)" />
+          <member def="public static bool IsParentKind(this SyntaxToken token, SyntaxKind kind1, SyntaxKind kind2, SyntaxKind kind3, SyntaxKind kind4, SyntaxKind kind5, SyntaxKind kind6)" />
+          <member def="public static bool IsSimpleIf(this IfStatementSyntax ifStatement)" />
+          <member def="public static bool IsTopmostIf(this IfStatementSyntax ifStatement)" />
+          <member def="public static bool IsVerbatim(this InterpolatedStringExpressionSyntax interpolatedString)" />
+          <member def="public static bool IsVoid(this TypeSyntax type)" />
+          <member def="public static bool IsWhitespaceOrEndOfLineTrivia(this SyntaxTrivia trivia)" />
+          <member def="public static bool IsWhitespaceTrivia(this SyntaxTrivia trivia)" />
+          <member def="public static bool IsYieldBreak(this YieldStatementSyntax yieldStatement)" />
+          <member def="public static bool IsYieldReturn(this YieldStatementSyntax yieldStatement)" />
+          <member def="public static int LastIndexOf(this SyntaxTriviaList triviaList, SyntaxKind kind)" />
+          <member def="public static int LastIndexOf&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static int LastIndexOf&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, SyntaxKind kind) where TNode : SyntaxNode" />
+          <member def="public static StatementSyntax NextStatement(this StatementSyntax statement)" />
+          <member def="public static TextSpan ParenthesesSpan(this CastExpressionSyntax castExpression)" />
+          <member def="public static TextSpan ParenthesesSpan(this CommonForEachStatementSyntax forEachStatement)" />
+          <member def="public static TextSpan ParenthesesSpan(this ForStatementSyntax forStatement)" />
+          <member def="public static StatementSyntax PreviousStatement(this StatementSyntax statement)" />
+          <member def="public static SyntaxTokenList RemoveRange(this SyntaxTokenList list, int index, int count)" />
+          <member def="public static SyntaxTriviaList RemoveRange(this SyntaxTriviaList list, int index, int count)" />
+          <member def="public static SeparatedSyntaxList&lt;TNode&gt; RemoveRange&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, int index, int count) where TNode : SyntaxNode" />
+          <member def="public static SyntaxList&lt;TNode&gt; RemoveRange&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, int index, int count) where TNode : SyntaxNode" />
+          <member def="public static TNode RemoveTrivia&lt;TNode&gt;(this TNode node, TextSpan? span = null) where TNode : SyntaxNode" />
+          <member def="public static TNode RemoveWhitespace&lt;TNode&gt;(this TNode node, TextSpan? span = null) where TNode : SyntaxNode" />
+          <member def="public static SyntaxTokenList ReplaceRange(this SyntaxTokenList list, int index, int count, IEnumerable&lt;SyntaxToken&gt; newTokens)" />
+          <member def="public static SyntaxTriviaList ReplaceRange(this SyntaxTriviaList list, int index, int count, IEnumerable&lt;SyntaxTrivia&gt; newTrivia)" />
+          <member def="public static SeparatedSyntaxList&lt;TNode&gt; ReplaceRange&lt;TNode&gt;(this SeparatedSyntaxList&lt;TNode&gt; list, int index, int count, IEnumerable&lt;TNode&gt; newNodes) where TNode : SyntaxNode" />
+          <member def="public static SyntaxList&lt;TNode&gt; ReplaceRange&lt;TNode&gt;(this SyntaxList&lt;TNode&gt; list, int index, int count, IEnumerable&lt;TNode&gt; newNodes) where TNode : SyntaxNode" />
+          <member def="public static TNode ReplaceWhitespace&lt;TNode&gt;(this TNode node, SyntaxTrivia replacement, TextSpan? span = null) where TNode : SyntaxNode" />
+          <member def="public static bool ReturnsVoid(this DelegateDeclarationSyntax delegateDeclaration)" />
+          <member def="public static bool ReturnsVoid(this LocalFunctionStatementSyntax localFunctionStatement)" />
+          <member def="public static bool ReturnsVoid(this MethodDeclarationSyntax methodDeclaration)" />
+          <member def="public static AccessorDeclarationSyntax Setter(this AccessorListSyntax accessorList)" />
+          <member def="public static AccessorDeclarationSyntax Setter(this IndexerDeclarationSyntax indexerDeclaration)" />
+          <member def="public static AccessorDeclarationSyntax Setter(this PropertyDeclarationSyntax propertyDeclaration)" />
+          <member def="public static SeparatedSyntaxList&lt;TNode&gt; ToSeparatedSyntaxList&lt;TNode&gt;(this IEnumerable&lt;TNode&gt; nodes) where TNode : SyntaxNode" />
+          <member def="public static SeparatedSyntaxList&lt;TNode&gt; ToSeparatedSyntaxList&lt;TNode&gt;(this IEnumerable&lt;SyntaxNodeOrToken&gt; nodesAndTokens) where TNode : SyntaxNode" />
+          <member def="public static SyntaxList&lt;TNode&gt; ToSyntaxList&lt;TNode&gt;(this IEnumerable&lt;TNode&gt; nodes) where TNode : SyntaxNode" />
+          <member def="public static SyntaxTokenList ToSyntaxTokenList(this IEnumerable&lt;SyntaxToken&gt; tokens)" />
+          <member def="public static SyntaxToken TrimLeadingTrivia(this SyntaxToken token)" />
+          <member def="public static TNode TrimLeadingTrivia&lt;TNode&gt;(this TNode node) where TNode : SyntaxNode" />
+          <member def="public static SyntaxToken TrimTrailingTrivia(this SyntaxToken token)" />
+          <member def="public static TNode TrimTrailingTrivia&lt;TNode&gt;(this TNode node) where TNode : SyntaxNode" />
+          <member def="public static SyntaxToken TrimTrivia(this SyntaxToken token)" />
+          <member def="public static TNode TrimTrivia&lt;TNode&gt;(this TNode node) where TNode : SyntaxNode" />
+          <member def="public static bool TryGetContainingList(this StatementSyntax statement, out SyntaxList&lt;StatementSyntax&gt; statements)" />
+          <member def="public static ExpressionSyntax WalkDownParentheses(this ExpressionSyntax expression)" />
+          <member def="public static ExpressionSyntax WalkUpParentheses(this ExpressionSyntax expression)" />
+          <member def="public static ClassDeclarationSyntax WithMembers(this ClassDeclarationSyntax classDeclaration, MemberDeclarationSyntax member)" />
+          <member def="public static ClassDeclarationSyntax WithMembers(this ClassDeclarationSyntax classDeclaration, IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+          <member def="public static CompilationUnitSyntax WithMembers(this CompilationUnitSyntax compilationUnit, MemberDeclarationSyntax member)" />
+          <member def="public static CompilationUnitSyntax WithMembers(this CompilationUnitSyntax compilationUnit, IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+          <member def="public static InterfaceDeclarationSyntax WithMembers(this InterfaceDeclarationSyntax interfaceDeclaration, MemberDeclarationSyntax member)" />
+          <member def="public static InterfaceDeclarationSyntax WithMembers(this InterfaceDeclarationSyntax interfaceDeclaration, IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+          <member def="public static NamespaceDeclarationSyntax WithMembers(this NamespaceDeclarationSyntax namespaceDeclaration, MemberDeclarationSyntax member)" />
+          <member def="public static NamespaceDeclarationSyntax WithMembers(this NamespaceDeclarationSyntax namespaceDeclaration, IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+          <member def="public static StructDeclarationSyntax WithMembers(this StructDeclarationSyntax structDeclaration, MemberDeclarationSyntax member)" />
+          <member def="public static StructDeclarationSyntax WithMembers(this StructDeclarationSyntax structDeclaration, IEnumerable&lt;MemberDeclarationSyntax&gt; members)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.SyntaxInfo">
+        <members>
+          <member def="public static AsExpressionInfo AsExpressionInfo(BinaryExpressionSyntax binaryExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static AsExpressionInfo AsExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static AssignmentExpressionInfo AssignmentExpressionInfo(AssignmentExpressionSyntax assignmentExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static AssignmentExpressionInfo AssignmentExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static BinaryExpressionInfo BinaryExpressionInfo(BinaryExpressionSyntax binaryExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static BinaryExpressionInfo BinaryExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static ConditionalExpressionInfo ConditionalExpressionInfo(ConditionalExpressionSyntax conditionalExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static ConditionalExpressionInfo ConditionalExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static GenericInfo GenericInfo(TypeParameterConstraintClauseSyntax constraintClause)" />
+          <member def="public static GenericInfo GenericInfo(DelegateDeclarationSyntax delegateDeclaration)" />
+          <member def="public static GenericInfo GenericInfo(LocalFunctionStatementSyntax localFunctionStatement)" />
+          <member def="public static GenericInfo GenericInfo(MethodDeclarationSyntax methodDeclaration)" />
+          <member def="public static GenericInfo GenericInfo(SyntaxNode node)" />
+          <member def="public static GenericInfo GenericInfo(TypeDeclarationSyntax typeDeclaration)" />
+          <member def="public static GenericInfo GenericInfo(TypeParameterSyntax typeParameter)" />
+          <member def="public static GenericInfo GenericInfo(TypeParameterConstraintSyntax typeParameterConstraint)" />
+          <member def="public static GenericInfo GenericInfo(TypeParameterListSyntax typeParameterList)" />
+          <member def="public static IsExpressionInfo IsExpressionInfo(BinaryExpressionSyntax binaryExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static IsExpressionInfo IsExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static LocalDeclarationStatementInfo LocalDeclarationStatementInfo(LocalDeclarationStatementSyntax localDeclarationStatement, bool allowMissing = false)" />
+          <member def="public static LocalDeclarationStatementInfo LocalDeclarationStatementInfo(ExpressionSyntax value, bool allowMissing = false)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(CompilationUnitSyntax compilationUnit)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(NamespaceDeclarationSyntax declaration)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(TypeDeclarationSyntax declaration)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(ClassDeclarationSyntax declaration)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(StructDeclarationSyntax declaration)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(InterfaceDeclarationSyntax declaration)" />
+          <member def="public static MemberDeclarationListInfo MemberDeclarationListInfo(SyntaxNode node)" />
+          <member def="public static ModifierListInfo ModifierListInfo(AccessorDeclarationSyntax accessorDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(ClassDeclarationSyntax classDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(ConstructorDeclarationSyntax constructorDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(ConversionOperatorDeclarationSyntax conversionOperatorDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(DelegateDeclarationSyntax delegateDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(DestructorDeclarationSyntax destructorDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(EnumDeclarationSyntax enumDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(EventDeclarationSyntax eventDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(EventFieldDeclarationSyntax eventFieldDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(FieldDeclarationSyntax fieldDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(IncompleteMemberSyntax incompleteMember)" />
+          <member def="public static ModifierListInfo ModifierListInfo(IndexerDeclarationSyntax indexerDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(InterfaceDeclarationSyntax interfaceDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(LocalDeclarationStatementSyntax localDeclarationStatement)" />
+          <member def="public static ModifierListInfo ModifierListInfo(LocalFunctionStatementSyntax localFunctionStatement)" />
+          <member def="public static ModifierListInfo ModifierListInfo(MethodDeclarationSyntax methodDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(SyntaxNode node)" />
+          <member def="public static ModifierListInfo ModifierListInfo(OperatorDeclarationSyntax operatorDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(ParameterSyntax parameter)" />
+          <member def="public static ModifierListInfo ModifierListInfo(PropertyDeclarationSyntax propertyDeclaration)" />
+          <member def="public static ModifierListInfo ModifierListInfo(StructDeclarationSyntax structDeclaration)" />
+          <member def="public static NullCheckExpressionInfo NullCheckExpressionInfo(SyntaxNode node, NullCheckStyles allowedStyles = ComparisonToNull | IsPattern, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static NullCheckExpressionInfo NullCheckExpressionInfo(SyntaxNode node, SemanticModel semanticModel, NullCheckStyles allowedStyles = All, bool walkDownParentheses = true, bool allowMissing = false, CancellationToken cancellationToken = default)" />
+          <member def="public static RegionInfo RegionInfo(EndRegionDirectiveTriviaSyntax endRegionDirective)" />
+          <member def="public static RegionInfo RegionInfo(RegionDirectiveTriviaSyntax regionDirective)" />
+          <member def="public static SimpleAssignmentExpressionInfo SimpleAssignmentExpressionInfo(AssignmentExpressionSyntax assignmentExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleAssignmentExpressionInfo SimpleAssignmentExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleAssignmentStatementInfo SimpleAssignmentStatementInfo(AssignmentExpressionSyntax assignmentExpression, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleAssignmentStatementInfo SimpleAssignmentStatementInfo(ExpressionStatementSyntax expressionStatement, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleAssignmentStatementInfo SimpleAssignmentStatementInfo(StatementSyntax statement, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleIfElseInfo SimpleIfElseInfo(IfStatementSyntax ifStatement, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleIfStatementInfo SimpleIfStatementInfo(IfStatementSyntax ifStatement, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleIfStatementInfo SimpleIfStatementInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleMemberInvocationExpressionInfo SimpleMemberInvocationExpressionInfo(InvocationExpressionSyntax invocationExpression, bool allowMissing = false)" />
+          <member def="public static SimpleMemberInvocationExpressionInfo SimpleMemberInvocationExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static SimpleMemberInvocationStatementInfo SimpleMemberInvocationStatementInfo(ExpressionStatementSyntax expressionStatement, bool allowMissing = false)" />
+          <member def="public static SimpleMemberInvocationStatementInfo SimpleMemberInvocationStatementInfo(InvocationExpressionSyntax invocationExpression, bool allowMissing = false)" />
+          <member def="public static SimpleMemberInvocationStatementInfo SimpleMemberInvocationStatementInfo(SyntaxNode node, bool allowMissing = false)" />
+          <member def="public static SingleLocalDeclarationStatementInfo SingleLocalDeclarationStatementInfo(ExpressionSyntax value)" />
+          <member def="public static SingleLocalDeclarationStatementInfo SingleLocalDeclarationStatementInfo(LocalDeclarationStatementSyntax localDeclarationStatement, bool allowMissing = false)" />
+          <member def="public static SingleLocalDeclarationStatementInfo SingleLocalDeclarationStatementInfo(VariableDeclarationSyntax variableDeclaration, bool allowMissing = false)" />
+          <member def="public static SingleParameterLambdaExpressionInfo SingleParameterLambdaExpressionInfo(LambdaExpressionSyntax lambdaExpression, bool allowMissing = false)" />
+          <member def="public static SingleParameterLambdaExpressionInfo SingleParameterLambdaExpressionInfo(SyntaxNode node, bool walkDownParentheses = true, bool allowMissing = false)" />
+          <member def="public static StatementListInfo StatementListInfo(StatementSyntax statement)" />
+          <member def="public static StringConcatenationExpressionInfo StringConcatenationExpressionInfo(BinaryExpressionSyntax binaryExpression, SemanticModel semanticModel, CancellationToken cancellationToken = default)" />
+          <member def="public static StringConcatenationExpressionInfo StringConcatenationExpressionInfo(in ExpressionChain expressionChain, SemanticModel semanticModel, CancellationToken cancellationToken = default)" />
+          <member def="public static StringConcatenationExpressionInfo StringConcatenationExpressionInfo(SyntaxNode node, SemanticModel semanticModel, bool walkDownParentheses = true, CancellationToken cancellationToken = default)" />
+          <member def="public static StringLiteralExpressionInfo StringLiteralExpressionInfo(LiteralExpressionSyntax literalExpression)" />
+          <member def="public static StringLiteralExpressionInfo StringLiteralExpressionInfo(SyntaxNode node, bool walkDownParentheses = true)" />
+          <member def="public static UsingDirectiveListInfo UsingDirectiveListInfo(CompilationUnitSyntax compilationUnit)" />
+          <member def="public static UsingDirectiveListInfo UsingDirectiveListInfo(NamespaceDeclarationSyntax declaration)" />
+          <member def="public static UsingDirectiveListInfo UsingDirectiveListInfo(SyntaxNode node)" />
+          <member def="public static XmlElementInfo XmlElementInfo(XmlNodeSyntax xmlNode)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.SyntaxInverter">
+        <members>
+          <member def="public static ExpressionSyntax LogicallyInvert(ExpressionSyntax expression, CancellationToken cancellationToken = default)" />
+          <member def="public static ExpressionSyntax LogicallyInvert(ExpressionSyntax expression, SemanticModel semanticModel, CancellationToken cancellationToken = default)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.WorkspaceExtensions">
+        <members>
+          <member def="public static Task&lt;Document&gt; RemoveCommentsAsync(this Document document, CommentKinds kinds, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemoveCommentsAsync(this Document document, TextSpan span, CommentKinds kinds, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemovePreprocessorDirectivesAsync(this Document document, PreprocessorDirectiveKinds directiveKinds, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemovePreprocessorDirectivesAsync(this Document document, TextSpan span, PreprocessorDirectiveKinds directiveKinds, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemoveRegionAsync(this Document document, RegionInfo region, CancellationToken cancellationToken = default)" />
+          <member def="public static Task&lt;Document&gt; RemoveTriviaAsync(this Document document, TextSpan span, CancellationToken cancellationToken = default)" />
+        </members>
+      </type>
+      <type def="public static class Roslynator.CSharp.WorkspaceSyntaxExtensions">
+        <members>
+          <member def="public static ParenthesizedExpressionSyntax Parenthesize(this ExpressionSyntax expression, bool includeElasticTrivia = true, bool simplifiable = true)" />
+          <member def="public static SyntaxToken WithFormatterAnnotation(this SyntaxToken token)" />
+          <member def="public static TNode WithFormatterAnnotation&lt;TNode&gt;(this TNode node) where TNode : SyntaxNode" />
+          <member def="public static SyntaxToken WithRenameAnnotation(this SyntaxToken token)" />
+          <member def="public static SyntaxToken WithSimplifierAnnotation(this SyntaxToken token)" />
+          <member def="public static TNode WithSimplifierAnnotation&lt;TNode&gt;(this TNode node) where TNode : SyntaxNode" />
+        </members>
+      </type>
+    </type>
+  </types>
+</root>

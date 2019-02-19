@@ -9,15 +9,12 @@ namespace Roslynator.Documentation
 {
     internal sealed class SymbolHierarchy
     {
-        private SymbolHierarchy(SymbolHierarchyItem root, SymbolHierarchyItem staticRoot)
+        private SymbolHierarchy(SymbolHierarchyItem root)
         {
             Root = root;
-            StaticRoot = staticRoot;
         }
 
         public SymbolHierarchyItem Root { get; }
-
-        public SymbolHierarchyItem StaticRoot { get; }
 
         public static SymbolHierarchy Create(
             IEnumerable<IAssemblySymbol> assemblies,
@@ -48,12 +45,11 @@ namespace Roslynator.Documentation
                 throw new InvalidOperationException("Object type not found.");
 
             Dictionary<INamedTypeSymbol, SymbolHierarchyItem> allItems = types
-                .Where(f => !f.IsStatic)
-                .ToDictionary(f => f, f => new  SymbolHierarchyItem(f));
+                .ToDictionary(f => f, f => new SymbolHierarchyItem(f));
 
             allItems[objectType] = new SymbolHierarchyItem(objectType, isExternal: true);
 
-            foreach (INamedTypeSymbol type in types.Where(f => !f.IsStatic))
+            foreach (INamedTypeSymbol type in types)
             {
                 INamedTypeSymbol t = type.BaseType;
 
@@ -68,9 +64,7 @@ namespace Roslynator.Documentation
 
             SymbolHierarchyItem root = FillHierarchyItem(allItems[objectType], null);
 
-            SymbolHierarchyItem staticRoot = GetStaticRoot();
-
-            return new SymbolHierarchy(root, staticRoot);
+            return new SymbolHierarchy(root);
 
             SymbolHierarchyItem FillHierarchyItem(SymbolHierarchyItem item, SymbolHierarchyItem parent)
             {
@@ -82,18 +76,41 @@ namespace Roslynator.Documentation
                     .Select(f => f.Value)
                     .Where(f => f.Symbol.BaseType?.OriginalDefinition == item.Symbol.OriginalDefinition
                         || f.Symbol.Interfaces.Any(i => i.OriginalDefinition == item.Symbol.OriginalDefinition))
-                    .OrderBy(f => f.Symbol, comparer)
                     .ToArray();
 
                 if (derivedTypes.Length > 0)
                 {
-                    SymbolHierarchyItem last = FillHierarchyItem(derivedTypes[derivedTypes.Length - 1], item);
+                    if (item.Symbol.SpecialType == SpecialType.System_Object)
+                    {
+                        Array.Sort(derivedTypes, (x, y) =>
+                        {
+                            if (x.Symbol.IsStatic)
+                            {
+                                if (!y.Symbol.IsStatic)
+                                {
+                                    return -1;
+                                }
+                            }
+                            else if (y.Symbol.IsStatic)
+                            {
+                                return 1;
+                            }
+
+                            return Compare(x, y);
+                        });
+                    }
+                    else
+                    {
+                        Array.Sort(derivedTypes, Compare);
+                    }
+
+                    SymbolHierarchyItem last = FillHierarchyItem(derivedTypes[0], item);
 
                     SymbolHierarchyItem next = last;
 
                     SymbolHierarchyItem child = null;
 
-                    for (int i = derivedTypes.Length - 2; i >= 0; i--)
+                    for (int i = 1; i < derivedTypes.Length; i++)
                     {
                         child = FillHierarchyItem(derivedTypes[i], item);
 
@@ -105,39 +122,6 @@ namespace Roslynator.Documentation
                     last.next = child ?? last;
 
                     item.lastChild = last;
-                }
-
-                return item;
-            }
-
-            SymbolHierarchyItem GetStaticRoot()
-            {
-                var item = new SymbolHierarchyItem(null);
-
-                using (IEnumerator<INamedTypeSymbol> en = types
-                    .Where(f => f.IsStatic)
-                    .OrderByDescending(f => f, comparer)
-                    .GetEnumerator())
-                {
-                    if (en.MoveNext())
-                    {
-                        var last = new SymbolHierarchyItem(en.Current) { Parent = item };
-
-                        SymbolHierarchyItem next = last;
-
-                        SymbolHierarchyItem child = null;
-
-                        while (en.MoveNext())
-                        {
-                            child = new SymbolHierarchyItem(en.Current) { Parent = item, next = next };
-
-                            next = child;
-                        }
-
-                        last.next = child ?? last;
-
-                        item.lastChild = last;
-                    }
                 }
 
                 return item;
@@ -160,6 +144,11 @@ namespace Roslynator.Documentation
                 }
 
                 return null;
+            }
+
+            int Compare(SymbolHierarchyItem x, SymbolHierarchyItem y)
+            {
+                return -comparer.Compare(x.Symbol, y.Symbol);
             }
         }
     }

@@ -1,597 +1,671 @@
-* System\.Object
-* &emsp; System\.Attribute
-* &emsp; \| &emsp; System\.Composition\.ExportAttribute
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.ExportCodeFixProviderAttribute
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeRefactorings\.ExportCodeRefactoringProviderAttribute
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Host\.Mef\.ExportLanguageServiceAttribute
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Host\.Mef\.ExportLanguageServiceFactoryAttribute
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Host\.Mef\.ExportWorkspaceServiceAttribute
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Host\.Mef\.ExportWorkspaceServiceFactoryAttribute
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ExtensionOrderAttribute
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.DiagnosticAnalyzerAttribute
-* &emsp; System\.Delegate
-* &emsp; \| &emsp; System\.MulticastDelegate
-* &emsp; \| &emsp; \| &emsp; System\.Threading\.Tasks\.Task Microsoft\.CodeAnalysis\.Editing\.SymbolEditor\.AsyncDeclarationEditAction\(Microsoft\.CodeAnalysis\.Editing\.DocumentEditor editor, Microsoft\.CodeAnalysis\.SyntaxNode declaration, System\.Threading\.CancellationToken cancellationToken\)
-* &emsp; \| &emsp; \| &emsp; void Microsoft\.CodeAnalysis\.Editing\.SymbolEditor\.DeclarationEditAction\(Microsoft\.CodeAnalysis\.Editing\.DocumentEditor editor, Microsoft\.CodeAnalysis\.SyntaxNode declaration\)
-* &emsp; \| &emsp; \| &emsp; System\.Boolean Microsoft\.CodeAnalysis\.Host\.HostWorkspaceServices\.MetadataFilter\(System\.Collections\.Generic\.IReadOnlyDictionary\<System\.String, System\.Object> metadata\)
-* &emsp; System\.EventArgs
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DocumentActiveContextChangedEventArgs
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DocumentEventArgs
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.WorkspaceChangeEventArgs
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.WorkspaceDiagnosticEventArgs
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerLoadFailureEventArgs
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.TextChangeEventArgs
-* &emsp; System\.ValueType
-* &emsp; \| &emsp; System\.Enum : IComparable, IConvertible, IFormattable
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Accessibility
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ApplyChangesKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.AssemblyIdentityComparer\.ComparisonResult
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.AssemblyIdentityParts
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CandidateReason
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DiagnosticSeverity
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DocumentationMode
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.LineVisibility
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.LocationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.MetadataImageKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.MethodKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.NamespaceKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.OperationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.OptimizationLevel
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.OutputKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Platform
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.PreservationMode
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.RefKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ReportDiagnostic
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SourceCodeKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SpecialType
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SpeculativeBindingOption
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayDelegateStyle
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayExtensionMethodStyle
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayGenericsOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayGlobalNamespaceStyle
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayKindOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayLocalOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayMemberOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayMiscellaneousOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayParameterOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayPartKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayPropertyStyle
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayTypeQualificationStyle
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolFilter
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxRemoveOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxWalkerDepth
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.TypeKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.TypeParameterKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.TypedConstantKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.VarianceKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.WorkspaceChangeKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.WorkspaceDiagnosticKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.LanguageVersion
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.SyntaxKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Formatting\.BinaryOperatorSpacingOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Formatting\.LabelPositionOptions
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNameAttributeElementKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.FixAllScope
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerLoadFailureEventArgs\.FailureErrorCode
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.GeneratedCodeAnalysisFlags
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Differencing\.EditKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Editing\.DeclarationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Editing\.OperatorKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Editing\.SpecialTypeConstraintKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Emit\.DebugInformationFormat
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Emit\.InstrumentationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Emit\.SemanticEditKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Formatting\.FormattingOptions\.IndentStyle
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Rename\.RenameEntityKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.ArgumentKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.BinaryOperandsKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.BinaryOperationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.BranchKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.CaseKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.ConversionKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.InstanceReferenceKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.LoopKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.SimpleBinaryOperationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.SimpleUnaryOperationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.SyntheticLocalKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.UnaryOperandKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.UnaryOperationKind
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.SourceHashAlgorithm
-* &emsp; \| &emsp; \| &emsp; Roslynator\.Visibility
-* &emsp; \| &emsp; \| &emsp; Roslynator\.CSharp\.CommentKinds
-* &emsp; \| &emsp; \| &emsp; Roslynator\.CSharp\.ModifierKinds
-* &emsp; \| &emsp; \| &emsp; Roslynator\.CSharp\.NullCheckStyles
-* &emsp; \| &emsp; \| &emsp; Roslynator\.CSharp\.PreprocessorDirectiveKinds
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ChildSyntaxList : IEnumerable\<SyntaxNodeOrToken>, IEquatable\<ChildSyntaxList>, IReadOnlyCollection\<SyntaxNodeOrToken>, IReadOnlyList\<SyntaxNodeOrToken>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ChildSyntaxList\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ChildSyntaxList\.Reversed : IEnumerable\<SyntaxNodeOrToken>, IEquatable\<ChildSyntaxList\.Reversed>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ChildSyntaxList\.Reversed\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CommandLineAnalyzerReference : IEquatable\<CommandLineAnalyzerReference>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CommandLineReference : IEquatable\<CommandLineReference>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CommandLineSourceFile
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.FileLinePositionSpan : IEquatable\<FileLinePositionSpan>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.MetadataReferenceProperties : IEquatable\<MetadataReferenceProperties>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Optional\<T>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.PreprocessingSymbolInfo : IEquatable\<PreprocessingSymbolInfo>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ProjectChanges
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SeparatedSyntaxList\<TNode> : IEnumerable\<TNode>, IEquatable\<SeparatedSyntaxList\<TNode>>, IReadOnlyCollection\<TNode>, IReadOnlyList\<TNode>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SeparatedSyntaxList\<TNode>\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SolutionChanges
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SubsystemVersion : IEquatable\<SubsystemVersion>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayPart
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SymbolInfo : IEquatable\<SymbolInfo>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxList\<TNode> : IEnumerable\<TNode>, IEquatable\<SyntaxList\<TNode>>, IReadOnlyCollection\<TNode>, IReadOnlyList\<TNode>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxList\<TNode>\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxNodeOrToken : IEquatable\<SyntaxNodeOrToken>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxNodeOrTokenList : IEnumerable\<SyntaxNodeOrToken>, IEquatable\<SyntaxNodeOrTokenList>, IReadOnlyCollection\<SyntaxNodeOrToken>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxNodeOrTokenList\.Enumerator : IDisposable, IEnumerator, IEnumerator\<SyntaxNodeOrToken>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxToken : IEquatable\<SyntaxToken>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTokenList : IEnumerable\<SyntaxToken>, IEquatable\<SyntaxTokenList>, IReadOnlyCollection\<SyntaxToken>, IReadOnlyList\<SyntaxToken>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTokenList\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTokenList\.Reversed : IEnumerable\<SyntaxToken>, IEquatable\<SyntaxTokenList\.Reversed>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTokenList\.Reversed\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTrivia : IEquatable\<SyntaxTrivia>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTriviaList : IEnumerable\<SyntaxTrivia>, IEquatable\<SyntaxTriviaList>, IReadOnlyCollection\<SyntaxTrivia>, IReadOnlyList\<SyntaxTrivia>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTriviaList\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTriviaList\.Reversed : IEnumerable\<SyntaxTrivia>, IEquatable\<SyntaxTriviaList\.Reversed>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SyntaxTriviaList\.Reversed\.Enumerator
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.TypeInfo : IEquatable\<TypeInfo>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.TypedConstant : IEquatable\<TypedConstant>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.VersionStamp : IEquatable\<VersionStamp>, IObjectWritable
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.AwaitExpressionInfo : IEquatable\<AwaitExpressionInfo>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Conversion : IEquatable\<Conversion>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.ForEachStatementInfo : IEquatable\<ForEachStatementInfo>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.QueryClauseInfo : IEquatable\<QueryClauseInfo>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Classification\.ClassifiedSpan : IEquatable\<ClassifiedSpan>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.CodeFixContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeRefactorings\.CodeRefactoringContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.CodeBlockAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.CompilationAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.OperationAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.OperationBlockAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SemanticModelAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SymbolAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SyntaxNodeAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SyntaxTreeAnalysisContext
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Differencing\.Edit\<TNode> : IEquatable\<Edit\<TNode>>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Editing\.DeclarationModifiers : IEquatable\<DeclarationModifiers>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Emit\.EditAndContinueMethodDebugInformation
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Emit\.SemanticEdit : IEquatable\<SemanticEdit>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.FindSymbols\.ReferenceLocation : IComparable\<ReferenceLocation>, IEquatable\<ReferenceLocation>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.FindSymbols\.SymbolCallerInfo
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Options\.OptionKey : IEquatable\<OptionKey>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.LinePosition : IComparable\<LinePosition>, IEquatable\<LinePosition>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.LinePositionSpan : IEquatable\<LinePositionSpan>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.TextChange : IEquatable\<TextChange>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.TextChangeRange : IEquatable\<TextChangeRange>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.TextLine : IEquatable\<TextLine>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.TextLineCollection\.Enumerator : IDisposable, IEnumerator, IEnumerator\<TextLine>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Text\.TextSpan : IComparable\<TextSpan>, IEquatable\<TextSpan>
-* &emsp; \| &emsp; Roslynator\.ExtensionMethodSymbolInfo : IEquatable\<ExtensionMethodSymbolInfo>
-* &emsp; \| &emsp; Roslynator\.MetadataName : IEquatable\<MetadataName>
-* &emsp; \| &emsp; Roslynator\.SeparatedSyntaxListSelection\<TNode>\.Enumerator
-* &emsp; \| &emsp; Roslynator\.SyntaxListSelection\<TNode>\.Enumerator
-* &emsp; \| &emsp; Roslynator\.CSharp\.ExpressionChain : IEnumerable\<ExpressionSyntax>, IEquatable\<ExpressionChain>
-* &emsp; \| &emsp; Roslynator\.CSharp\.ExpressionChain\.Enumerator
-* &emsp; \| &emsp; Roslynator\.CSharp\.ExpressionChain\.Reversed : IEnumerable\<ExpressionSyntax>, IEquatable\<ExpressionChain\.Reversed>
-* &emsp; \| &emsp; Roslynator\.CSharp\.ExpressionChain\.Reversed\.Enumerator
-* &emsp; \| &emsp; Roslynator\.CSharp\.IfStatementCascade : IEnumerable\<IfStatementOrElseClause>, IEquatable\<IfStatementCascade>
-* &emsp; \| &emsp; Roslynator\.CSharp\.IfStatementCascade\.Enumerator
-* &emsp; \| &emsp; Roslynator\.CSharp\.IfStatementCascadeInfo : IEquatable\<IfStatementCascadeInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.IfStatementOrElseClause : IEquatable\<IfStatementOrElseClause>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.AsExpressionInfo : IEquatable\<AsExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.AssignmentExpressionInfo : IEquatable\<AssignmentExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.BinaryExpressionInfo : IEquatable\<BinaryExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.ConditionalExpressionInfo : IEquatable\<ConditionalExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.GenericInfo : IEquatable\<GenericInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.IsExpressionInfo : IEquatable\<IsExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.LocalDeclarationStatementInfo : IEquatable\<LocalDeclarationStatementInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.MemberDeclarationListInfo : IEquatable\<MemberDeclarationListInfo>, IReadOnlyList\<MemberDeclarationSyntax>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.ModifierListInfo : IEquatable\<ModifierListInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.NullCheckExpressionInfo : IEquatable\<NullCheckExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.RegionInfo : IEquatable\<RegionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SimpleAssignmentExpressionInfo : IEquatable\<SimpleAssignmentExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SimpleAssignmentStatementInfo : IEquatable\<SimpleAssignmentStatementInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SimpleIfElseInfo : IEquatable\<SimpleIfElseInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SimpleIfStatementInfo : IEquatable\<SimpleIfStatementInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SimpleMemberInvocationExpressionInfo : IEquatable\<SimpleMemberInvocationExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SimpleMemberInvocationStatementInfo : IEquatable\<SimpleMemberInvocationStatementInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SingleLocalDeclarationStatementInfo : IEquatable\<SingleLocalDeclarationStatementInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.SingleParameterLambdaExpressionInfo : IEquatable\<SingleParameterLambdaExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.StatementListInfo : IEquatable\<StatementListInfo>, IReadOnlyList\<StatementSyntax>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.StringConcatenationExpressionInfo : IEquatable\<StringConcatenationExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.StringLiteralExpressionInfo : IEquatable\<StringLiteralExpressionInfo>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.UsingDirectiveListInfo : IEquatable\<UsingDirectiveListInfo>, IReadOnlyList\<UsingDirectiveSyntax>
-* &emsp; \| &emsp; Roslynator\.CSharp\.Syntax\.XmlElementInfo : IEquatable\<XmlElementInfo>
-* &emsp; \| &emsp; Roslynator\.Text\.TextLineCollectionSelection\.Enumerator
-* &emsp; System\.Collections\.Generic\.EqualityComparer\<T> : IEqualityComparer, IEqualityComparer\<T>
-* &emsp; \| &emsp; Roslynator\.MetadataNameEqualityComparer\<TSymbol>
-* &emsp; Microsoft\.CodeAnalysis\.AdditionalText
-* &emsp; Microsoft\.CodeAnalysis\.AssemblyIdentity : IEquatable\<AssemblyIdentity>
-* &emsp; Microsoft\.CodeAnalysis\.AssemblyIdentityComparer
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DesktopAssemblyIdentityComparer
-* &emsp; Microsoft\.CodeAnalysis\.AttributeData
-* &emsp; Microsoft\.CodeAnalysis\.CommandLineArguments
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpCommandLineArguments
-* &emsp; Microsoft\.CodeAnalysis\.CommandLineParser
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpCommandLineParser
-* &emsp; Microsoft\.CodeAnalysis\.Compilation
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpCompilation
-* &emsp; Microsoft\.CodeAnalysis\.CompilationOptions
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpCompilationOptions : IEquatable\<CSharpCompilationOptions>
-* &emsp; Microsoft\.CodeAnalysis\.ControlFlowAnalysis
-* &emsp; Microsoft\.CodeAnalysis\.CustomModifier : ICustomModifier
-* &emsp; Microsoft\.CodeAnalysis\.DataFlowAnalysis
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostic : IEquatable\<Diagnostic>, IFormattable
-* &emsp; Microsoft\.CodeAnalysis\.DiagnosticDescriptor : IEquatable\<DiagnosticDescriptor>
-* &emsp; Microsoft\.CodeAnalysis\.DiagnosticFormatter
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpDiagnosticFormatter
-* &emsp; Microsoft\.CodeAnalysis\.DllImportData : IPlatformInvokeInformation
-* &emsp; Microsoft\.CodeAnalysis\.DocumentId : IEquatable\<DocumentId>, IObjectWritable
-* &emsp; Microsoft\.CodeAnalysis\.DocumentInfo
-* &emsp; Microsoft\.CodeAnalysis\.DocumentationProvider
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.XmlDocumentationProvider
-* &emsp; Microsoft\.CodeAnalysis\.EmbeddedText
-* &emsp; Microsoft\.CodeAnalysis\.LocalizableString : IEquatable\<LocalizableString>, IFormattable
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.LocalizableResourceString : IObjectWritable
-* &emsp; Microsoft\.CodeAnalysis\.Location
-* &emsp; Microsoft\.CodeAnalysis\.Metadata : IDisposable
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.AssemblyMetadata
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ModuleMetadata
-* &emsp; Microsoft\.CodeAnalysis\.MetadataId
-* &emsp; Microsoft\.CodeAnalysis\.MetadataReference
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CompilationReference : IEquatable\<CompilationReference>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.PortableExecutableReference
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.UnresolvedMetadataReference
-* &emsp; Microsoft\.CodeAnalysis\.MetadataReferenceResolver
-* &emsp; Microsoft\.CodeAnalysis\.ParseOptions
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpParseOptions : IEquatable\<CSharpParseOptions>
-* &emsp; Microsoft\.CodeAnalysis\.Project
-* &emsp; Microsoft\.CodeAnalysis\.ProjectDependencyGraph
-* &emsp; Microsoft\.CodeAnalysis\.ProjectId : IEquatable\<ProjectId>, IObjectWritable
-* &emsp; Microsoft\.CodeAnalysis\.ProjectInfo
-* &emsp; Microsoft\.CodeAnalysis\.ProjectReference : IEquatable\<ProjectReference>
-* &emsp; Microsoft\.CodeAnalysis\.ResourceDescription : IFileReference
-* &emsp; Microsoft\.CodeAnalysis\.RuleSet
-* &emsp; Microsoft\.CodeAnalysis\.RuleSetInclude
-* &emsp; Microsoft\.CodeAnalysis\.ScriptCompilationInfo
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpScriptCompilationInfo
-* &emsp; Microsoft\.CodeAnalysis\.SemanticModel
-* &emsp; Microsoft\.CodeAnalysis\.Solution
-* &emsp; Microsoft\.CodeAnalysis\.SolutionId : IEquatable\<SolutionId>, IObjectWritable
-* &emsp; Microsoft\.CodeAnalysis\.SolutionInfo
-* &emsp; Microsoft\.CodeAnalysis\.SourceReferenceResolver
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.SourceFileResolver : IEquatable\<SourceFileResolver>
-* &emsp; Microsoft\.CodeAnalysis\.StrongNameProvider
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DesktopStrongNameProvider
-* &emsp; Microsoft\.CodeAnalysis\.SymbolDisplayFormat
-* &emsp; Microsoft\.CodeAnalysis\.SymbolVisitor
-* &emsp; Microsoft\.CodeAnalysis\.SymbolVisitor\<TResult>
-* &emsp; Microsoft\.CodeAnalysis\.SyntaxAnnotation : IEquatable\<SyntaxAnnotation>, IObjectWritable
-* &emsp; Microsoft\.CodeAnalysis\.SyntaxNode
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxNode : IMessageSerializable
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AccessorDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AccessorListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousObjectMemberDeclaratorSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArgumentSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrayRankSpecifierSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrowExpressionClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeArgumentListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeArgumentSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeTargetSpecifierSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseArgumentListSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArgumentListSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BracketedArgumentListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseCrefParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefBracketedParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BracketedParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseTypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SimpleBaseTypeSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CatchClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CatchDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CatchFilterClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CompilationUnitSyntax : ICompilationUnitSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstructorInitializerSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefParameterSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberCrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConversionOperatorMemberCrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IndexerMemberCrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameMemberCrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OperatorMemberCrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QualifiedCrefSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeCrefSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElseClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EqualsValueClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExplicitInterfaceSpecifierSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousFunctionExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousMethodExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LambdaExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParenthesizedLambdaExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SimpleLambdaExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousObjectCreationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrayCreationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AssignmentExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AwaitExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BinaryExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CastExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CheckedExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConditionalAccessExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConditionalExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DeclarationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DefaultExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElementAccessExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElementBindingExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ImplicitArrayCreationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ImplicitElementAccessSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InitializerExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InstanceExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ThisExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolatedStringExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InvocationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IsPatternExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LiteralExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MakeRefExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberAccessExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberBindingExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ObjectCreationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OmittedArraySizeExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParenthesizedExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PostfixUnaryExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PrefixUnaryExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefTypeExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefValueExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SizeOfExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StackAllocArrayCreationExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ThrowExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TupleExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeOfExpressionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrayTypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AliasQualifiedNameSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QualifiedNameSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SimpleNameSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GenericNameSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IdentifierNameSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NullableTypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OmittedTypeArgumentSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PointerTypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PredefinedTypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefTypeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TupleTypeSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExternAliasDirectiveSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FinallyClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolatedStringContentSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolatedStringTextSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolationAlignmentClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolationFormatClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.JoinIntoClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseFieldDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EventFieldDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FieldDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseMethodDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstructorDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConversionOperatorDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DestructorDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MethodDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OperatorDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BasePropertyDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EventDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IndexerDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PropertyDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseTypeDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EnumDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ClassDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterfaceDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StructDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DelegateDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EnumMemberDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GlobalStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IncompleteMemberSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NamespaceDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameColonSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameEqualsSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OrderingSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParameterSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PatternSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstantPatternSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DeclarationPatternSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryBodySyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FromClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.JoinClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LetClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OrderByClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WhereClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryContinuationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SelectOrGroupClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GroupClauseSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SelectClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BlockSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BreakStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CheckedStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CommonForEachStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ForEachStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ForEachVariableStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ContinueStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DoStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EmptyStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExpressionStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FixedStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ForStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GotoStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IfStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LabeledStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LocalDeclarationStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LocalFunctionStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LockStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ReturnStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SwitchStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ThrowStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TryStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UnsafeStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UsingStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WhileStatementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.YieldStatementSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StructuredTriviaSyntax : IStructuredTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BadDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BranchingDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConditionalDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElifDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IfDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElseDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DefineDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EndIfDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EndRegionDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ErrorDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LineDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LoadDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PragmaChecksumDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PragmaWarningDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ReferenceDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RegionDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ShebangDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UndefDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WarningDirectiveTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DocumentationCommentTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SkippedTokensTriviaSyntax : ISkippedTokensTriviaSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SwitchLabelSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CasePatternSwitchLabelSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CaseSwitchLabelSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DefaultSwitchLabelSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SwitchSectionSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TupleElementSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeArgumentListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterConstraintClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterConstraintSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ClassOrStructConstraintSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstructorConstraintSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeConstraintSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterListSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UsingDirectiveSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.VariableDeclarationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.VariableDeclaratorSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.VariableDesignationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DiscardDesignationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParenthesizedVariableDesignationSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SingleVariableDesignationSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WhenClauseSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlAttributeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlCrefAttributeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNameAttributeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlTextAttributeSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlElementEndTagSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlElementStartTagSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNameSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNodeSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlCDataSectionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlCommentSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlElementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlEmptyElementSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlProcessingInstructionSyntax
-* &emsp; \| &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlTextSyntax
-* &emsp; \| &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlPrefixSyntax
-* &emsp; Microsoft\.CodeAnalysis\.SyntaxReference
-* &emsp; Microsoft\.CodeAnalysis\.SyntaxTree
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxTree
-* &emsp; Microsoft\.CodeAnalysis\.SyntaxWalker
-* &emsp; Microsoft\.CodeAnalysis\.TextAndVersion
-* &emsp; Microsoft\.CodeAnalysis\.TextDocument
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Document
-* &emsp; Microsoft\.CodeAnalysis\.TextLoader
-* &emsp; Microsoft\.CodeAnalysis\.Workspace : IDisposable
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.AdhocWorkspace
-* &emsp; Microsoft\.CodeAnalysis\.WorkspaceDiagnostic
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.DocumentDiagnostic
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.ProjectDiagnostic
-* &emsp; Microsoft\.CodeAnalysis\.WorkspaceRegistration
-* &emsp; Microsoft\.CodeAnalysis\.XmlReferenceResolver
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.XmlFileResolver
-* &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxVisitor
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxWalker
-* &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxVisitor\<TResult>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxRewriter
-* &emsp; Microsoft\.CodeAnalysis\.CodeActions\.CodeAction
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeActions\.CodeActionWithOptions
-* &emsp; Microsoft\.CodeAnalysis\.CodeActions\.CodeActionOperation
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeActions\.ApplyChangesOperation
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeActions\.OpenDocumentOperation
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.CodeActions\.PreviewOperation
-* &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.CodeFixProvider
-* &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.FixAllContext
-* &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.FixAllContext\.DiagnosticProvider
-* &emsp; Microsoft\.CodeAnalysis\.CodeFixes\.FixAllProvider
-* &emsp; Microsoft\.CodeAnalysis\.CodeRefactorings\.CodeRefactoringProvider
-* &emsp; Microsoft\.CodeAnalysis\.CodeStyle\.CodeStyleOption\<T> : ICodeStyleOption, IEquatable\<CodeStyleOption\<T>>
-* &emsp; Microsoft\.CodeAnalysis\.CodeStyle\.CodeStyleOptions
-* &emsp; Microsoft\.CodeAnalysis\.CodeStyle\.NotificationOption
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalysisContext
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalysisResult
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerOptions
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerReference
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerFileReference : IEquatable\<AnalyzerReference>
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerImageReference
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.UnresolvedAnalyzerReference
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.CodeBlockStartAnalysisContext\<TLanguageKindEnum>
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.CompilationStartAnalysisContext
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.CompilationWithAnalyzers
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.CompilationWithAnalyzersOptions
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.DiagnosticAnalyzer
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.OperationBlockStartAnalysisContext
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SourceTextValueProvider\<TValue>
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SuppressionInfo
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.SyntaxTreeValueProvider\<TValue>
-* &emsp; Microsoft\.CodeAnalysis\.Diagnostics\.Telemetry\.AnalyzerTelemetryInfo
-* &emsp; Microsoft\.CodeAnalysis\.Differencing\.EditScript\<TNode>
-* &emsp; Microsoft\.CodeAnalysis\.Differencing\.Match\<TNode>
-* &emsp; Microsoft\.CodeAnalysis\.Differencing\.TreeComparer\<TNode>
-* &emsp; Microsoft\.CodeAnalysis\.Editing\.SolutionEditor
-* &emsp; Microsoft\.CodeAnalysis\.Editing\.SymbolEditor
-* &emsp; Microsoft\.CodeAnalysis\.Editing\.SyntaxEditor
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Editing\.DocumentEditor
-* &emsp; Microsoft\.CodeAnalysis\.Editing\.SyntaxGenerator : ILanguageService
-* &emsp; Microsoft\.CodeAnalysis\.Emit\.EmitBaseline
-* &emsp; Microsoft\.CodeAnalysis\.Emit\.EmitOptions : IEquatable\<EmitOptions>
-* &emsp; Microsoft\.CodeAnalysis\.Emit\.EmitResult
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Emit\.EmitDifferenceResult
-* &emsp; Microsoft\.CodeAnalysis\.FindSymbols\.ReferencedSymbol
-* &emsp; Microsoft\.CodeAnalysis\.Host\.HostLanguageServices
-* &emsp; Microsoft\.CodeAnalysis\.Host\.HostServices
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Host\.Mef\.MefHostServices : IMefHostExportProvider
-* &emsp; Microsoft\.CodeAnalysis\.Host\.HostWorkspaceServices
-* &emsp; Microsoft\.CodeAnalysis\.Options\.Option\<T> : IOption
-* &emsp; Microsoft\.CodeAnalysis\.Options\.OptionSet
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Options\.DocumentOptionSet
-* &emsp; Microsoft\.CodeAnalysis\.Options\.OptionStorageLocation
-* &emsp; Microsoft\.CodeAnalysis\.Options\.PerLanguageOption\<T> : IOption
-* &emsp; Microsoft\.CodeAnalysis\.Semantics\.OperationVisitor
-* &emsp; \| &emsp; Microsoft\.CodeAnalysis\.Semantics\.OperationWalker
-* &emsp; Microsoft\.CodeAnalysis\.Semantics\.OperationVisitor\<TArgument, TResult>
-* &emsp; Microsoft\.CodeAnalysis\.Text\.SourceText
-* &emsp; Microsoft\.CodeAnalysis\.Text\.SourceTextContainer
-* &emsp; Microsoft\.CodeAnalysis\.Text\.TextLineCollection : IEnumerable\<TextLine>, IReadOnlyCollection\<TextLine>, IReadOnlyList\<TextLine>
-* &emsp; Roslynator\.NameGenerator
-* &emsp; Roslynator\.SeparatedSyntaxListSelection\<TNode> : ISelection\<TNode>
-* &emsp; Roslynator\.SyntaxListSelection\<TNode> : ISelection\<TNode>
-* &emsp; \| &emsp; Roslynator\.CSharp\.MemberDeclarationListSelection
-* &emsp; \| &emsp; Roslynator\.CSharp\.StatementListSelection
-* &emsp; Roslynator\.CSharp\.ModifierList\<TNode>
-* &emsp; Roslynator\.Text\.TextLineCollectionSelection : ISelection\<TextLine>
+* assembly Microsoft\.CodeAnalysis, Version=2\.3\.0\.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+* assembly Microsoft\.CodeAnalysis\.CSharp, Version=2\.3\.0\.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+* assembly Microsoft\.CodeAnalysis\.CSharp\.Workspaces, Version=2\.3\.0\.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+* assembly Microsoft\.CodeAnalysis\.Workspaces, Version=2\.3\.0\.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+* assembly Roslynator\.Core, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=3aeedfaf14b2cebf
+* assembly Roslynator\.CSharp, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=390be46f77b79f52
+* assembly Roslynator\.CSharp\.Workspaces, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=ec3f0c29a7973f23
+* assembly Roslynator\.Workspaces\.Core, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=be1ec334fe31b7bb
+* public class System\.Object
+* &emsp; public abstract class System\.Attribute
+* &emsp; \| &emsp; public class System\.Composition\.ExportAttribute : Attribute
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CodeFixes\.ExportCodeFixProviderAttribute : ExportAttribute
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CodeRefactorings\.ExportCodeRefactoringProviderAttribute : ExportAttribute
+* &emsp; \| &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Host\.Mef\.ExportLanguageServiceAttribute : ExportAttribute
+* &emsp; \| &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Host\.Mef\.ExportLanguageServiceFactoryAttribute : ExportAttribute
+* &emsp; \| &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Host\.Mef\.ExportWorkspaceServiceAttribute : ExportAttribute
+* &emsp; \| &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Host\.Mef\.ExportWorkspaceServiceFactoryAttribute : ExportAttribute
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.ExtensionOrderAttribute : Attribute
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.DiagnosticAnalyzerAttribute : Attribute
+* &emsp; public abstract class System\.Delegate
+* &emsp; \| &emsp; public abstract class System\.MulticastDelegate : Delegate
+* &emsp; \| &emsp; \| &emsp; public delegate System\.Threading\.Tasks\.Task Microsoft\.CodeAnalysis\.Editing\.SymbolEditor\.AsyncDeclarationEditAction\(Microsoft\.CodeAnalysis\.Editing\.DocumentEditor editor, Microsoft\.CodeAnalysis\.SyntaxNode declaration, System\.Threading\.CancellationToken cancellationToken\)
+* &emsp; \| &emsp; \| &emsp; public delegate void Microsoft\.CodeAnalysis\.Editing\.SymbolEditor\.DeclarationEditAction\(Microsoft\.CodeAnalysis\.Editing\.DocumentEditor editor, Microsoft\.CodeAnalysis\.SyntaxNode declaration\)
+* &emsp; \| &emsp; \| &emsp; public delegate System\.Boolean Microsoft\.CodeAnalysis\.Host\.HostWorkspaceServices\.MetadataFilter\(System\.Collections\.Generic\.IReadOnlyDictionary\<System\.String, System\.Object> metadata\)
+* &emsp; public class System\.EventArgs
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.DocumentActiveContextChangedEventArgs : EventArgs
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.DocumentEventArgs : EventArgs
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.WorkspaceChangeEventArgs : EventArgs
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.WorkspaceDiagnosticEventArgs : EventArgs
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerLoadFailureEventArgs : EventArgs
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Text\.TextChangeEventArgs : EventArgs
+* &emsp; public abstract class System\.ValueType
+* &emsp; \| &emsp; public abstract class System\.Enum : ValueType, IComparable, IConvertible, IFormattable
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Accessibility
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.ApplyChangesKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.AssemblyIdentityComparer\.ComparisonResult
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.AssemblyIdentityParts
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CandidateReason
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.DiagnosticSeverity
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.DocumentationMode
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.LineVisibility
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.LocationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.MetadataImageKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.MethodKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.NamespaceKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.OperationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.OptimizationLevel
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.OutputKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Platform
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.PreservationMode
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.RefKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.ReportDiagnostic
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SourceCodeKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SpecialType
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SpeculativeBindingOption
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayDelegateStyle
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayExtensionMethodStyle
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayGenericsOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayGlobalNamespaceStyle
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayKindOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayLocalOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayMemberOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayMiscellaneousOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayParameterOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayPartKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayPropertyStyle
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolDisplayTypeQualificationStyle
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolFilter
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SymbolKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SyntaxRemoveOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.SyntaxWalkerDepth
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.TypeKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.TypeParameterKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.TypedConstantKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.VarianceKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.WorkspaceChangeKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.WorkspaceDiagnosticKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CSharp\.LanguageVersion
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CSharp\.SyntaxKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CSharp\.Formatting\.BinaryOperatorSpacingOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CSharp\.Formatting\.LabelPositionOptions
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNameAttributeElementKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.CodeFixes\.FixAllScope
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerLoadFailureEventArgs\.FailureErrorCode
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Diagnostics\.GeneratedCodeAnalysisFlags
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Differencing\.EditKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Editing\.DeclarationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Editing\.OperatorKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Editing\.SpecialTypeConstraintKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Emit\.DebugInformationFormat
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Emit\.InstrumentationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Emit\.SemanticEditKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Formatting\.FormattingOptions\.IndentStyle
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Rename\.RenameEntityKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.ArgumentKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.BinaryOperandsKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.BinaryOperationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.BranchKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.CaseKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.ConversionKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.InstanceReferenceKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.LoopKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.SimpleBinaryOperationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.SimpleUnaryOperationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.SyntheticLocalKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.UnaryOperandKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Semantics\.UnaryOperationKind
+* &emsp; \| &emsp; \| &emsp; public enum Microsoft\.CodeAnalysis\.Text\.SourceHashAlgorithm
+* &emsp; \| &emsp; \| &emsp; public enum Roslynator\.Visibility
+* &emsp; \| &emsp; \| &emsp; public enum Roslynator\.CSharp\.CommentKinds
+* &emsp; \| &emsp; \| &emsp; public enum Roslynator\.CSharp\.ModifierKinds
+* &emsp; \| &emsp; \| &emsp; public enum Roslynator\.CSharp\.NullCheckStyles
+* &emsp; \| &emsp; \| &emsp; public enum Roslynator\.CSharp\.PreprocessorDirectiveKinds
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.ChildSyntaxList : IEnumerable\<SyntaxNodeOrToken>, IEquatable\<ChildSyntaxList>, IReadOnlyCollection\<SyntaxNodeOrToken>, IReadOnlyList\<SyntaxNodeOrToken>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.ChildSyntaxList\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.ChildSyntaxList\.Reversed : IEnumerable\<SyntaxNodeOrToken>, IEquatable\<ChildSyntaxList\.Reversed>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.ChildSyntaxList\.Reversed\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CommandLineAnalyzerReference : IEquatable\<CommandLineAnalyzerReference>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CommandLineReference : IEquatable\<CommandLineReference>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CommandLineSourceFile
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.FileLinePositionSpan : IEquatable\<FileLinePositionSpan>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.MetadataReferenceProperties : IEquatable\<MetadataReferenceProperties>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Optional\<T>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.PreprocessingSymbolInfo : IEquatable\<PreprocessingSymbolInfo>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.ProjectChanges
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SeparatedSyntaxList\<TNode> : IEnumerable\<TNode>, IEquatable\<SeparatedSyntaxList\<TNode>>, IReadOnlyCollection\<TNode>, IReadOnlyList\<TNode> where TNode : Microsoft\.CodeAnalysis\.SyntaxNode
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SeparatedSyntaxList\<TNode>\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SolutionChanges
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SubsystemVersion : IEquatable\<SubsystemVersion>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SymbolDisplayPart
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SymbolInfo : IEquatable\<SymbolInfo>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxList\<TNode> : IEnumerable\<TNode>, IEquatable\<SyntaxList\<TNode>>, IReadOnlyCollection\<TNode>, IReadOnlyList\<TNode> where TNode : Microsoft\.CodeAnalysis\.SyntaxNode
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxList\<TNode>\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxNodeOrToken : IEquatable\<SyntaxNodeOrToken>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxNodeOrTokenList : IEnumerable\<SyntaxNodeOrToken>, IEquatable\<SyntaxNodeOrTokenList>, IReadOnlyCollection\<SyntaxNodeOrToken>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxNodeOrTokenList\.Enumerator : IDisposable, IEnumerator, IEnumerator\<SyntaxNodeOrToken>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxToken : IEquatable\<SyntaxToken>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTokenList : IEnumerable\<SyntaxToken>, IEquatable\<SyntaxTokenList>, IReadOnlyCollection\<SyntaxToken>, IReadOnlyList\<SyntaxToken>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTokenList\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTokenList\.Reversed : IEnumerable\<SyntaxToken>, IEquatable\<SyntaxTokenList\.Reversed>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTokenList\.Reversed\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTrivia : IEquatable\<SyntaxTrivia>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTriviaList : IEnumerable\<SyntaxTrivia>, IEquatable\<SyntaxTriviaList>, IReadOnlyCollection\<SyntaxTrivia>, IReadOnlyList\<SyntaxTrivia>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTriviaList\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTriviaList\.Reversed : IEnumerable\<SyntaxTrivia>, IEquatable\<SyntaxTriviaList\.Reversed>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.SyntaxTriviaList\.Reversed\.Enumerator
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.TypeInfo : IEquatable\<TypeInfo>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.TypedConstant : IEquatable\<TypedConstant>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.VersionStamp : IEquatable\<VersionStamp>, IObjectWritable
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CSharp\.AwaitExpressionInfo : IEquatable\<AwaitExpressionInfo>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CSharp\.Conversion : IEquatable\<Conversion>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CSharp\.ForEachStatementInfo : IEquatable\<ForEachStatementInfo>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CSharp\.QueryClauseInfo : IEquatable\<QueryClauseInfo>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Classification\.ClassifiedSpan : IEquatable\<ClassifiedSpan>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CodeFixes\.CodeFixContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.CodeRefactorings\.CodeRefactoringContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.CodeBlockAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.CompilationAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.OperationAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.OperationBlockAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.SemanticModelAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.SymbolAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.SyntaxNodeAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Diagnostics\.SyntaxTreeAnalysisContext
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Differencing\.Edit\<TNode> : IEquatable\<Edit\<TNode>>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Editing\.DeclarationModifiers : IEquatable\<DeclarationModifiers>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Emit\.EditAndContinueMethodDebugInformation
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Emit\.SemanticEdit : IEquatable\<SemanticEdit>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.FindSymbols\.ReferenceLocation : IComparable\<ReferenceLocation>, IEquatable\<ReferenceLocation>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.FindSymbols\.SymbolCallerInfo
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Options\.OptionKey : IEquatable\<OptionKey>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.LinePosition : IComparable\<LinePosition>, IEquatable\<LinePosition>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.LinePositionSpan : IEquatable\<LinePositionSpan>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.TextChange : IEquatable\<TextChange>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.TextChangeRange : IEquatable\<TextChangeRange>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.TextLine : IEquatable\<TextLine>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.TextLineCollection\.Enumerator : IDisposable, IEnumerator, IEnumerator\<TextLine>
+* &emsp; \| &emsp; public struct Microsoft\.CodeAnalysis\.Text\.TextSpan : IComparable\<TextSpan>, IEquatable\<TextSpan>
+* &emsp; \| &emsp; public readonly struct Roslynator\.ExtensionMethodSymbolInfo : IEquatable\<ExtensionMethodSymbolInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.MetadataName : IEquatable\<MetadataName>
+* &emsp; \| &emsp; public struct Roslynator\.SeparatedSyntaxListSelection\<TNode>\.Enumerator
+* &emsp; \| &emsp; public struct Roslynator\.SyntaxListSelection\<TNode>\.Enumerator
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.ExpressionChain : IEnumerable\<ExpressionSyntax>, IEquatable\<ExpressionChain>
+* &emsp; \| &emsp; public struct Roslynator\.CSharp\.ExpressionChain\.Enumerator
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.ExpressionChain\.Reversed : IEnumerable\<ExpressionSyntax>, IEquatable\<ExpressionChain\.Reversed>
+* &emsp; \| &emsp; public struct Roslynator\.CSharp\.ExpressionChain\.Reversed\.Enumerator
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.IfStatementCascade : IEnumerable\<IfStatementOrElseClause>, IEquatable\<IfStatementCascade>
+* &emsp; \| &emsp; public struct Roslynator\.CSharp\.IfStatementCascade\.Enumerator
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.IfStatementCascadeInfo : IEquatable\<IfStatementCascadeInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.IfStatementOrElseClause : IEquatable\<IfStatementOrElseClause>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.AsExpressionInfo : IEquatable\<AsExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.AssignmentExpressionInfo : IEquatable\<AssignmentExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.BinaryExpressionInfo : IEquatable\<BinaryExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.ConditionalExpressionInfo : IEquatable\<ConditionalExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.GenericInfo : IEquatable\<GenericInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.IsExpressionInfo : IEquatable\<IsExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.LocalDeclarationStatementInfo : IEquatable\<LocalDeclarationStatementInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.MemberDeclarationListInfo : IEquatable\<MemberDeclarationListInfo>, IReadOnlyList\<MemberDeclarationSyntax>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.ModifierListInfo : IEquatable\<ModifierListInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.NullCheckExpressionInfo : IEquatable\<NullCheckExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.RegionInfo : IEquatable\<RegionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SimpleAssignmentExpressionInfo : IEquatable\<SimpleAssignmentExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SimpleAssignmentStatementInfo : IEquatable\<SimpleAssignmentStatementInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SimpleIfElseInfo : IEquatable\<SimpleIfElseInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SimpleIfStatementInfo : IEquatable\<SimpleIfStatementInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SimpleMemberInvocationExpressionInfo : IEquatable\<SimpleMemberInvocationExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SimpleMemberInvocationStatementInfo : IEquatable\<SimpleMemberInvocationStatementInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SingleLocalDeclarationStatementInfo : IEquatable\<SingleLocalDeclarationStatementInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.SingleParameterLambdaExpressionInfo : IEquatable\<SingleParameterLambdaExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.StatementListInfo : IEquatable\<StatementListInfo>, IReadOnlyList\<StatementSyntax>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.StringConcatenationExpressionInfo : IEquatable\<StringConcatenationExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.StringLiteralExpressionInfo : IEquatable\<StringLiteralExpressionInfo>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.UsingDirectiveListInfo : IEquatable\<UsingDirectiveListInfo>, IReadOnlyList\<UsingDirectiveSyntax>
+* &emsp; \| &emsp; public readonly struct Roslynator\.CSharp\.Syntax\.XmlElementInfo : IEquatable\<XmlElementInfo>
+* &emsp; \| &emsp; public struct Roslynator\.Text\.TextLineCollectionSelection\.Enumerator
+* &emsp; public abstract class System\.Collections\.Generic\.EqualityComparer\<T> : IEqualityComparer, IEqualityComparer\<T>
+* &emsp; \| &emsp; public sealed class Roslynator\.MetadataNameEqualityComparer\<TSymbol> : EqualityComparer\<TSymbol> where TSymbol : Microsoft\.CodeAnalysis\.ISymbol
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.AdditionalText
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.AssemblyIdentity : IEquatable\<AssemblyIdentity>
+* &emsp; public class Microsoft\.CodeAnalysis\.AssemblyIdentityComparer
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.DesktopAssemblyIdentityComparer : AssemblyIdentityComparer
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.AttributeData
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CommandLineArguments
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.CSharpCommandLineArguments : CommandLineArguments
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CommandLineParser
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.CSharp\.CSharpCommandLineParser : CommandLineParser
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Compilation
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.CSharpCompilation : Compilation
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CompilationOptions
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.CSharpCompilationOptions : CompilationOptions, IEquatable\<CSharpCompilationOptions>
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.ControlFlowAnalysis
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CustomModifier : ICustomModifier
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.DataFlowAnalysis
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostic : IEquatable\<Diagnostic>, IFormattable
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.DiagnosticDescriptor : IEquatable\<DiagnosticDescriptor>
+* &emsp; public class Microsoft\.CodeAnalysis\.DiagnosticFormatter
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.CSharp\.CSharpDiagnosticFormatter : DiagnosticFormatter
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.DllImportData : IPlatformInvokeInformation
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.DocumentId : IEquatable\<DocumentId>, IObjectWritable
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.DocumentInfo
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.DocumentationProvider
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.XmlDocumentationProvider : DocumentationProvider
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.EmbeddedText
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.LocalizableString : IEquatable\<LocalizableString>, IFormattable
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.LocalizableResourceString : LocalizableString, IObjectWritable
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Location
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Metadata : IDisposable
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.AssemblyMetadata : Metadata
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.ModuleMetadata : Metadata
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.MetadataId
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.MetadataReference
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CompilationReference : MetadataReference, IEquatable\<CompilationReference>
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.PortableExecutableReference : MetadataReference
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.UnresolvedMetadataReference : MetadataReference
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.MetadataReferenceResolver
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.ParseOptions
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.CSharpParseOptions : ParseOptions, IEquatable\<CSharpParseOptions>
+* &emsp; public class Microsoft\.CodeAnalysis\.Project
+* &emsp; public class Microsoft\.CodeAnalysis\.ProjectDependencyGraph
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.ProjectId : IEquatable\<ProjectId>, IObjectWritable
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.ProjectInfo
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.ProjectReference : IEquatable\<ProjectReference>
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.ResourceDescription : IFileReference
+* &emsp; public class Microsoft\.CodeAnalysis\.RuleSet
+* &emsp; public class Microsoft\.CodeAnalysis\.RuleSetInclude
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.ScriptCompilationInfo
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.CSharpScriptCompilationInfo : ScriptCompilationInfo
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SemanticModel
+* &emsp; public class Microsoft\.CodeAnalysis\.Solution
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.SolutionId : IEquatable\<SolutionId>, IObjectWritable
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.SolutionInfo
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SourceReferenceResolver
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.SourceFileResolver : SourceReferenceResolver, IEquatable\<SourceFileResolver>
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.StrongNameProvider
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.DesktopStrongNameProvider : StrongNameProvider
+* &emsp; public class Microsoft\.CodeAnalysis\.SymbolDisplayFormat
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SymbolVisitor
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SymbolVisitor\<TResult>
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.SyntaxAnnotation : IEquatable\<SyntaxAnnotation>, IObjectWritable
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SyntaxNode
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxNode : SyntaxNode, IMessageSerializable
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AccessorDeclarationSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AccessorListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousObjectMemberDeclaratorSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArgumentSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrayRankSpecifierSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrowExpressionClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeArgumentListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeArgumentSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AttributeTargetSpecifierSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseArgumentListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArgumentListSyntax : BaseArgumentListSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BracketedArgumentListSyntax : BaseArgumentListSyntax
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseCrefParameterListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefBracketedParameterListSyntax : BaseCrefParameterListSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefParameterListSyntax : BaseCrefParameterListSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseParameterListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BracketedParameterListSyntax : BaseParameterListSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParameterListSyntax : BaseParameterListSyntax
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseTypeSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SimpleBaseTypeSyntax : BaseTypeSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CatchClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CatchDeclarationSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CatchFilterClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CompilationUnitSyntax : CSharpSyntaxNode, ICompilationUnitSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstructorInitializerSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefParameterSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CrefSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberCrefSyntax : CrefSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConversionOperatorMemberCrefSyntax : MemberCrefSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IndexerMemberCrefSyntax : MemberCrefSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameMemberCrefSyntax : MemberCrefSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OperatorMemberCrefSyntax : MemberCrefSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QualifiedCrefSyntax : CrefSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeCrefSyntax : CrefSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElseClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EqualsValueClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExplicitInterfaceSpecifierSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExpressionSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousFunctionExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousMethodExpressionSyntax : AnonymousFunctionExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LambdaExpressionSyntax : AnonymousFunctionExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParenthesizedLambdaExpressionSyntax : LambdaExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SimpleLambdaExpressionSyntax : LambdaExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AnonymousObjectCreationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrayCreationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AssignmentExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AwaitExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BinaryExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CastExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CheckedExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConditionalAccessExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConditionalExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DeclarationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DefaultExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElementAccessExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElementBindingExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ImplicitArrayCreationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ImplicitElementAccessSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InitializerExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InstanceExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseExpressionSyntax : InstanceExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ThisExpressionSyntax : InstanceExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolatedStringExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InvocationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IsPatternExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LiteralExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MakeRefExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberAccessExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberBindingExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ObjectCreationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OmittedArraySizeExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParenthesizedExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PostfixUnaryExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PrefixUnaryExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefTypeExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefValueExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SizeOfExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StackAllocArrayCreationExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ThrowExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TupleExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeOfExpressionSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeSyntax : ExpressionSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ArrayTypeSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.AliasQualifiedNameSyntax : NameSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QualifiedNameSyntax : NameSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SimpleNameSyntax : NameSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GenericNameSyntax : SimpleNameSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IdentifierNameSyntax : SimpleNameSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NullableTypeSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OmittedTypeArgumentSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PointerTypeSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PredefinedTypeSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RefTypeSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TupleTypeSyntax : TypeSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExternAliasDirectiveSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FinallyClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolatedStringContentSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolatedStringTextSyntax : InterpolatedStringContentSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolationSyntax : InterpolatedStringContentSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolationAlignmentClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterpolationFormatClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.JoinIntoClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MemberDeclarationSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseFieldDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EventFieldDeclarationSyntax : BaseFieldDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FieldDeclarationSyntax : BaseFieldDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseMethodDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstructorDeclarationSyntax : BaseMethodDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConversionOperatorDeclarationSyntax : BaseMethodDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.MethodDeclarationSyntax : BaseMethodDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BasePropertyDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EventDeclarationSyntax : BasePropertyDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IndexerDeclarationSyntax : BasePropertyDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PropertyDeclarationSyntax : BasePropertyDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BaseTypeDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EnumDeclarationSyntax : BaseTypeDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeDeclarationSyntax : BaseTypeDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ClassDeclarationSyntax : TypeDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.InterfaceDeclarationSyntax : TypeDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StructDeclarationSyntax : TypeDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DelegateDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EnumMemberDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GlobalStatementSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IncompleteMemberSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NamespaceDeclarationSyntax : MemberDeclarationSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameColonSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.NameEqualsSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OrderingSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParameterSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PatternSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstantPatternSyntax : PatternSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DeclarationPatternSyntax : PatternSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryBodySyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FromClauseSyntax : QueryClauseSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.JoinClauseSyntax : QueryClauseSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LetClauseSyntax : QueryClauseSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.OrderByClauseSyntax : QueryClauseSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WhereClauseSyntax : QueryClauseSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.QueryContinuationSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SelectOrGroupClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GroupClauseSyntax : SelectOrGroupClauseSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SelectClauseSyntax : SelectOrGroupClauseSyntax
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StatementSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BlockSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BreakStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CheckedStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CommonForEachStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ForEachStatementSyntax : CommonForEachStatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ForEachVariableStatementSyntax : CommonForEachStatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ContinueStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DoStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EmptyStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ExpressionStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.FixedStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ForStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.GotoStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IfStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LabeledStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LocalDeclarationStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LocalFunctionStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LockStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ReturnStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SwitchStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ThrowStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TryStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UnsafeStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UsingStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WhileStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.YieldStatementSyntax : StatementSyntax
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.StructuredTriviaSyntax : CSharpSyntaxNode, IStructuredTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DirectiveTriviaSyntax : StructuredTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BadDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.BranchingDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConditionalDirectiveTriviaSyntax : BranchingDirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElifDirectiveTriviaSyntax : ConditionalDirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.IfDirectiveTriviaSyntax : ConditionalDirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ElseDirectiveTriviaSyntax : BranchingDirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DefineDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EndIfDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.EndRegionDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ErrorDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LineDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.LoadDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PragmaChecksumDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.PragmaWarningDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ReferenceDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.RegionDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ShebangDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UndefDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WarningDirectiveTriviaSyntax : DirectiveTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DocumentationCommentTriviaSyntax : StructuredTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SkippedTokensTriviaSyntax : StructuredTriviaSyntax, ISkippedTokensTriviaSyntax
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SwitchLabelSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CasePatternSwitchLabelSyntax : SwitchLabelSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.CaseSwitchLabelSyntax : SwitchLabelSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DefaultSwitchLabelSyntax : SwitchLabelSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SwitchSectionSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TupleElementSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeArgumentListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterConstraintClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterConstraintSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ClassOrStructConstraintSyntax : TypeParameterConstraintSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ConstructorConstraintSyntax : TypeParameterConstraintSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeConstraintSyntax : TypeParameterConstraintSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterListSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.TypeParameterSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.UsingDirectiveSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.VariableDeclarationSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.VariableDeclaratorSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.VariableDesignationSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.DiscardDesignationSyntax : VariableDesignationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.ParenthesizedVariableDesignationSyntax : VariableDesignationSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.SingleVariableDesignationSyntax : VariableDesignationSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.WhenClauseSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlAttributeSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlCrefAttributeSyntax : XmlAttributeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNameAttributeSyntax : XmlAttributeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlTextAttributeSyntax : XmlAttributeSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlElementEndTagSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlElementStartTagSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNameSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlNodeSyntax : CSharpSyntaxNode
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlCDataSectionSyntax : XmlNodeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlCommentSyntax : XmlNodeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlElementSyntax : XmlNodeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlEmptyElementSyntax : XmlNodeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlProcessingInstructionSyntax : XmlNodeSyntax
+* &emsp; \| &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlTextSyntax : XmlNodeSyntax
+* &emsp; \| &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CSharp\.Syntax\.XmlPrefixSyntax : CSharpSyntaxNode
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SyntaxReference
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SyntaxTree
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxTree : SyntaxTree
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.SyntaxWalker
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.TextAndVersion
+* &emsp; public class Microsoft\.CodeAnalysis\.TextDocument
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Document : TextDocument
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.TextLoader
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Workspace : IDisposable
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.AdhocWorkspace : Workspace
+* &emsp; public class Microsoft\.CodeAnalysis\.WorkspaceDiagnostic
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.DocumentDiagnostic : WorkspaceDiagnostic
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.ProjectDiagnostic : WorkspaceDiagnostic
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.WorkspaceRegistration
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.XmlReferenceResolver
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.XmlFileResolver : XmlReferenceResolver
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxVisitor
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxWalker : CSharpSyntaxVisitor
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxVisitor\<TResult>
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CSharp\.CSharpSyntaxRewriter : CSharpSyntaxVisitor\<SyntaxNode>
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeActions\.CodeAction
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeActions\.CodeActionWithOptions : CodeAction
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeActions\.CodeActionOperation
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CodeActions\.ApplyChangesOperation : CodeActionOperation
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.CodeActions\.OpenDocumentOperation : CodeActionOperation
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeActions\.PreviewOperation : CodeActionOperation
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeFixes\.CodeFixProvider
+* &emsp; public class Microsoft\.CodeAnalysis\.CodeFixes\.FixAllContext
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeFixes\.FixAllContext\.DiagnosticProvider
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeFixes\.FixAllProvider
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.CodeRefactorings\.CodeRefactoringProvider
+* &emsp; public class Microsoft\.CodeAnalysis\.CodeStyle\.CodeStyleOption\<T> : ICodeStyleOption, IEquatable\<CodeStyleOption\<T>>
+* &emsp; public class Microsoft\.CodeAnalysis\.CodeStyle\.CodeStyleOptions
+* &emsp; public class Microsoft\.CodeAnalysis\.CodeStyle\.NotificationOption
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostics\.AnalysisContext
+* &emsp; public class Microsoft\.CodeAnalysis\.Diagnostics\.AnalysisResult
+* &emsp; public class Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerOptions
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerReference
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerFileReference : AnalyzerReference, IEquatable\<AnalyzerReference>
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.AnalyzerImageReference : AnalyzerReference
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.UnresolvedAnalyzerReference : AnalyzerReference
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostics\.CodeBlockStartAnalysisContext\<TLanguageKindEnum> where TLanguageKindEnum : struct
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostics\.CompilationStartAnalysisContext
+* &emsp; public class Microsoft\.CodeAnalysis\.Diagnostics\.CompilationWithAnalyzers
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.CompilationWithAnalyzersOptions
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostics\.DiagnosticAnalyzer
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Diagnostics\.OperationBlockStartAnalysisContext
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.SourceTextValueProvider\<TValue>
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.SuppressionInfo
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.SyntaxTreeValueProvider\<TValue>
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Diagnostics\.Telemetry\.AnalyzerTelemetryInfo
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Differencing\.EditScript\<TNode>
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Differencing\.Match\<TNode>
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Differencing\.TreeComparer\<TNode>
+* &emsp; public class Microsoft\.CodeAnalysis\.Editing\.SolutionEditor
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Editing\.SymbolEditor
+* &emsp; public class Microsoft\.CodeAnalysis\.Editing\.SyntaxEditor
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Editing\.DocumentEditor : SyntaxEditor
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Editing\.SyntaxGenerator : ILanguageService
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Emit\.EmitBaseline
+* &emsp; public sealed class Microsoft\.CodeAnalysis\.Emit\.EmitOptions : IEquatable\<EmitOptions>
+* &emsp; public class Microsoft\.CodeAnalysis\.Emit\.EmitResult
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Emit\.EmitDifferenceResult : EmitResult
+* &emsp; public class Microsoft\.CodeAnalysis\.FindSymbols\.ReferencedSymbol
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Host\.HostLanguageServices
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Host\.HostServices
+* &emsp; \| &emsp; public class Microsoft\.CodeAnalysis\.Host\.Mef\.MefHostServices : HostServices, IMefHostExportProvider
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Host\.HostWorkspaceServices
+* &emsp; public class Microsoft\.CodeAnalysis\.Options\.Option\<T> : IOption
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Options\.OptionSet
+* &emsp; \| &emsp; public sealed class Microsoft\.CodeAnalysis\.Options\.DocumentOptionSet : OptionSet
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Options\.OptionStorageLocation
+* &emsp; public class Microsoft\.CodeAnalysis\.Options\.PerLanguageOption\<T> : IOption
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Semantics\.OperationVisitor
+* &emsp; \| &emsp; public abstract class Microsoft\.CodeAnalysis\.Semantics\.OperationWalker : OperationVisitor
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Semantics\.OperationVisitor\<TArgument, TResult>
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Text\.SourceText
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Text\.SourceTextContainer
+* &emsp; public abstract class Microsoft\.CodeAnalysis\.Text\.TextLineCollection : IEnumerable\<TextLine>, IReadOnlyCollection\<TextLine>, IReadOnlyList\<TextLine>
+* &emsp; public abstract class Roslynator\.NameGenerator
+* &emsp; public class Roslynator\.SeparatedSyntaxListSelection\<TNode> : ISelection\<TNode> where TNode : Microsoft\.CodeAnalysis\.SyntaxNode
+* &emsp; public class Roslynator\.SyntaxListSelection\<TNode> : ISelection\<TNode> where TNode : Microsoft\.CodeAnalysis\.SyntaxNode
+* &emsp; \| &emsp; public sealed class Roslynator\.CSharp\.MemberDeclarationListSelection : SyntaxListSelection\<MemberDeclarationSyntax>
+* &emsp; \| &emsp; public sealed class Roslynator\.CSharp\.StatementListSelection : SyntaxListSelection\<StatementSyntax>
+* &emsp; public abstract class Roslynator\.CSharp\.ModifierList\<TNode> where TNode : Microsoft\.CodeAnalysis\.SyntaxNode
+* &emsp; public class Roslynator\.Text\.TextLineCollectionSelection : ISelection\<TextLine>
+* &emsp; public static class Microsoft\.CodeAnalysis\.AnnotationExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharpExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.CaseInsensitiveComparison
+* &emsp; public static class Microsoft\.CodeAnalysis\.DocumentationCommentId
+* &emsp; public static class Microsoft\.CodeAnalysis\.FileSystemExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.ISymbolExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.LanguageNames
+* &emsp; public static class Microsoft\.CodeAnalysis\.ModelExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.SymbolDisplayExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.SyntaxNodeExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.WellKnownDiagnosticTags
+* &emsp; public static class Microsoft\.CodeAnalysis\.WellKnownMemberNames
+* &emsp; public static class Microsoft\.CodeAnalysis\.WorkspaceKind
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.CSharpExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.CSharpFileSystemExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.LanguageVersionFacts
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.SymbolDisplay
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.SyntaxExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.SyntaxFactory
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.SyntaxFacts
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.TypedConstantExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.CSharp\.Formatting\.CSharpFormattingOptions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Classification\.ClassificationTypeNames
+* &emsp; public static class Microsoft\.CodeAnalysis\.Classification\.Classifier
+* &emsp; public static class Microsoft\.CodeAnalysis\.CodeActions\.ConflictAnnotation
+* &emsp; public static class Microsoft\.CodeAnalysis\.CodeActions\.RenameAnnotation
+* &emsp; public static class Microsoft\.CodeAnalysis\.CodeActions\.WarningAnnotation
+* &emsp; public static class Microsoft\.CodeAnalysis\.CodeFixes\.WellKnownFixAllProviders
+* &emsp; public static class Microsoft\.CodeAnalysis\.Diagnostics\.DiagnosticAnalyzerExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Editing\.ImportAdder
+* &emsp; public static class Microsoft\.CodeAnalysis\.Editing\.SymbolEditorExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Editing\.SyntaxEditorExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.FindSymbols\.SymbolFinder
+* &emsp; public static class Microsoft\.CodeAnalysis\.Formatting\.Formatter
+* &emsp; public static class Microsoft\.CodeAnalysis\.Formatting\.FormattingOptions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Host\.Mef\.ServiceLayer
+* &emsp; public static class Microsoft\.CodeAnalysis\.Recommendations\.RecommendationOptions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Recommendations\.Recommender
+* &emsp; public static class Microsoft\.CodeAnalysis\.Rename\.RenameOptions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Rename\.Renamer
+* &emsp; public static class Microsoft\.CodeAnalysis\.Semantics\.OperationExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Semantics\.UnaryAndBinaryOperationExtensions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Simplification\.SimplificationOptions
+* &emsp; public static class Microsoft\.CodeAnalysis\.Simplification\.Simplifier
+* &emsp; public static class Microsoft\.CodeAnalysis\.Tags\.WellKnownTags
+* &emsp; public static class Roslynator\.DiagnosticsExtensions
+* &emsp; public static class Roslynator\.EnumExtensions
+* &emsp; public static class Roslynator\.FileLinePositionSpanExtensions
+* &emsp; public static class Roslynator\.SemanticModelExtensions
+* &emsp; public static class Roslynator\.SymbolExtensions
+* &emsp; public static class Roslynator\.SyntaxExtensions
+* &emsp; public static class Roslynator\.SyntaxTreeExtensions
+* &emsp; public static class Roslynator\.WorkspaceExtensions
+* &emsp; public static class Roslynator\.CSharp\.CSharpExtensions
+* &emsp; public static class Roslynator\.CSharp\.CSharpFactory
+* &emsp; public static class Roslynator\.CSharp\.CSharpFacts
+* &emsp; public static class Roslynator\.CSharp\.EnumExtensions
+* &emsp; public static class Roslynator\.CSharp\.ModifierList
+* &emsp; public static class Roslynator\.CSharp\.Modifiers
+* &emsp; public static class Roslynator\.CSharp\.SymbolExtensions
+* &emsp; public static class Roslynator\.CSharp\.SyntaxAccessibility
+* &emsp; public static class Roslynator\.CSharp\.SyntaxExtensions
+* &emsp; public static class Roslynator\.CSharp\.SyntaxInfo
+* &emsp; public static class Roslynator\.CSharp\.SyntaxInverter
+* &emsp; public static class Roslynator\.CSharp\.WorkspaceExtensions
+* &emsp; public static class Roslynator\.CSharp\.WorkspaceSyntaxExtensions

@@ -16,8 +16,9 @@ namespace Roslynator.Documentation.Markdown
             MarkdownWriter writer,
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
+            SymbolDocumentationProvider documentationProvider = null,
             IComparer<ISymbol> comparer = null,
-            string rootDirectoryUrl = null) : base(filter, format, comparer)
+            string rootDirectoryUrl = null) : base(filter, format, documentationProvider, comparer)
         {
             _writer = writer;
             RootDirectoryUrl = rootDirectoryUrl;
@@ -181,6 +182,10 @@ namespace Roslynator.Documentation.Markdown
 
                 Write(" ");
             }
+        }
+
+        public override void WriteDocumentationComment(ISymbol symbol)
+        {
         }
     }
 }
