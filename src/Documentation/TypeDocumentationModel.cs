@@ -17,15 +17,15 @@ namespace Roslynator.Documentation
 
         internal TypeDocumentationModel(
             INamedTypeSymbol typeSymbol,
-            Visibility visibility)
+            SymbolFilterOptions  filter)
         {
             Symbol = typeSymbol;
-            Visibility = visibility;
+            Filter = filter;
         }
 
         public INamedTypeSymbol Symbol { get; }
 
-        public Visibility Visibility { get; }
+        internal SymbolFilterOptions Filter { get; }
 
         public TypeKind TypeKind => Symbol.TypeKind;
 
@@ -58,7 +58,7 @@ namespace Roslynator.Documentation
             {
                 if (_members.IsDefault)
                 {
-                    _members = Symbol.GetMembers(f => f.IsVisible(Visibility));
+                    _members = Symbol.GetMembers(f => Filter.IsVisible(f));
                 }
 
                 return _members;
@@ -77,12 +77,18 @@ namespace Roslynator.Documentation
                     }
                     else
                     {
-                        _membersIncludingInherited = Symbol.GetMembers(f => f.IsVisible(Visibility), includeInherited: true);
+                        _membersIncludingInherited = Symbol.GetMembers(f => Filter.IsVisible(f), includeInherited: true);
                     }
                 }
 
                 return _membersIncludingInherited;
             }
+        }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private string DebuggerDisplay
+        {
+            get { return $"{Symbol.Kind} {Symbol.ToDisplayString(Roslynator.SymbolDisplayFormats.Test)}"; }
         }
 
         private ImmutableArray<ISymbol> GetMembers(bool includeInherited)
@@ -464,12 +470,6 @@ namespace Roslynator.Documentation
         public override int GetHashCode()
         {
             return Symbol.GetHashCode();
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string DebuggerDisplay
-        {
-            get { return $"{Symbol.Kind} {Symbol.ToDisplayString(Roslynator.SymbolDisplayFormats.Test)}"; }
         }
     }
 }

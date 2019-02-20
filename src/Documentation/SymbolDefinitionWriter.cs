@@ -587,25 +587,25 @@ namespace Roslynator.Documentation
                     {
                         WriteStartMembers();
 
-                        MemberDeclarationKind kind = en.Current.GetMemberDeclarationKind();
+                        ISymbol symbol = en.Current;
 
                         while (true)
                         {
-                            WriteStartMember(en.Current);
-                            WriteMember(en.Current);
-                            WriteEndMember(en.Current);
+                            WriteStartMember(symbol);
+                            WriteMember(symbol);
+                            WriteEndMember(symbol);
 
                             if (en.MoveNext())
                             {
-                                MemberDeclarationKind nextKind = en.Current.GetMemberDeclarationKind();
+                                ISymbol next = en.Current;
 
-                                if (kind != nextKind
-                                    || Format.EmptyLineBetweenMembers)
+                                if (Format.EmptyLineBetweenMembers
+                                    || (Format.EmptyLineBetweenMemberGroups && symbol.GetMemberDeclarationKind() != next.GetMemberDeclarationKind()))
                                 {
                                     WriteMemberSeparator();
                                 }
 
-                                kind = nextKind;
+                                symbol = next;
                             }
                             else
                             {

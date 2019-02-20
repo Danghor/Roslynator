@@ -60,6 +60,7 @@ namespace Roslynator.CommandLine
                 formatOptions: FormatOptions,
                 indentChars: Options.IndentChars,
                 emptyLineBetweenMembers: Options.EmptyLineBetweenMembers,
+                emptyLineBetweenMemberGroups: true,
                 omitIEnumerable: true,
                 preferDefaultLiteral: true);
 

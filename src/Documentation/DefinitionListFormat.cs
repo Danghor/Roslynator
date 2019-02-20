@@ -10,6 +10,7 @@ namespace Roslynator.Documentation
             SymbolDefinitionFormatOptions formatOptions = DefaultValues.FormatOptions,
             string indentChars = DefaultValues.IndentChars,
             bool emptyLineBetweenMembers = DefaultValues.EmptyLineBetweenMembers,
+            bool emptyLineBetweenMemberGroups = DefaultValues.EmptyLineBetweenMemberGroups,
             bool omitIEnumerable = DefaultValues.OmitIEnumerable,
             bool preferDefaultLiteral = DefaultValues.PreferDefaultLiteral)
         {
@@ -18,6 +19,7 @@ namespace Roslynator.Documentation
             FormatOptions = formatOptions;
             IndentChars = indentChars;
             EmptyLineBetweenMembers = emptyLineBetweenMembers;
+            EmptyLineBetweenMemberGroups = emptyLineBetweenMemberGroups;
             OmitIEnumerable = omitIEnumerable;
             PreferDefaultLiteral = preferDefaultLiteral;
         }
@@ -33,6 +35,8 @@ namespace Roslynator.Documentation
         public string IndentChars { get; }
 
         public bool EmptyLineBetweenMembers { get; }
+
+        public bool EmptyLineBetweenMemberGroups { get; }
 
         public bool OmitIEnumerable { get; }
 
@@ -92,6 +96,7 @@ namespace Roslynator.Documentation
             public const Visibility Visibility = Roslynator.Visibility.Private;
             public const SymbolGroupFilter SymbolGroupFilter = Roslynator.SymbolGroupFilter.NamespaceOrTypeOrMember;
             public const string IndentChars = "  ";
+            public const bool EmptyLineBetweenMemberGroups = true;
             public const bool EmptyLineBetweenMembers = false;
             public const bool OmitIEnumerable = true;
             public const bool PreferDefaultLiteral = true;

@@ -28,12 +28,12 @@ namespace Roslynator.Documentation
         internal DocumentationModel(
             Compilation compilation,
             IEnumerable<IAssemblySymbol> assemblies,
-            Visibility visibility = Visibility.Public,
+            SymbolFilterOptions filter,
             IEnumerable<string> additionalXmlDocumentationPaths = null)
         {
             Compilations = ImmutableArray.Create(compilation);
             Assemblies = ImmutableArray.CreateRange(assemblies);
-            Visibility = visibility;
+            Filter = filter;
 
             _symbolData = new Dictionary<ISymbol, SymbolDocumentationData>();
             _xmlDocumentations = new Dictionary<IAssemblySymbol, XmlDocumentation>();
@@ -44,12 +44,12 @@ namespace Roslynator.Documentation
 
         internal DocumentationModel(
             IEnumerable<Compilation> compilations,
-            Visibility visibility = Visibility.Public,
+            SymbolFilterOptions filter,
             IEnumerable<string> additionalXmlDocumentationPaths = null)
         {
             Compilations = compilations.ToImmutableArray();
             Assemblies = compilations.Select(f => f.Assembly).ToImmutableArray();
-            Visibility = visibility;
+            Filter = filter;
 
             _symbolData = new Dictionary<ISymbol, SymbolDocumentationData>();
             _xmlDocumentations = new Dictionary<IAssemblySymbol, XmlDocumentation>();
@@ -67,9 +67,9 @@ namespace Roslynator.Documentation
             get { return Assemblies.SelectMany(f => f.GetTypes(typeSymbol => IsVisible(typeSymbol))); }
         }
 
-        public Visibility Visibility { get; }
+        internal SymbolFilterOptions Filter { get; }
 
-        public bool IsVisible(ISymbol symbol) => symbol.IsVisible(Visibility);
+        public bool IsVisible(ISymbol symbol) => Filter.IsVisible(symbol);
 
         public IEnumerable<INamedTypeSymbol> GetDerivedTypes(INamedTypeSymbol typeSymbol)
         {
@@ -235,7 +235,7 @@ namespace Roslynator.Documentation
                 return (TypeDocumentationModel)data.Model;
             }
 
-            var typeModel = new TypeDocumentationModel(typeSymbol, Visibility);
+            var typeModel = new TypeDocumentationModel(typeSymbol, Filter);
 
             _symbolData[typeSymbol] = data.WithModel(typeModel);
 
