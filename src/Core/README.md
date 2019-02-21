@@ -1,11 +1,8 @@
 * assembly Roslynator\.Core, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=3aeedfaf14b2cebf
 * [namespace Roslynator](../../docs/api/Roslynator/README.md)
-* &emsp; [\[Bar, Foo\] public class Aaa](../../docs/api/Roslynator/Aaa/README.md)
-* &emsp; [public class BarAttribute : Attribute](../../docs/api/Roslynator/BarAttribute/README.md)
 * &emsp; [public static class DiagnosticsExtensions](../../docs/api/Roslynator/DiagnosticsExtensions/README.md)
 * &emsp; [public static class EnumExtensions](../../docs/api/Roslynator/EnumExtensions/README.md)
 * &emsp; [public static class FileLinePositionSpanExtensions](../../docs/api/Roslynator/FileLinePositionSpanExtensions/README.md)
-* &emsp; [public class FooAttribute : Attribute](../../docs/api/Roslynator/FooAttribute/README.md)
 * &emsp; [public sealed class MetadataNameEqualityComparer\<TSymbol> : EqualityComparer\<TSymbol> where TSymbol : ISymbol](../../docs/api/Roslynator/MetadataNameEqualityComparer-1/README.md)
 * &emsp; [public abstract class NameGenerator](../../docs/api/Roslynator/NameGenerator/README.md)
 * &emsp; [public static class SemanticModelExtensions](../../docs/api/Roslynator/SemanticModelExtensions/README.md)

@@ -58,11 +58,12 @@ namespace Roslynator.CommandLine
                 layout: Layout,
                 parts: SymbolDefinitionPartFilter.All & ~IgnoredParts,
                 formatOptions: FormatOptions,
-                indentChars: Options.IndentChars,
+                groupByAssembly: Options.GroupByAssembly,
                 emptyLineBetweenMembers: Options.EmptyLineBetweenMembers,
                 emptyLineBetweenMemberGroups: true,
                 omitIEnumerable: true,
-                preferDefaultLiteral: true);
+                preferDefaultLiteral: true,
+                indentChars: Options.IndentChars);
 
             ImmutableArray<Compilation> compilations = await GetCompilationsAsync(projectOrSolution, cancellationToken);
 

@@ -6,6 +6,7 @@ using Roslynator.Documentation;
 
 namespace Roslynator.CommandLine
 {
+    // OmitAssemblies, PreferredCulture
 #if DEBUG
     [Verb("list-symbols", HelpText = "Lists symbols in the specified project or solution.")]
 #endif
@@ -24,15 +25,19 @@ namespace Roslynator.CommandLine
             HelpText = "Specifies parts of a symbol definition that should be formatted.")]
         public IEnumerable<string> Format { get; set; }
 
-        [Option(longName: "ignored-attribute-names",
-            HelpText = "Defines a list of attributes' names that should be ignored, i.e. if the symbol has an attribute with the specified name it will be ignored.",
-            MetaValue = "<FULLY_QUALIFIED_METADATA_NAME>")]
-        public IEnumerable<string> IgnoredAttributeNames { get; set; }
+        [Option(longName: "group-by-assembly",
+            HelpText = "Indicates whether symbols should be grouped by assembly.")]
+        public bool GroupByAssembly { get; set; }
 
-        [Option(longName: "ignored-names",
-            HelpText = "Defines a list of metadata names that should be excluded from a documentation. Namespace of type names can be specified.",
+        [Option(longName: "ignored-attributes",
+            HelpText = "Defines a list of attributes that should be ignored.",
             MetaValue = "<FULLY_QUALIFIED_METADATA_NAME>")]
-        public IEnumerable<string> IgnoredNames { get; set; }
+        public IEnumerable<string> IgnoredAttributes { get; set; }
+
+        [Option(longName: "ignored-symbols",
+            HelpText = "Defines a list of symbols that should be ignored. Namespace of types can be specified.",
+            MetaValue = "<FULLY_QUALIFIED_METADATA_NAME>")]
+        public IEnumerable<string> IgnoredSymbols { get; set; }
 
         [Option(longName: ParameterNames.IgnoredParts,
             HelpText = "Defines parts of a symbol definition that should be excluded.",

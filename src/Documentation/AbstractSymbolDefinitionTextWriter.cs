@@ -95,8 +95,12 @@ namespace Roslynator.Documentation
 
         public override void WriteType(INamedTypeSymbol typeSymbol, SymbolDisplayFormat format = null, SymbolDisplayTypeDeclarationOptions? typeDeclarationOptions = null)
         {
-            WriteDocumentationComment(typeSymbol);
-            Write(typeSymbol, format ?? TypeFormat, typeDeclarationOptions);
+            if (typeSymbol != null)
+            {
+                WriteDocumentationComment(typeSymbol);
+                Write(typeSymbol, format ?? TypeFormat, typeDeclarationOptions);
+            }
+
             WriteLine();
 
             IncreaseDepth();

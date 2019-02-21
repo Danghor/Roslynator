@@ -11,7 +11,7 @@ namespace Roslynator.Documentation
     {
         public ImmutableArray<MetadataName> Values { get; }
 
-        private readonly Dictionary<string, ImmutableArray<MetadataName>> _valuesByName;
+        private readonly ImmutableDictionary<string, ImmutableArray<MetadataName>> _valuesByName;
 
         public MetadataNameSet(IEnumerable<string> values)
             : this(values.Select(f => MetadataName.Parse(f)))
@@ -24,7 +24,7 @@ namespace Roslynator.Documentation
 
             _valuesByName = Values
                 .GroupBy(f => f.Name)
-                .ToDictionary(f => f.Key, f => f.ToImmutableArray());
+                .ToImmutableDictionary(f => f.Key, f => f.ToImmutableArray());
         }
 
         public bool Contains(ISymbol symbol)

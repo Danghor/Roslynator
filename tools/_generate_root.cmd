@@ -9,7 +9,7 @@ set _msbuildPath="C:\Program Files\Microsoft Visual Studio\2017\Community\MSBuil
  --projects "Core" ^
  --visibility public ^
  --depth type ^
- --omit-containing-namespace ^
+ --ignored-parts containing-namespace assembly-attributes ^
  --output "..\src\Core\README.md" ^
  --root-directory-url "../../docs/api/" ^
  --verbosity n ^

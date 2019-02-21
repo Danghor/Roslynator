@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
@@ -9,12 +10,15 @@ namespace Roslynator.Documentation
 {
     internal sealed class SymbolHierarchy
     {
-        private SymbolHierarchy(SymbolHierarchyItem root)
+        private SymbolHierarchy(SymbolHierarchyItem root, SymbolHierarchyItem interfaceRoot)
         {
             Root = root;
+            InterfaceRoot = interfaceRoot;
         }
 
         public SymbolHierarchyItem Root { get; }
+
+        public SymbolHierarchyItem InterfaceRoot { get; }
 
         public static SymbolHierarchy Create(
             IEnumerable<IAssemblySymbol> assemblies,
@@ -24,10 +28,7 @@ namespace Roslynator.Documentation
             Func<INamedTypeSymbol, bool> predicate = null;
 
             if (filter != null)
-            {
-                predicate = t => filter.IsVisibleType(t)
-                    && filter.IsVisibleNamespace(t.ContainingNamespace);
-            }
+                predicate = t => filter.IsVisibleType(t);
 
             IEnumerable<INamedTypeSymbol> types = assemblies.SelectMany(a => a.GetTypes(predicate));
 
@@ -64,23 +65,55 @@ namespace Roslynator.Documentation
 
             SymbolHierarchyItem root = FillHierarchyItem(allItems[objectType], null);
 
-            return new SymbolHierarchy(root);
+            var interfaceRoot = new SymbolHierarchyItem(null);
+
+            List<SymbolHierarchyItem> rootInterfaces = null;
+
+            foreach (KeyValuePair<INamedTypeSymbol, SymbolHierarchyItem> kvp in allItems)
+            {
+                if (IsRootInterface(kvp.Key))
+                    (rootInterfaces ?? (rootInterfaces = new List<SymbolHierarchyItem>())).Add(kvp.Value);
+            }
+
+            if (rootInterfaces != null)
+            {
+                rootInterfaces.Sort(Compare);
+
+                FillHierarchyItems(rootInterfaces, interfaceRoot);
+            }
+
+            return new SymbolHierarchy(root, interfaceRoot);
 
             SymbolHierarchyItem FillHierarchyItem(SymbolHierarchyItem item, SymbolHierarchyItem parent)
             {
+                INamedTypeSymbol symbol = item.Symbol;
+
+                if (item.Parent != null)
+                    item = new SymbolHierarchyItem(symbol);
+
                 item.Parent = parent;
 
-                allItems.Remove(item.Symbol);
+                if (symbol.TypeKind != TypeKind.Interface)
+                    allItems.Remove(symbol);
 
                 SymbolHierarchyItem[] derivedTypes = allItems
                     .Select(f => f.Value)
-                    .Where(f => f.Symbol.BaseType?.OriginalDefinition == item.Symbol.OriginalDefinition
-                        || f.Symbol.Interfaces.Any(i => i.OriginalDefinition == item.Symbol.OriginalDefinition))
+                    .Where(f =>
+                    {
+                        if (symbol.TypeKind == TypeKind.Interface)
+                        {
+                            return f.Symbol.Interfaces.Any(i => i.OriginalDefinition == symbol.OriginalDefinition);
+                        }
+                        else
+                        {
+                            return f.Symbol.BaseType?.OriginalDefinition == symbol.OriginalDefinition;
+                        }
+                    })
                     .ToArray();
 
                 if (derivedTypes.Length > 0)
                 {
-                    if (item.Symbol.SpecialType == SpecialType.System_Object)
+                    if (symbol.SpecialType == SpecialType.System_Object)
                     {
                         Array.Sort(derivedTypes, (x, y) =>
                         {
@@ -104,27 +137,32 @@ namespace Roslynator.Documentation
                         Array.Sort(derivedTypes, Compare);
                     }
 
-                    SymbolHierarchyItem last = FillHierarchyItem(derivedTypes[0], item);
-
-                    SymbolHierarchyItem next = last;
-
-                    SymbolHierarchyItem child = null;
-
-                    for (int i = 1; i < derivedTypes.Length; i++)
-                    {
-                        child = FillHierarchyItem(derivedTypes[i], item);
-
-                        child.next = next;
-
-                        next = child;
-                    }
-
-                    last.next = child ?? last;
-
-                    item.lastChild = last;
+                    FillHierarchyItems(derivedTypes, item);
                 }
 
                 return item;
+            }
+
+            void FillHierarchyItems(IList<SymbolHierarchyItem> items, SymbolHierarchyItem parent)
+            {
+                SymbolHierarchyItem last = FillHierarchyItem(items[0], parent);
+
+                SymbolHierarchyItem next = last;
+
+                SymbolHierarchyItem child = null;
+
+                for (int i = 1; i < items.Count; i++)
+                {
+                    child = FillHierarchyItem(items[i], parent);
+
+                    child.next = next;
+
+                    next = child;
+                }
+
+                last.next = child ?? last;
+
+                parent.lastChild = last;
             }
 
             INamedTypeSymbol FindObjectType()
@@ -144,6 +182,20 @@ namespace Roslynator.Documentation
                 }
 
                 return null;
+            }
+
+            bool IsRootInterface(INamedTypeSymbol interfaceSymbol)
+            {
+                foreach (INamedTypeSymbol interfaceSymbol2 in interfaceSymbol.Interfaces)
+                {
+                    foreach (KeyValuePair<INamedTypeSymbol, SymbolHierarchyItem> kvp in allItems)
+                    {
+                        if (kvp.Key == interfaceSymbol2)
+                            return false;
+                    }
+                }
+
+                return true;
             }
 
             int Compare(SymbolHierarchyItem x, SymbolHierarchyItem y)

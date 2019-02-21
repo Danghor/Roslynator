@@ -8,20 +8,22 @@ namespace Roslynator.Documentation
             SymbolDefinitionListLayout layout = DefaultValues.Layout,
             SymbolDefinitionPartFilter parts = DefaultValues.Parts,
             SymbolDefinitionFormatOptions formatOptions = DefaultValues.FormatOptions,
-            string indentChars = DefaultValues.IndentChars,
+            bool groupByAssembly = false,
             bool emptyLineBetweenMembers = DefaultValues.EmptyLineBetweenMembers,
             bool emptyLineBetweenMemberGroups = DefaultValues.EmptyLineBetweenMemberGroups,
             bool omitIEnumerable = DefaultValues.OmitIEnumerable,
-            bool preferDefaultLiteral = DefaultValues.PreferDefaultLiteral)
+            bool preferDefaultLiteral = DefaultValues.PreferDefaultLiteral,
+            string indentChars = DefaultValues.IndentChars)
         {
             Layout = layout;
             Parts = parts;
             FormatOptions = formatOptions;
-            IndentChars = indentChars;
+            GroupByAssembly = groupByAssembly;
             EmptyLineBetweenMembers = emptyLineBetweenMembers;
             EmptyLineBetweenMemberGroups = emptyLineBetweenMemberGroups;
             OmitIEnumerable = omitIEnumerable;
             PreferDefaultLiteral = preferDefaultLiteral;
+            IndentChars = indentChars;
         }
 
         public static DefinitionListFormat Default { get; } = new DefinitionListFormat();
@@ -32,7 +34,7 @@ namespace Roslynator.Documentation
 
         public SymbolDefinitionFormatOptions FormatOptions { get; }
 
-        public string IndentChars { get; }
+        public bool GroupByAssembly { get; }
 
         public bool EmptyLineBetweenMembers { get; }
 
@@ -41,6 +43,8 @@ namespace Roslynator.Documentation
         public bool OmitIEnumerable { get; }
 
         public bool PreferDefaultLiteral { get; }
+
+        public string IndentChars { get; }
 
         public bool Includes(SymbolDefinitionPartFilter parts)
         {

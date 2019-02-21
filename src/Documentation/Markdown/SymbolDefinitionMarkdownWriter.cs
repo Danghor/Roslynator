@@ -40,6 +40,10 @@ namespace Roslynator.Documentation.Markdown
             WriteEndBulletItem();
         }
 
+        public override void WriteAssemblySeparator()
+        {
+        }
+
         public override void WriteStartNamespaces()
         {
         }
@@ -114,6 +118,49 @@ namespace Roslynator.Documentation.Markdown
         {
             base.WriteEnumMember(symbol, format);
             WriteEndBulletItem();
+        }
+
+        public override void WriteStartAttributes(bool assemblyAttribute)
+        {
+            if (assemblyAttribute)
+            {
+                WriteStartBulletItem();
+                WriteIndentation();
+                Write("[");
+            }
+            else
+            {
+                base.WriteStartAttributes(assemblyAttribute);
+            }
+        }
+
+        public override void WriteEndAttributes(bool assemblyAttribute)
+        {
+            if (assemblyAttribute)
+            {
+                Write("]");
+                WriteEndBulletItem();
+            }
+            else
+            {
+                base.WriteEndAttributes(assemblyAttribute);
+            }
+        }
+
+        public override void WriteAttributeSeparator(bool assemblyAttribute)
+        {
+            if (assemblyAttribute)
+            {
+                Write("]");
+                WriteEndBulletItem();
+                WriteStartBulletItem();
+                WriteIndentation();
+                Write("[");
+            }
+            else
+            {
+                base.WriteAttributeSeparator(assemblyAttribute);
+            }
         }
 
         private void WriteStartBulletItem()

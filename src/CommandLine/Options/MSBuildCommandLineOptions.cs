@@ -6,7 +6,7 @@ using CommandLine;
 
 namespace Roslynator.CommandLine
 {
-    //TODO: Files, IgnoredFiles
+    // Files, IgnoredFiles
     public abstract class MSBuildCommandLineOptions : AbstractCommandLineOptions
     {
         [Value(index: 0,

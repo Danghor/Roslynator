@@ -38,9 +38,11 @@ namespace Roslynator.Documentation
 
         public IComparer<ISymbol> Comparer { get; }
 
-        public virtual bool SupportsMultilineDefinitions => Format.Layout != SymbolDefinitionListLayout.TypeHierarchy;
+        public virtual bool SupportsMultilineDefinitions => Layout != SymbolDefinitionListLayout.TypeHierarchy;
 
         protected int Depth { get; private set; }
+
+        internal SymbolDefinitionListLayout Layout => Format.Layout;
 
         public SymbolDisplayFormat NamespaceFormat
         {
@@ -65,7 +67,7 @@ namespace Roslynator.Documentation
             {
                 if (_typeFormat == null)
                 {
-                    SymbolDisplayFormat format = (Format.Layout == SymbolDefinitionListLayout.TypeHierarchy)
+                    SymbolDisplayFormat format = (Layout == SymbolDefinitionListLayout.TypeHierarchy)
                         ? SymbolDefinitionDisplayFormats.HierarchyType
                         : SymbolDefinitionDisplayFormats.FullDefinition_NameOnly;
 
@@ -259,22 +261,22 @@ namespace Roslynator.Documentation
             return options;
         }
 
-        public virtual SymbolDisplayFormat CreateNamespaceFormat(SymbolDisplayFormat format)
+        protected virtual SymbolDisplayFormat CreateNamespaceFormat(SymbolDisplayFormat format)
         {
             return format;
         }
 
-        public virtual SymbolDisplayFormat CreateTypeFormat(SymbolDisplayFormat format)
+        protected virtual SymbolDisplayFormat CreateTypeFormat(SymbolDisplayFormat format)
         {
             return format;
         }
 
-        public virtual SymbolDisplayFormat CreateMemberFormat(SymbolDisplayFormat format)
+        protected virtual SymbolDisplayFormat CreateMemberFormat(SymbolDisplayFormat format)
         {
             return format;
         }
 
-        public virtual SymbolDisplayFormat CreateEnumMemberFormat(SymbolDisplayFormat format)
+        protected virtual SymbolDisplayFormat CreateEnumMemberFormat(SymbolDisplayFormat format)
         {
             return format;
         }
@@ -283,7 +285,19 @@ namespace Roslynator.Documentation
         {
             WriteStartDocument();
             WriteAssemblies(assemblies);
-            WriteTypes(assemblies);
+
+            if (!Format.GroupByAssembly)
+            {
+                if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
+                {
+                    WriteTypeHierarchy(assemblies.SelectMany(a => a.GetTypes(Filter.IsVisibleType)));
+                }
+                else
+                {
+                    WriteNamespaces(assemblies.SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t))));
+                }
+            }
+
             WriteEndDocument();
         }
 
@@ -308,6 +322,18 @@ namespace Roslynator.Documentation
                         if (Format.Includes(SymbolDefinitionPartFilter.AssemblyAttributes))
                             WriteAttributes(assembly);
 
+                        if (Format.GroupByAssembly)
+                        {
+                            if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
+                            {
+                                WriteTypeHierarchy(assembly.GetTypes(Filter.IsVisibleType));
+                            }
+                            else
+                            {
+                                WriteNamespaces(assembly.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t)));
+                            }
+                        }
+
                         WriteEndAssembly(assembly);
 
                         if (en.MoveNext())
@@ -325,52 +351,59 @@ namespace Roslynator.Documentation
             WriteEndAssemblies();
         }
 
-        public void WriteTypes(IEnumerable<IAssemblySymbol> assemblies)
+        public void WriteNamespaces(IEnumerable<INamedTypeSymbol> types)
         {
-            if (Format.Layout == SymbolDefinitionListLayout.TypeHierarchy)
+            IEnumerable<IGrouping<INamespaceSymbol, INamedTypeSymbol>> typesByNamespace = types
+                .GroupBy(t => t.ContainingNamespace, MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
+                .Where(g => Filter.IsVisibleNamespace(g.Key))
+                .OrderBy(g => g.Key, Comparer);
+
+            WriteStartNamespaces();
+
+            if (Layout == SymbolDefinitionListLayout.NamespaceHierarchy)
             {
-                WriteHierarchy(assemblies);
+                WriteNamespaceHierarchy(typesByNamespace.ToDictionary(f => f.Key, f => f.AsEnumerable()));
             }
             else
             {
-                IEnumerable<IGrouping<INamespaceSymbol, INamedTypeSymbol>> typesByNamespace = assemblies
-                    .SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t)))
-                    .GroupBy(t => t.ContainingNamespace, MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
-                    .Where(g => Filter.IsVisibleNamespace(g.Key))
-                    .OrderBy(g => g.Key, Comparer);
+                Debug.Assert(Layout == SymbolDefinitionListLayout.NamespaceList, Layout.ToString());
 
-                WriteStartNamespaces();
-
-                if (Format.Layout == SymbolDefinitionListLayout.NamespaceHierarchy)
-                {
-                    WriteNamespacesWithHierarchy(typesByNamespace.ToDictionary(f => f.Key, f => f.AsEnumerable()));
-                }
-                else
-                {
-                    Debug.Assert(Format.Layout == SymbolDefinitionListLayout.NamespaceList, Format.Layout.ToString());
-                    WriteNamespaces(typesByNamespace);
-                }
-
-                WriteEndNamespaces();
+                WriteNamespaces(typesByNamespace);
             }
+
+            WriteEndNamespaces();
         }
 
-        private void WriteHierarchy(IEnumerable<IAssemblySymbol> assemblies)
+        private void WriteTypeHierarchy(IEnumerable<INamedTypeSymbol> types)
         {
-            SymbolHierarchy hierarchy = SymbolHierarchy.Create(assemblies, Filter, Comparer);
+            SymbolHierarchy hierarchy = SymbolHierarchy.Create(types, Comparer);
 
+            WriteTypeHierarchy(hierarchy);
+        }
+
+        private void WriteTypeHierarchy(SymbolHierarchy hierarchy)
+        {
             WriteStartTypes();
             WriteTypeHierarchy(hierarchy.Root);
+
+            if (hierarchy.InterfaceRoot.HasChildren)
+                WriteTypeHierarchy(hierarchy.InterfaceRoot);
+
             WriteEndTypes();
 
             void WriteTypeHierarchy(SymbolHierarchyItem item)
             {
-                WriteStartType(item.Symbol);
+                INamedTypeSymbol symbol = item.Symbol;
 
-                WriteType(item.Symbol);
+                WriteStartType(symbol);
 
-                if (!item.IsExternal)
-                    WriteMembers(item.Symbol);
+                WriteType(symbol);
+
+                if (symbol != null
+                    && !item.IsExternal)
+                {
+                    WriteMembers(symbol);
+                }
 
                 foreach (SymbolHierarchyItem derivedItem in item.Children())
                 {
@@ -378,7 +411,7 @@ namespace Roslynator.Documentation
                     WriteTypeHierarchy(derivedItem);
                 }
 
-                WriteEndType(item.Symbol);
+                WriteEndType(symbol);
             }
         }
 
@@ -395,7 +428,7 @@ namespace Roslynator.Documentation
                         WriteStartNamespace(namespaceSymbol);
                         WriteNamespace(namespaceSymbol);
 
-                        if ((Filter.SymbolGroupFilter & SymbolGroupFilter.Type) != 0)
+                        if ((Filter.SymbolGroups & SymbolGroupFilter.Type) != 0)
                             WriteTypes(en.Current);
 
                         WriteEndNamespace(namespaceSymbol);
@@ -413,7 +446,7 @@ namespace Roslynator.Documentation
             }
         }
 
-        private void WriteNamespacesWithHierarchy(Dictionary<INamespaceSymbol, IEnumerable<INamedTypeSymbol>> typesByNamespace)
+        private void WriteNamespaceHierarchy(Dictionary<INamespaceSymbol, IEnumerable<INamedTypeSymbol>> typesByNamespace)
         {
             var rootNamespaces = new HashSet<INamespaceSymbol>(MetadataNameEqualityComparer<INamespaceSymbol>.Instance);
 
@@ -472,7 +505,7 @@ namespace Roslynator.Documentation
             {
                 WriteNamespace(namespaceSymbol);
 
-                if ((Filter.SymbolGroupFilter & SymbolGroupFilter.Type) != 0)
+                if ((Filter.SymbolGroups & SymbolGroupFilter.Type) != 0)
                     WriteTypes(typesByNamespace[namespaceSymbol]);
 
                 using (List<INamespaceSymbol>.Enumerator en = nestedNamespaces
@@ -550,11 +583,11 @@ namespace Roslynator.Documentation
                 case TypeKind.Interface:
                 case TypeKind.Struct:
                     {
-                        if ((Filter.SymbolGroupFilter & SymbolGroupFilter.Member) != 0)
+                        if ((Filter.SymbolGroups & SymbolGroupFilter.Member) != 0)
                             WriteMembers();
 
-                        if (Format.Layout != SymbolDefinitionListLayout.TypeHierarchy
-                            && (Filter.SymbolGroupFilter & SymbolGroupFilter.Type) != 0)
+                        if (Layout != SymbolDefinitionListLayout.TypeHierarchy
+                            && (Filter.SymbolGroups & SymbolGroupFilter.Type) != 0)
                         {
                             WriteTypes(type.GetTypeMembers().Where(f => Filter.IsVisibleType(f)));
                         }
@@ -563,7 +596,7 @@ namespace Roslynator.Documentation
                     }
                 case TypeKind.Enum:
                     {
-                        if ((Filter.SymbolGroupFilter & SymbolGroupFilter.Member) != 0)
+                        if ((Filter.SymbolGroups & SymbolGroupFilter.Member) != 0)
                             WriteEnumMembers();
 
                         break;

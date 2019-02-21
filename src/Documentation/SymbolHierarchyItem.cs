@@ -48,6 +48,8 @@ namespace Roslynator.Documentation
             get { return $"{Symbol.ToDisplayString(Roslynator.SymbolDisplayFormats.Test)}"; }
         }
 
+        public bool HasChildren => lastChild != null;
+
         public IEnumerable<SymbolHierarchyItem> Children()
         {
             SymbolHierarchyItem e = lastChild;

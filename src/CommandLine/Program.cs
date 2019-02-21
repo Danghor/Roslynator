@@ -208,10 +208,10 @@ namespace Roslynator.CommandLine
             if (!TryParseOptionValueAsEnumFlags(options.Format, ParameterNames.Format, out SymbolDefinitionFormatOptions formatOptions))
                 return 1;
 
-            if (!TryParseMetadataNames(options.IgnoredAttributeNames, out ImmutableArray<MetadataName> ignoredAttributeNames))
+            if (!TryParseMetadataNames(options.IgnoredAttributes, out ImmutableArray<MetadataName> ignoredAttributes))
                 return 1;
 
-            if (!TryParseMetadataNames(options.IgnoredNames, out ImmutableArray<MetadataName> ignoredNames))
+            if (!TryParseMetadataNames(options.IgnoredSymbols, out ImmutableArray<MetadataName> ignoredSymbols))
                 return 1;
 
             if (!TryParseOptionValueAsEnumFlags(options.IgnoredParts, ParameterNames.IgnoredParts, out SymbolDefinitionPartFilter ignoredParts))
@@ -220,14 +220,14 @@ namespace Roslynator.CommandLine
             if (!TryParseOptionValueAsEnum(options.Layout, ParameterNames.Layout, out SymbolDefinitionListLayout layout, SymbolDefinitionListLayout.NamespaceList))
                 return 1;
 
-            if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFilterOptions.Default.VisibilityFilter))
+            if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFilterOptions.Default.Visibility))
                 return 1;
 
             var symbolFilterOptions = new SymbolFilterOptions(
                 visibilityFilter: visibilityFilter,
                 symbolGroupFilter: GetSymbolGroupFilter(),
-                ignoredNames: ignoredNames,
-                ignoredAttributeNames: ignoredAttributeNames);
+                ignoredSymbols: ignoredSymbols,
+                ignoredAttributes: ignoredAttributes.AddRange(SymbolFilterOptions.Documentation.IgnoredAttributeNames));
 
             var command = new ListSymbolsCommand(
                 options: options,

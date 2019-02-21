@@ -10,16 +10,16 @@ namespace Roslynator.Documentation
 {
     internal class SymbolFilterOptions
     {
-        private readonly MetadataNameSet _ignoredNames;
-        private readonly MetadataNameSet _ignoredAttributeNames;
+        private readonly MetadataNameSet _ignoredSymbols;
+        private readonly MetadataNameSet _ignoredAttributes;
 
         public static SymbolFilterOptions Default { get; } = new SymbolFilterOptions();
 
         public static SymbolFilterOptions Documentation { get; } = new SymbolFilterOptions(
             visibilityFilter: VisibilityFilter.Public,
             symbolGroupFilter: SymbolGroupFilter.NamespaceOrTypeOrMember,
-            ignoredNames: null,
-            ignoredAttributeNames: GetDocumentationIgnoredAttributeNames().Select(f => MetadataName.Parse(f)));
+            ignoredSymbols: null,
+            ignoredAttributes: GetDocumentationIgnoredAttributeNames().Select(f => MetadataName.Parse(f)));
 
         internal static string[] GetDocumentationIgnoredAttributeNames()
         {
@@ -89,32 +89,32 @@ namespace Roslynator.Documentation
         internal SymbolFilterOptions(
             VisibilityFilter visibilityFilter = VisibilityFilter.All,
             SymbolGroupFilter symbolGroupFilter = SymbolGroupFilter.NamespaceOrTypeOrMember,
-            IEnumerable<MetadataName> ignoredNames = null,
-            IEnumerable<MetadataName> ignoredAttributeNames = null)
+            IEnumerable<MetadataName> ignoredSymbols = null,
+            IEnumerable<MetadataName> ignoredAttributes = null)
         {
-            VisibilityFilter = visibilityFilter;
-            SymbolGroupFilter = symbolGroupFilter;
-            _ignoredNames = (ignoredNames != null) ? new MetadataNameSet(ignoredNames) : null;
-            _ignoredAttributeNames = (ignoredAttributeNames != null) ? new MetadataNameSet(ignoredAttributeNames) : null;
+            Visibility = visibilityFilter;
+            SymbolGroups = symbolGroupFilter;
+            _ignoredSymbols = (ignoredSymbols != null) ? new MetadataNameSet(ignoredSymbols) : null;
+            _ignoredAttributes = (ignoredAttributes != null) ? new MetadataNameSet(ignoredAttributes) : null;
         }
 
-        public VisibilityFilter VisibilityFilter { get; }
+        public VisibilityFilter Visibility { get; }
 
-        public SymbolGroupFilter SymbolGroupFilter { get; }
+        public SymbolGroupFilter SymbolGroups { get; }
 
         public ImmutableArray<MetadataName> IgnoredNames
         {
-            get { return _ignoredNames?.Values ?? ImmutableArray<MetadataName>.Empty; }
+            get { return _ignoredSymbols?.Values ?? ImmutableArray<MetadataName>.Empty; }
         }
 
         public ImmutableArray<MetadataName> IgnoredAttributeNames
         {
-            get { return _ignoredAttributeNames?.Values ?? ImmutableArray<MetadataName>.Empty; }
+            get { return _ignoredAttributes?.Values ?? ImmutableArray<MetadataName>.Empty; }
         }
 
         public bool IncludesSymbolGroup(SymbolGroupFilter symbolGroupFilter)
         {
-            return (SymbolGroupFilter & symbolGroupFilter) == symbolGroupFilter;
+            return (SymbolGroups & symbolGroupFilter) == symbolGroupFilter;
         }
 
         public bool IsVisible(ISymbol symbol)
@@ -139,15 +139,16 @@ namespace Roslynator.Documentation
         public virtual bool IsVisibleNamespace(INamespaceSymbol namespaceSymbol)
         {
             return IncludesSymbolGroup(SymbolGroupFilter.Namespace)
-                && _ignoredNames?.Contains(namespaceSymbol) != true;
+                && _ignoredSymbols?.Contains(namespaceSymbol) != true;
         }
 
         public virtual bool IsVisibleType(INamedTypeSymbol typeSymbol)
         {
             return !typeSymbol.IsImplicitlyDeclared
                 && IncludesSymbolGroup(typeSymbol.TypeKind.ToSymbolGroupFilter())
-                && typeSymbol.IsVisible(VisibilityFilter)
-                && _ignoredNames?.Contains(typeSymbol) != true;
+                && typeSymbol.IsVisible(Visibility)
+                && _ignoredSymbols?.Contains(typeSymbol) != true
+                && _ignoredSymbols?.Contains(typeSymbol.ContainingSymbol) != true;
         }
 
         public virtual bool IsVisibleMember(ISymbol symbol)
@@ -261,12 +262,13 @@ namespace Roslynator.Documentation
             }
 
             return (canBeImplicitlyDeclared || !symbol.IsImplicitlyDeclared)
-                && symbol.IsVisible(VisibilityFilter);
+                && symbol.IsVisible(Visibility)
+                && _ignoredSymbols?.Contains(symbol.ContainingSymbol) != true;
         }
 
         public virtual bool IsVisibleAttribute(INamedTypeSymbol attributeType)
         {
-            if (_ignoredAttributeNames?.Contains(attributeType) == true)
+            if (_ignoredAttributes?.Contains(attributeType) == true)
                 return false;
 #if DEBUG
             switch (attributeType.MetadataName)

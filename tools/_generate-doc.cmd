@@ -16,7 +16,7 @@ set _rootDirectoryUrl="../../docs/api/"
  --msbuild-path %_msbuildPath% ^
  --visibility public ^
  --depth member ^
- --omit-containing-namespace ^
+ --ignored-parts containing-namespace ^
  --output "..\docs\api.txt"
 
 %_roslynator% generate-doc-root "..\src\Core.sln" ^
