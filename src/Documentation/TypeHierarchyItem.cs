@@ -7,12 +7,12 @@ using Microsoft.CodeAnalysis;
 namespace Roslynator.Documentation
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    internal class SymbolHierarchyItem
+    internal class TypeHierarchyItem
     {
-        internal SymbolHierarchyItem lastChild;
-        internal SymbolHierarchyItem next;
+        internal TypeHierarchyItem content;
+        internal TypeHierarchyItem next;
 
-        internal SymbolHierarchyItem(INamedTypeSymbol symbol, bool isExternal = false)
+        internal TypeHierarchyItem(INamedTypeSymbol symbol, bool isExternal = false)
         {
             Symbol = symbol;
             IsExternal = isExternal;
@@ -20,7 +20,7 @@ namespace Roslynator.Documentation
 
         public INamedTypeSymbol Symbol { get; }
 
-        public SymbolHierarchyItem Parent { get; internal set; }
+        public TypeHierarchyItem Parent { get; internal set; }
 
         public bool IsExternal { get; }
 
@@ -30,7 +30,7 @@ namespace Roslynator.Documentation
             {
                 int depth = 0;
 
-                SymbolHierarchyItem parent = Parent;
+                TypeHierarchyItem parent = Parent;
 
                 while (parent != null)
                 {
@@ -45,14 +45,14 @@ namespace Roslynator.Documentation
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay
         {
-            get { return $"{Symbol.ToDisplayString(Roslynator.SymbolDisplayFormats.Test)}"; }
+            get { return $"Depth = {Depth} {Symbol.ToDisplayString(Roslynator.SymbolDisplayFormats.Test)}"; }
         }
 
-        public bool HasChildren => lastChild != null;
+        public bool HasChildren => content != null;
 
-        public IEnumerable<SymbolHierarchyItem> Children()
+        public IEnumerable<TypeHierarchyItem> Children()
         {
-            SymbolHierarchyItem e = lastChild;
+            TypeHierarchyItem e = content;
 
             if (e != null)
             {
@@ -61,23 +61,23 @@ namespace Roslynator.Documentation
                     e = e.next;
                     yield return e;
 
-                } while (e.Parent == this && e != lastChild);
+                } while (e.Parent == this && e != content);
             }
         }
 
-        public IEnumerable<SymbolHierarchyItem> Ancestors()
+        public IEnumerable<TypeHierarchyItem> Ancestors()
         {
             return GetAncestors(self: false);
         }
 
-        public IEnumerable<SymbolHierarchyItem> AncestorsAndSelf()
+        public IEnumerable<TypeHierarchyItem> AncestorsAndSelf()
         {
             return GetAncestors(self: true);
         }
 
-        internal IEnumerable<SymbolHierarchyItem> GetAncestors(bool self)
+        internal IEnumerable<TypeHierarchyItem> GetAncestors(bool self)
         {
-            SymbolHierarchyItem c = ((self) ? this : Parent);
+            TypeHierarchyItem c = ((self) ? this : Parent);
 
             while (c != null)
             {
@@ -87,17 +87,17 @@ namespace Roslynator.Documentation
             }
         }
 
-        public IEnumerable<SymbolHierarchyItem> Descendants()
+        public IEnumerable<TypeHierarchyItem> Descendants()
         {
             return GetDescendants(self: false);
         }
 
-        public IEnumerable<SymbolHierarchyItem> DescendantsAndSelf()
+        public IEnumerable<TypeHierarchyItem> DescendantsAndSelf()
         {
             return GetDescendants(self: true);
         }
 
-        internal IEnumerable<SymbolHierarchyItem> GetDescendants(bool self)
+        internal IEnumerable<TypeHierarchyItem> GetDescendants(bool self)
         {
             var e = this;
 
@@ -108,7 +108,7 @@ namespace Roslynator.Documentation
 
             while (true)
             {
-                SymbolHierarchyItem first = c?.lastChild?.next;
+                TypeHierarchyItem first = c?.content?.next;
 
                 if (first != null)
                 {
@@ -117,7 +117,7 @@ namespace Roslynator.Documentation
                 else
                 {
                     while (e != this
-                        && e == e.Parent.lastChild)
+                        && e == e.Parent.content)
                     {
                         e = e.Parent;
                     }

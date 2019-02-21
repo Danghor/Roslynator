@@ -281,27 +281,27 @@ namespace Roslynator.Documentation
             return format;
         }
 
-        public void WriteDocument(IEnumerable<IAssemblySymbol> assemblies)
+        public void WriteDocument(IEnumerable<IAssemblySymbol> assemblies, CancellationToken cancellationToken = default)
         {
             WriteStartDocument();
-            WriteAssemblies(assemblies);
+            WriteAssemblies(assemblies, cancellationToken);
 
             if (!Format.GroupByAssembly)
             {
                 if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
                 {
-                    WriteTypeHierarchy(assemblies.SelectMany(a => a.GetTypes(Filter.IsVisibleType)));
+                    WriteTypeHierarchy(assemblies.SelectMany(a => a.GetTypes(Filter.IsVisibleType)), cancellationToken);
                 }
                 else
                 {
-                    WriteNamespaces(assemblies.SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t))));
+                    WriteNamespaces(assemblies.SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t))), cancellationToken);
                 }
             }
 
             WriteEndDocument();
         }
 
-        public void WriteAssemblies(IEnumerable<IAssemblySymbol> assemblies)
+        public void WriteAssemblies(IEnumerable<IAssemblySymbol> assemblies, CancellationToken cancellationToken = default)
         {
             WriteStartAssemblies();
 
@@ -314,6 +314,8 @@ namespace Roslynator.Documentation
                 {
                     while (true)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
+
                         IAssemblySymbol assembly = en.Current;
 
                         WriteStartAssembly(assembly);
@@ -326,11 +328,11 @@ namespace Roslynator.Documentation
                         {
                             if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
                             {
-                                WriteTypeHierarchy(assembly.GetTypes(Filter.IsVisibleType));
+                                WriteTypeHierarchy(assembly.GetTypes(Filter.IsVisibleType), cancellationToken);
                             }
                             else
                             {
-                                WriteNamespaces(assembly.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t)));
+                                WriteNamespaces(assembly.GetTypes(t => t.ContainingType == null && Filter.IsVisibleType(t)), cancellationToken);
                             }
                         }
 
@@ -351,7 +353,7 @@ namespace Roslynator.Documentation
             WriteEndAssemblies();
         }
 
-        public void WriteNamespaces(IEnumerable<INamedTypeSymbol> types)
+        private void WriteNamespaces(IEnumerable<INamedTypeSymbol> types, CancellationToken cancellationToken = default)
         {
             IEnumerable<IGrouping<INamespaceSymbol, INamedTypeSymbol>> typesByNamespace = types
                 .GroupBy(t => t.ContainingNamespace, MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
@@ -362,26 +364,26 @@ namespace Roslynator.Documentation
 
             if (Layout == SymbolDefinitionListLayout.NamespaceHierarchy)
             {
-                WriteNamespaceHierarchy(typesByNamespace.ToDictionary(f => f.Key, f => f.AsEnumerable()));
+                WriteNamespaceHierarchy(typesByNamespace.ToDictionary(f => f.Key, f => f.AsEnumerable()), cancellationToken);
             }
             else
             {
                 Debug.Assert(Layout == SymbolDefinitionListLayout.NamespaceList, Layout.ToString());
 
-                WriteNamespaces(typesByNamespace);
+                WriteNamespaces(typesByNamespace, cancellationToken);
             }
 
             WriteEndNamespaces();
         }
 
-        private void WriteTypeHierarchy(IEnumerable<INamedTypeSymbol> types)
+        private void WriteTypeHierarchy(IEnumerable<INamedTypeSymbol> types, CancellationToken cancellationToken = default)
         {
-            SymbolHierarchy hierarchy = SymbolHierarchy.Create(types, Comparer);
+            TypeHierarchy hierarchy = TypeHierarchy.Create(types, Comparer);
 
-            WriteTypeHierarchy(hierarchy);
+            WriteTypeHierarchy(hierarchy, cancellationToken);
         }
 
-        private void WriteTypeHierarchy(SymbolHierarchy hierarchy)
+        private void WriteTypeHierarchy(TypeHierarchy hierarchy, CancellationToken cancellationToken = default)
         {
             WriteStartTypes();
             WriteTypeHierarchy(hierarchy.Root);
@@ -391,8 +393,10 @@ namespace Roslynator.Documentation
 
             WriteEndTypes();
 
-            void WriteTypeHierarchy(SymbolHierarchyItem item)
+            void WriteTypeHierarchy(TypeHierarchyItem item)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 INamedTypeSymbol symbol = item.Symbol;
 
                 WriteStartType(symbol);
@@ -405,7 +409,7 @@ namespace Roslynator.Documentation
                     WriteMembers(symbol);
                 }
 
-                foreach (SymbolHierarchyItem derivedItem in item.Children())
+                foreach (TypeHierarchyItem derivedItem in item.Children())
                 {
                     WriteTypeSeparator();
                     WriteTypeHierarchy(derivedItem);
@@ -415,7 +419,7 @@ namespace Roslynator.Documentation
             }
         }
 
-        private void WriteNamespaces(IEnumerable<IGrouping<INamespaceSymbol, INamedTypeSymbol>> typesByNamespace)
+        private void WriteNamespaces(IEnumerable<IGrouping<INamespaceSymbol, INamedTypeSymbol>> typesByNamespace, CancellationToken cancellationToken = default)
         {
             using (IEnumerator<IGrouping<INamespaceSymbol, INamedTypeSymbol>> en = typesByNamespace.GetEnumerator())
             {
@@ -423,13 +427,15 @@ namespace Roslynator.Documentation
                 {
                     while (true)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
+
                         INamespaceSymbol namespaceSymbol = en.Current.Key;
 
                         WriteStartNamespace(namespaceSymbol);
                         WriteNamespace(namespaceSymbol);
 
                         if ((Filter.SymbolGroups & SymbolGroupFilter.Type) != 0)
-                            WriteTypes(en.Current);
+                            WriteTypes(en.Current, cancellationToken);
 
                         WriteEndNamespace(namespaceSymbol);
 
@@ -446,7 +452,7 @@ namespace Roslynator.Documentation
             }
         }
 
-        private void WriteNamespaceHierarchy(Dictionary<INamespaceSymbol, IEnumerable<INamedTypeSymbol>> typesByNamespace)
+        private void WriteNamespaceHierarchy(Dictionary<INamespaceSymbol, IEnumerable<INamedTypeSymbol>> typesByNamespace, CancellationToken cancellationToken = default)
         {
             var rootNamespaces = new HashSet<INamespaceSymbol>(MetadataNameEqualityComparer<INamespaceSymbol>.Instance);
 
@@ -503,10 +509,12 @@ namespace Roslynator.Documentation
 
             void WriteNamespaceWithHierarchy(INamespaceSymbol namespaceSymbol)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 WriteNamespace(namespaceSymbol);
 
                 if ((Filter.SymbolGroups & SymbolGroupFilter.Type) != 0)
-                    WriteTypes(typesByNamespace[namespaceSymbol]);
+                    WriteTypes(typesByNamespace[namespaceSymbol], cancellationToken);
 
                 using (List<INamespaceSymbol>.Enumerator en = nestedNamespaces
                     .Where(f => MetadataNameEqualityComparer<INamespaceSymbol>.Instance.Equals(f.ContainingNamespace, namespaceSymbol))
@@ -539,7 +547,7 @@ namespace Roslynator.Documentation
             }
         }
 
-        private void WriteTypes(IEnumerable<INamedTypeSymbol> types)
+        private void WriteTypes(IEnumerable<INamedTypeSymbol> types, CancellationToken cancellationToken = default)
         {
             using (IEnumerator<INamedTypeSymbol> en = types
                 .OrderBy(f => f, Comparer)
@@ -551,6 +559,8 @@ namespace Roslynator.Documentation
 
                     while (true)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
+
                         INamedTypeSymbol type = en.Current;
 
                         WriteStartType(type);

@@ -1,7 +1,39 @@
 * assembly Roslynator\.Core, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=3aeedfaf14b2cebf
+* &emsp; \[AssemblyCompany\("Josef Pihrt"\)\]
+* &emsp; \[AssemblyCopyright\("Copyright \(c\) 2017\-2018 Josef Pihrt"\)\]
+* &emsp; \[AssemblyDescription\("This library extends functionality of package Microsoft\.CodeAnalysis\.Common\."\)\]
+* &emsp; \[AssemblyFileVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyInformationalVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyProduct\("Roslynator\.Core"\)\]
+* &emsp; \[AssemblyTitle\("Roslynator\.Core"\)\]
+* &emsp; \[TargetFramework\("\.NETStandard,Version=v1\.3", FrameworkDisplayName = ""\)\]
 * assembly Roslynator\.CSharp, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=390be46f77b79f52
+* &emsp; \[AssemblyCompany\("Josef Pihrt"\)\]
+* &emsp; \[AssemblyCopyright\("Copyright \(c\) 2017\-2018 Josef Pihrt"\)\]
+* &emsp; \[AssemblyDescription\("This library extends functionality of package Microsoft\.CodeAnalysis\.CSharp\\n\\nCommonly Used Types:\\nRoslynator\.CSharp\.CSharpFactory\\nRoslynator\.CSharp\.CSharpFacts\\nRoslynator\.CSharp\.SyntaxInfo\\nRoslynator\.NameGenerator"\)\]
+* &emsp; \[AssemblyFileVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyInformationalVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyProduct\("Roslynator\.CSharp"\)\]
+* &emsp; \[AssemblyTitle\("Roslynator\.CSharp"\)\]
+* &emsp; \[TargetFramework\("\.NETStandard,Version=v1\.3", FrameworkDisplayName = ""\)\]
 * assembly Roslynator\.CSharp\.Workspaces, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=ec3f0c29a7973f23
+* &emsp; \[AssemblyCompany\("Josef Pihrt"\)\]
+* &emsp; \[AssemblyCopyright\("Copyright \(c\) 2017\-2018 Josef Pihrt"\)\]
+* &emsp; \[AssemblyDescription\("This library extends functionality of package Microsoft\.CodeAnalysis\.CSharp\.Workspaces\\n\\nCommonly Used Types:\\nRoslynator\.CSharp\.CSharpFactory\\nRoslynator\.CSharp\.CSharpFacts\\nRoslynator\.CSharp\.SyntaxInfo\\nRoslynator\.NameGenerator"\)\]
+* &emsp; \[AssemblyFileVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyInformationalVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyProduct\("Roslynator\.CSharp\.Workspaces"\)\]
+* &emsp; \[AssemblyTitle\("Roslynator\.CSharp\.Workspaces"\)\]
+* &emsp; \[TargetFramework\("\.NETStandard,Version=v1\.3", FrameworkDisplayName = ""\)\]
 * assembly Roslynator\.Workspaces\.Core, Version=1\.0\.0\.10, Culture=neutral, PublicKeyToken=be1ec334fe31b7bb
+* &emsp; \[AssemblyCompany\("Josef Pihrt"\)\]
+* &emsp; \[AssemblyCopyright\("Copyright \(c\) 2017\-2018 Josef Pihrt"\)\]
+* &emsp; \[AssemblyDescription\("This library extends functionality of package Microsoft\.CodeAnalysis\.Workspaces\.Common\."\)\]
+* &emsp; \[AssemblyFileVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyInformationalVersion\("1\.0\.0\.10"\)\]
+* &emsp; \[AssemblyProduct\("Roslynator\.Workspaces\.Core"\)\]
+* &emsp; \[AssemblyTitle\("Roslynator\.Workspaces\.Core"\)\]
+* &emsp; \[TargetFramework\("\.NETStandard,Version=v1\.3", FrameworkDisplayName = ""\)\]
 * public class System\.Object
 * &emsp; public abstract class System\.ValueType
 * &emsp; \| &emsp; public abstract class System\.Enum : ValueType, IComparable, IConvertible, IFormattable
@@ -1560,3 +1592,9 @@
 * &emsp; \| &emsp; public static SyntaxToken WithRenameAnnotation\(this SyntaxToken token\)
 * &emsp; \| &emsp; public static SyntaxToken WithSimplifierAnnotation\(this SyntaxToken token\)
 * &emsp; \| &emsp; public static TNode WithSimplifierAnnotation\<TNode>\(this TNode node\) where TNode : SyntaxNode
+* 
+* &emsp; public interface Roslynator\.ISelection\<T> : IReadOnlyList\<T>
+* &emsp; \| &emsp; int FirstIndex \{ get; \}
+* &emsp; \| &emsp; int LastIndex \{ get; \}
+* &emsp; \| &emsp; T First\(\)
+* &emsp; \| &emsp; T Last\(\)

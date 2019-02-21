@@ -33,11 +33,7 @@ namespace Roslynator.Documentation.Xml
         public override void WriteStartDocument()
         {
             _writer.WriteStartDocument();
-            WriteStartElement("Root");
-            _writer.WriteAttributeString("Layout", Layout.ToString());
-
-            if (Format.GroupByAssembly)
-                _writer.WriteAttributeString("IsGroupedByAssembly", Format.GroupByAssembly.ToString());
+            WriteStartElement("root");
         }
 
         public override void WriteEndDocument()
@@ -48,7 +44,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartAssemblies()
         {
-            WriteStartElement("Assemblies");
+            WriteStartElement("assemblies");
         }
 
         public override void WriteEndAssemblies()
@@ -58,12 +54,12 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartAssembly(IAssemblySymbol assemblySymbol)
         {
-            WriteStartElement("Assembly");
+            WriteStartElement("assembly");
         }
 
         public override void WriteAssembly(IAssemblySymbol assemblySymbol)
         {
-            WriteStartAttribute("Name");
+            WriteStartAttribute("name");
             Write(assemblySymbol.Identity.ToString());
             WriteEndAttribute();
         }
@@ -79,7 +75,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartNamespaces()
         {
-            WriteStartElement("Namespaces");
+            WriteStartElement("namespaces");
         }
 
         public override void WriteEndNamespaces()
@@ -89,12 +85,12 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartNamespace(INamespaceSymbol namespaceSymbol)
         {
-            WriteStartElement("Namespace");
+            WriteStartElement("namespace");
         }
 
         public override void WriteNamespace(INamespaceSymbol namespaceSymbol, SymbolDisplayFormat format = null)
         {
-            WriteStartAttribute("Name");
+            WriteStartAttribute("name");
 
             if (!namespaceSymbol.IsGlobalNamespace)
                 Write(namespaceSymbol, format ?? NamespaceFormat);
@@ -114,7 +110,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartTypes()
         {
-            WriteStartElement("Types");
+            WriteStartElement("types");
         }
 
         public override void WriteEndTypes()
@@ -124,14 +120,14 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartType(INamedTypeSymbol typeSymbol)
         {
-            WriteStartElement("Type");
+            WriteStartElement("type");
         }
 
         public override void WriteType(INamedTypeSymbol typeSymbol, SymbolDisplayFormat format = null, SymbolDisplayTypeDeclarationOptions? typeDeclarationOptions = null)
         {
             if (typeSymbol != null)
             {
-                WriteStartAttribute("Def");
+                WriteStartAttribute("def");
                 Write(typeSymbol, format ?? TypeFormat, typeDeclarationOptions);
                 WriteEndAttribute();
                 WriteDocumentationComment(typeSymbol);
@@ -141,7 +137,7 @@ namespace Roslynator.Documentation.Xml
             }
             else
             {
-                _writer.WriteAttributeString("Def", "");
+                _writer.WriteAttributeString("def", "");
             }
         }
 
@@ -156,7 +152,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartMembers()
         {
-            WriteStartElement("Members");
+            WriteStartElement("members");
         }
 
         public override void WriteEndMembers()
@@ -166,12 +162,12 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartMember(ISymbol symbol)
         {
-            WriteStartElement("Member");
+            WriteStartElement("member");
         }
 
         public override void WriteMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
-            WriteStartAttribute("Def");
+            WriteStartAttribute("def");
             Write(symbol, format ?? MemberFormat);
             WriteEndAttribute();
             WriteDocumentationComment(symbol);
@@ -191,7 +187,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartEnumMembers()
         {
-            WriteStartElement("Members");
+            WriteStartElement("members");
         }
 
         public override void WriteEndEnumMembers()
@@ -201,12 +197,12 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartEnumMember(ISymbol symbol)
         {
-            WriteStartElement("Member");
+            WriteStartElement("member");
         }
 
         public override void WriteEnumMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
-            WriteStartAttribute("Def");
+            WriteStartAttribute("def");
             Write(symbol, format ?? EnumMemberFormat);
             WriteEndAttribute();
             WriteDocumentationComment(symbol);
@@ -226,7 +222,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartAttributes(bool assemblyAttribute)
         {
-            WriteStartElement("Attributes");
+            WriteStartElement("attributes");
         }
 
         public override void WriteEndAttributes(bool assemblyAttribute)
@@ -236,7 +232,7 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteStartAttribute(AttributeData attribute, bool assemblyAttribute)
         {
-            WriteStartElement("Attribute");
+            WriteStartElement("attribute");
         }
 
         public override void WriteEndAttribute(AttributeData attribute, bool assemblyAttribute)
@@ -299,7 +295,7 @@ namespace Roslynator.Documentation.Xml
             {
                 if (en.MoveNext())
                 {
-                    WriteStartElement("Doc");
+                    WriteStartElement("doc");
 
                     do
                     {

@@ -89,7 +89,7 @@ namespace Roslynator.CommandLine
             if (externalAssemblies != null)
                 assemblies = assemblies.Concat(externalAssemblies);
 
-            TestOutput(compilations, assemblies, format, comparer);
+            TestOutput(compilations, assemblies, format, comparer, cancellationToken);
 
             string text = null;
 
@@ -106,7 +106,7 @@ namespace Roslynator.CommandLine
                     documentationProvider: documentationProvider,
                     comparer: comparer);
 
-                writer.WriteDocument(assemblies);
+                writer.WriteDocument(assemblies, cancellationToken);
 
                 text = stringWriter.ToString();
             }
@@ -128,7 +128,7 @@ namespace Roslynator.CommandLine
                     {
                         SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, documentationProvider, comparer);
 
-                        writer.WriteDocument(assemblies);
+                        writer.WriteDocument(assemblies, cancellationToken);
                     }
                 }
                 else if (string.Equals(extension, ".md", StringComparison.OrdinalIgnoreCase))
@@ -141,7 +141,7 @@ namespace Roslynator.CommandLine
                     {
                         SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, comparer, RootDirectoryUrl);
 
-                        writer.WriteDocument(assemblies);
+                        writer.WriteDocument(assemblies, cancellationToken);
                     }
                 }
                 else
@@ -222,7 +222,8 @@ namespace Roslynator.CommandLine
             ImmutableArray<Compilation> compilations,
             IEnumerable<IAssemblySymbol> assemblies,
             DefinitionListFormat format,
-            SymbolDefinitionComparer comparer)
+            SymbolDefinitionComparer comparer,
+            CancellationToken cancellationToken)
         {
             SymbolDefinitionWriter textWriter = new SymbolDefinitionTextWriter(
                 ConsoleOut,
@@ -230,7 +231,7 @@ namespace Roslynator.CommandLine
                 format: format,
                 comparer: comparer);
 
-            textWriter.WriteDocument(assemblies);
+            textWriter.WriteDocument(assemblies, cancellationToken);
 
             WriteLine();
 
@@ -238,7 +239,7 @@ namespace Roslynator.CommandLine
             {
                 SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, new SymbolDocumentationProvider(compilations), comparer);
 
-                writer.WriteDocument(assemblies);
+                writer.WriteDocument(assemblies, cancellationToken);
             }
 
             WriteLine();
@@ -247,7 +248,7 @@ namespace Roslynator.CommandLine
             {
                 SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, comparer, RootDirectoryUrl);
 
-                writer.WriteDocument(assemblies);
+                writer.WriteDocument(assemblies, cancellationToken);
             }
 
             WriteLine();

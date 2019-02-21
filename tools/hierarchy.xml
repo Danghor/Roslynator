@@ -1,14 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <assemblies>
-    <assembly name="Microsoft.CodeAnalysis, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <assembly name="Microsoft.CodeAnalysis.CSharp, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <assembly name="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <assembly name="Microsoft.CodeAnalysis.Workspaces, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <assembly name="Roslynator.Core, Version=1.0.0.10, Culture=neutral, PublicKeyToken=3aeedfaf14b2cebf" />
-    <assembly name="Roslynator.CSharp, Version=1.0.0.10, Culture=neutral, PublicKeyToken=390be46f77b79f52" />
-    <assembly name="Roslynator.CSharp.Workspaces, Version=1.0.0.10, Culture=neutral, PublicKeyToken=ec3f0c29a7973f23" />
-    <assembly name="Roslynator.Workspaces.Core, Version=1.0.0.10, Culture=neutral, PublicKeyToken=be1ec334fe31b7bb" />
+    <assembly name="Microsoft.CodeAnalysis, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <attributes>
+        <attribute>AssemblyCompany("Microsoft Corporation")</attribute>
+        <attribute>AssemblyCopyright("© Microsoft Corporation. All rights reserved.")</attribute>
+        <attribute>AssemblyFileVersion("2.3.0.61908")</attribute>
+        <attribute>AssemblyInformationalVersion("2.3.0-beta4-61908-01. Commit Hash: 281ac90b8b5dd9fd923a353afd4af74f3246ca5c")</attribute>
+        <attribute>AssemblyMetadata("Serviceable", "True")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Microsoft.CodeAnalysis.CSharp, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <attributes>
+        <attribute>AssemblyCompany("Microsoft Corporation")</attribute>
+        <attribute>AssemblyCopyright("© Microsoft Corporation. All rights reserved.")</attribute>
+        <attribute>AssemblyFileVersion("2.3.0.61908")</attribute>
+        <attribute>AssemblyInformationalVersion("2.3.0-beta4-61908-01. Commit Hash: 281ac90b8b5dd9fd923a353afd4af74f3246ca5c")</attribute>
+        <attribute>AssemblyMetadata("Serviceable", "True")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+        <attribute>CommitHash("281ac90b8b5dd9fd923a353afd4af74f3246ca5c")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <attributes>
+        <attribute>AssemblyCompany("Microsoft Corporation")</attribute>
+        <attribute>AssemblyCopyright("© Microsoft Corporation. All rights reserved.")</attribute>
+        <attribute>AssemblyFileVersion("2.3.0.61908")</attribute>
+        <attribute>AssemblyInformationalVersion("2.3.0-beta4-61908-01. Commit Hash: 281ac90b8b5dd9fd923a353afd4af74f3246ca5c")</attribute>
+        <attribute>AssemblyMetadata("Serviceable", "True")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Microsoft.CodeAnalysis.Workspaces, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <attributes>
+        <attribute>AssemblyCompany("Microsoft Corporation")</attribute>
+        <attribute>AssemblyCopyright("© Microsoft Corporation. All rights reserved.")</attribute>
+        <attribute>AssemblyFileVersion("2.3.0.61908")</attribute>
+        <attribute>AssemblyInformationalVersion("2.3.0-beta4-61908-01. Commit Hash: 281ac90b8b5dd9fd923a353afd4af74f3246ca5c")</attribute>
+        <attribute>AssemblyMetadata("Serviceable", "True")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Roslynator.Core, Version=1.0.0.10, Culture=neutral, PublicKeyToken=3aeedfaf14b2cebf">
+      <attributes>
+        <attribute>AssemblyCompany("Josef Pihrt")</attribute>
+        <attribute>AssemblyCopyright("Copyright (c) 2017-2018 Josef Pihrt")</attribute>
+        <attribute>AssemblyDescription("This library extends functionality of package Microsoft.CodeAnalysis.Common.")</attribute>
+        <attribute>AssemblyFileVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyInformationalVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyProduct("Roslynator.Core")</attribute>
+        <attribute>AssemblyTitle("Roslynator.Core")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Roslynator.CSharp, Version=1.0.0.10, Culture=neutral, PublicKeyToken=390be46f77b79f52">
+      <attributes>
+        <attribute>AssemblyCompany("Josef Pihrt")</attribute>
+        <attribute>AssemblyCopyright("Copyright (c) 2017-2018 Josef Pihrt")</attribute>
+        <attribute>AssemblyDescription("This library extends functionality of package Microsoft.CodeAnalysis.CSharp\n\nCommonly Used Types:\nRoslynator.CSharp.CSharpFactory\nRoslynator.CSharp.CSharpFacts\nRoslynator.CSharp.SyntaxInfo\nRoslynator.NameGenerator")</attribute>
+        <attribute>AssemblyFileVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyInformationalVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyProduct("Roslynator.CSharp")</attribute>
+        <attribute>AssemblyTitle("Roslynator.CSharp")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Roslynator.CSharp.Workspaces, Version=1.0.0.10, Culture=neutral, PublicKeyToken=ec3f0c29a7973f23">
+      <attributes>
+        <attribute>AssemblyCompany("Josef Pihrt")</attribute>
+        <attribute>AssemblyCopyright("Copyright (c) 2017-2018 Josef Pihrt")</attribute>
+        <attribute>AssemblyDescription("This library extends functionality of package Microsoft.CodeAnalysis.CSharp.Workspaces\n\nCommonly Used Types:\nRoslynator.CSharp.CSharpFactory\nRoslynator.CSharp.CSharpFacts\nRoslynator.CSharp.SyntaxInfo\nRoslynator.NameGenerator")</attribute>
+        <attribute>AssemblyFileVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyInformationalVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyProduct("Roslynator.CSharp.Workspaces")</attribute>
+        <attribute>AssemblyTitle("Roslynator.CSharp.Workspaces")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
+    <assembly name="Roslynator.Workspaces.Core, Version=1.0.0.10, Culture=neutral, PublicKeyToken=be1ec334fe31b7bb">
+      <attributes>
+        <attribute>AssemblyCompany("Josef Pihrt")</attribute>
+        <attribute>AssemblyCopyright("Copyright (c) 2017-2018 Josef Pihrt")</attribute>
+        <attribute>AssemblyDescription("This library extends functionality of package Microsoft.CodeAnalysis.Workspaces.Common.")</attribute>
+        <attribute>AssemblyFileVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyInformationalVersion("1.0.0.10")</attribute>
+        <attribute>AssemblyProduct("Roslynator.Workspaces.Core")</attribute>
+        <attribute>AssemblyTitle("Roslynator.Workspaces.Core")</attribute>
+        <attribute>TargetFramework(".NETStandard,Version=v1.3", FrameworkDisplayName = "")</attribute>
+      </attributes>
+    </assembly>
   </assemblies>
   <types>
     <type def="public class System.Object">
@@ -748,6 +829,217 @@
       <type def="public static class Roslynator.CSharp.SyntaxInverter" />
       <type def="public static class Roslynator.CSharp.WorkspaceExtensions" />
       <type def="public static class Roslynator.CSharp.WorkspaceSyntaxExtensions" />
+    </type>
+    <type def="">
+      <type def="public interface Microsoft.CodeAnalysis.IAnalyzerAssemblyLoader" />
+      <type def="public interface Microsoft.CodeAnalysis.ICompilationUnitSyntax" />
+      <type def="public interface Microsoft.CodeAnalysis.IOperation">
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IAddressOfExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IArgument : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IArrayCreationExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IArrayElementReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IArrayInitializer : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IAssignmentExpression : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation">
+            <type def="public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation" />
+          </type>
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IAwaitExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression : IHasOperatorMethodExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IBlockStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IBranchStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ICaseClause : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IRangeCaseClause : ICaseClause, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IRelationalCaseClause : ICaseClause, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.ISingleValueCaseClause : ICaseClause, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ICatchClause : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IConditionalAccessExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IConditionalAccessInstanceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IConditionalChoiceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IConversionExpression : IHasOperatorMethodExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IDefaultValueExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IEmptyStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IEndStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IEventAssignmentExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IEventReferenceExpression : IMemberReferenceExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IExpressionStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IFieldInitializer : IOperation, ISymbolInitializer" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IFieldReferenceExpression : IMemberReferenceExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IFixedStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IForEachLoopStatement : ILoopStatement, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IForWhileUntilLoopStatement : ILoopStatement, IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IHasArgumentsExpression : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IInvocationExpression : IHasArgumentsExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IObjectCreationExpression : IHasArgumentsExpression, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IHasOperatorMethodExpression : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression : IHasOperatorMethodExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation">
+            <type def="public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation" />
+          </type>
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IConversionExpression : IHasOperatorMethodExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IUnaryOperatorExpression : IHasOperatorMethodExpression, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IIfStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IInstanceReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IInvalidExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IInvalidStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IInvocationExpression : IHasArgumentsExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IIsTypeExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILabelStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILambdaExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILateBoundMemberReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILiteralExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILocalReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILockStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ILoopStatement : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IForEachLoopStatement : ILoopStatement, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IForWhileUntilLoopStatement : ILoopStatement, IOperation">
+            <type def="public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+            <type def="public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+          </type>
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IMemberReferenceExpression : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IEventReferenceExpression : IMemberReferenceExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IFieldReferenceExpression : IMemberReferenceExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IMethodBindingExpression : IMemberReferenceExpression, IOperation" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IPropertyReferenceExpression : IMemberReferenceExpression, IOperation">
+            <type def="public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression" />
+          </type>
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IMethodBindingExpression : IMemberReferenceExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.INullCoalescingExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IObjectCreationExpression : IHasArgumentsExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IOmittedArgumentExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IParameterInitializer : IOperation, ISymbolInitializer" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IParameterReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IParenthesizedExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IPlaceholderExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IPointerIndirectionReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IPropertyInitializer : IOperation, ISymbolInitializer" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IPropertyReferenceExpression : IMemberReferenceExpression, IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IRangeCaseClause : ICaseClause, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IRelationalCaseClause : ICaseClause, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IReturnStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ISingleValueCaseClause : ICaseClause, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ISizeOfExpression : IOperation, ITypeOperationExpression" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IStopStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ISwitchCase : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ISwitchStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ISymbolInitializer : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IFieldInitializer : IOperation, ISymbolInitializer" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IParameterInitializer : IOperation, ISymbolInitializer" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.IPropertyInitializer : IOperation, ISymbolInitializer" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ISyntheticLocalReferenceExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IThrowStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ITryStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ITypeOfExpression : IOperation, ITypeOperationExpression" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ITypeOperationExpression : IOperation">
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.ISizeOfExpression : IOperation, ITypeOperationExpression" />
+          <type def="public interface Microsoft.CodeAnalysis.Semantics.ITypeOfExpression : IOperation, ITypeOperationExpression" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.ITypeParameterObjectCreationExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IUnaryOperatorExpression : IHasOperatorMethodExpression, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IUnboundLambdaExpression : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IUsingStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IVariableDeclaration : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IVariableDeclarationStatement : IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation" />
+        <type def="public interface Microsoft.CodeAnalysis.Semantics.IWithStatement : IOperation" />
+      </type>
+      <type def="public interface Microsoft.CodeAnalysis.ISkippedTokensTriviaSyntax" />
+      <type def="public interface Microsoft.CodeAnalysis.IStructuredTriviaSyntax" />
+      <type def="public interface Microsoft.CodeAnalysis.ISymbol : IEquatable&lt;ISymbol&gt;">
+        <type def="public interface Microsoft.CodeAnalysis.IAliasSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IAssemblySymbol : IEquatable&lt;ISymbol&gt;, ISymbol">
+          <type def="public interface Microsoft.CodeAnalysis.ISourceAssemblySymbol : IAssemblySymbol, IEquatable&lt;ISymbol&gt;, ISymbol" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.IDiscardSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IEventSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IFieldSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.ILabelSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.ILocalSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IMethodSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IModuleSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol">
+          <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.INamespaceOrTypeSymbol : IEquatable&lt;ISymbol&gt;, ISymbol">
+          <type def="public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol">
+            <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          </type>
+          <type def="public interface Microsoft.CodeAnalysis.INamespaceSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.ITypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol">
+            <type def="public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+            <type def="public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+            <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+            <type def="public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol">
+              <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+            </type>
+            <type def="public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+            <type def="public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          </type>
+        </type>
+        <type def="public interface Microsoft.CodeAnalysis.INamespaceSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IParameterSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IPreprocessingSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IPropertySymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.IRangeVariableSymbol : IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.ISourceAssemblySymbol : IAssemblySymbol, IEquatable&lt;ISymbol&gt;, ISymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        <type def="public interface Microsoft.CodeAnalysis.ITypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol">
+          <type def="public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol">
+            <type def="public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable&lt;ISymbol&gt;, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          </type>
+          <type def="public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+          <type def="public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable&lt;ISymbol&gt;, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol" />
+        </type>
+      </type>
+      <type def="public interface Microsoft.CodeAnalysis.FindSymbols.IFindReferencesProgress" />
+      <type def="public interface Microsoft.CodeAnalysis.Host.ILanguageService" />
+      <type def="public interface Microsoft.CodeAnalysis.Host.IPersistentStorage : IDisposable" />
+      <type def="public interface Microsoft.CodeAnalysis.Host.ITemporaryStreamStorage : IDisposable" />
+      <type def="public interface Microsoft.CodeAnalysis.Host.ITemporaryTextStorage : IDisposable" />
+      <type def="public interface Microsoft.CodeAnalysis.Host.IWorkspaceService">
+        <type def="public interface Microsoft.CodeAnalysis.Host.IAnalyzerService : IWorkspaceService" />
+        <type def="public interface Microsoft.CodeAnalysis.Host.IPersistentStorageService : IWorkspaceService" />
+        <type def="public interface Microsoft.CodeAnalysis.Host.ITemporaryStorageService : IWorkspaceService" />
+      </type>
+      <type def="public interface Microsoft.CodeAnalysis.Host.Mef.ILanguageServiceFactory" />
+      <type def="public interface Microsoft.CodeAnalysis.Host.Mef.IWorkspaceServiceFactory" />
+      <type def="public interface Microsoft.CodeAnalysis.Options.IOption" />
+      <type def="public interface Roslynator.ISelection&lt;T&gt; : IReadOnlyList&lt;T&gt;" />
     </type>
   </types>
 </root>
