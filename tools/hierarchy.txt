@@ -1397,369 +1397,125 @@ public class System.Object
 
   public static class Roslynator.CSharp.WorkspaceSyntaxExtensions
 
-
+  public interface Microsoft.CodeAnalysis.IAliasSymbol : IEquatable<ISymbol>, ISymbol
   public interface Microsoft.CodeAnalysis.IAnalyzerAssemblyLoader
-
+  public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
+  public interface Microsoft.CodeAnalysis.IAssemblySymbol : IEquatable<ISymbol>, ISymbol
   public interface Microsoft.CodeAnalysis.ICompilationUnitSyntax
-
+  public interface Microsoft.CodeAnalysis.IDiscardSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
+  public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
+  public interface Microsoft.CodeAnalysis.IEventSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IFieldSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.ILabelSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.ILocalSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IMethodSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IModuleSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
+  public interface Microsoft.CodeAnalysis.INamespaceOrTypeSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.INamespaceSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol
   public interface Microsoft.CodeAnalysis.IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IAddressOfExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IArgument : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IArrayCreationExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IArrayElementReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IArrayInitializer : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IAssignmentExpression : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-        public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IAwaitExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression : IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IBlockStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IBranchStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ICaseClause : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IRangeCaseClause : ICaseClause, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IRelationalCaseClause : ICaseClause, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.ISingleValueCaseClause : ICaseClause, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ICatchClause : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IConditionalAccessExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IConditionalAccessInstanceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IConditionalChoiceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IConversionExpression : IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IDefaultValueExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IEmptyStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IEndStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IEventAssignmentExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IEventReferenceExpression : IMemberReferenceExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IExpressionStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IFieldInitializer : IOperation, ISymbolInitializer
-
-    public interface Microsoft.CodeAnalysis.Semantics.IFieldReferenceExpression : IMemberReferenceExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IFixedStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IForEachLoopStatement : ILoopStatement, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IForWhileUntilLoopStatement : ILoopStatement, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IHasArgumentsExpression : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression
-
-      public interface Microsoft.CodeAnalysis.Semantics.IInvocationExpression : IHasArgumentsExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IObjectCreationExpression : IHasArgumentsExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IHasOperatorMethodExpression : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression : IHasOperatorMethodExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-        public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IConversionExpression : IHasOperatorMethodExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IUnaryOperatorExpression : IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IIfStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression
-
-    public interface Microsoft.CodeAnalysis.Semantics.IInstanceReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IInvalidExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IInvalidStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IInvocationExpression : IHasArgumentsExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IIsTypeExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILabelStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILambdaExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILateBoundMemberReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILiteralExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILocalReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILockStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ILoopStatement : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IForEachLoopStatement : ILoopStatement, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IForWhileUntilLoopStatement : ILoopStatement, IOperation
-
-        public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-        public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IMemberReferenceExpression : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IEventReferenceExpression : IMemberReferenceExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IFieldReferenceExpression : IMemberReferenceExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression
-
-      public interface Microsoft.CodeAnalysis.Semantics.IMethodBindingExpression : IMemberReferenceExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IPropertyReferenceExpression : IMemberReferenceExpression, IOperation
-
-        public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression
-
-    public interface Microsoft.CodeAnalysis.Semantics.IMethodBindingExpression : IMemberReferenceExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.INullCoalescingExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IObjectCreationExpression : IHasArgumentsExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IOmittedArgumentExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IParameterInitializer : IOperation, ISymbolInitializer
-
-    public interface Microsoft.CodeAnalysis.Semantics.IParameterReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IParenthesizedExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IPlaceholderExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IPointerIndirectionReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IPropertyInitializer : IOperation, ISymbolInitializer
-
-    public interface Microsoft.CodeAnalysis.Semantics.IPropertyReferenceExpression : IMemberReferenceExpression, IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression
-
-    public interface Microsoft.CodeAnalysis.Semantics.IRangeCaseClause : ICaseClause, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IRelationalCaseClause : ICaseClause, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IReturnStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ISingleValueCaseClause : ICaseClause, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ISizeOfExpression : IOperation, ITypeOperationExpression
-
-    public interface Microsoft.CodeAnalysis.Semantics.IStopStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ISwitchCase : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ISwitchStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ISymbolInitializer : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.IFieldInitializer : IOperation, ISymbolInitializer
-
-      public interface Microsoft.CodeAnalysis.Semantics.IParameterInitializer : IOperation, ISymbolInitializer
-
-      public interface Microsoft.CodeAnalysis.Semantics.IPropertyInitializer : IOperation, ISymbolInitializer
-
-    public interface Microsoft.CodeAnalysis.Semantics.ISyntheticLocalReferenceExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IThrowStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ITryStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.ITypeOfExpression : IOperation, ITypeOperationExpression
-
-    public interface Microsoft.CodeAnalysis.Semantics.ITypeOperationExpression : IOperation
-
-      public interface Microsoft.CodeAnalysis.Semantics.ISizeOfExpression : IOperation, ITypeOperationExpression
-
-      public interface Microsoft.CodeAnalysis.Semantics.ITypeOfExpression : IOperation, ITypeOperationExpression
-
-    public interface Microsoft.CodeAnalysis.Semantics.ITypeParameterObjectCreationExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IUnaryOperatorExpression : IHasOperatorMethodExpression, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IUnboundLambdaExpression : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IUsingStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IVariableDeclaration : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IVariableDeclarationStatement : IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
-
-    public interface Microsoft.CodeAnalysis.Semantics.IWithStatement : IOperation
-
+  public interface Microsoft.CodeAnalysis.IParameterSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
+  public interface Microsoft.CodeAnalysis.IPreprocessingSymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IPropertySymbol : IEquatable<ISymbol>, ISymbol
+  public interface Microsoft.CodeAnalysis.IRangeVariableSymbol : IEquatable<ISymbol>, ISymbol
   public interface Microsoft.CodeAnalysis.ISkippedTokensTriviaSyntax
-
+  public interface Microsoft.CodeAnalysis.ISourceAssemblySymbol : IAssemblySymbol, IEquatable<ISymbol>, ISymbol
   public interface Microsoft.CodeAnalysis.IStructuredTriviaSyntax
-
   public interface Microsoft.CodeAnalysis.ISymbol : IEquatable<ISymbol>
-
-    public interface Microsoft.CodeAnalysis.IAliasSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.IAssemblySymbol : IEquatable<ISymbol>, ISymbol
-
-      public interface Microsoft.CodeAnalysis.ISourceAssemblySymbol : IAssemblySymbol, IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IDiscardSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.IEventSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IFieldSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.ILabelSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.ILocalSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IMethodSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IModuleSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.INamespaceOrTypeSymbol : IEquatable<ISymbol>, ISymbol
-
-      public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.INamespaceSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol
-
-      public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.ITypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol
-
-        public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-          public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.INamespaceSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IParameterSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.IPreprocessingSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IPropertySymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.IRangeVariableSymbol : IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.ISourceAssemblySymbol : IAssemblySymbol, IEquatable<ISymbol>, ISymbol
-
-    public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-    public interface Microsoft.CodeAnalysis.ITypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol
-
-      public interface Microsoft.CodeAnalysis.IArrayTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.IDynamicTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.INamedTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-        public interface Microsoft.CodeAnalysis.IErrorTypeSymbol : IEquatable<ISymbol>, INamedTypeSymbol, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.IPointerTypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
-      public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
-
+  public interface Microsoft.CodeAnalysis.ITypeParameterSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol, ITypeSymbol
+  public interface Microsoft.CodeAnalysis.ITypeSymbol : IEquatable<ISymbol>, INamespaceOrTypeSymbol, ISymbol
   public interface Microsoft.CodeAnalysis.FindSymbols.IFindReferencesProgress
-
+  public interface Microsoft.CodeAnalysis.Host.IAnalyzerService : IWorkspaceService
   public interface Microsoft.CodeAnalysis.Host.ILanguageService
-
   public interface Microsoft.CodeAnalysis.Host.IPersistentStorage : IDisposable
-
+  public interface Microsoft.CodeAnalysis.Host.IPersistentStorageService : IWorkspaceService
+  public interface Microsoft.CodeAnalysis.Host.ITemporaryStorageService : IWorkspaceService
   public interface Microsoft.CodeAnalysis.Host.ITemporaryStreamStorage : IDisposable
-
   public interface Microsoft.CodeAnalysis.Host.ITemporaryTextStorage : IDisposable
-
   public interface Microsoft.CodeAnalysis.Host.IWorkspaceService
-
-    public interface Microsoft.CodeAnalysis.Host.IAnalyzerService : IWorkspaceService
-
-    public interface Microsoft.CodeAnalysis.Host.IPersistentStorageService : IWorkspaceService
-
-    public interface Microsoft.CodeAnalysis.Host.ITemporaryStorageService : IWorkspaceService
-
   public interface Microsoft.CodeAnalysis.Host.Mef.ILanguageServiceFactory
-
   public interface Microsoft.CodeAnalysis.Host.Mef.IWorkspaceServiceFactory
-
   public interface Microsoft.CodeAnalysis.Options.IOption
-
+  public interface Microsoft.CodeAnalysis.Semantics.IAddressOfExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IArgument : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IArrayCreationExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IArrayElementReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IArrayInitializer : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IAssignmentExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IAwaitExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression : IHasOperatorMethodExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IBlockStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IBranchStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ICaseClause : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ICatchClause : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ICompoundAssignmentExpression : IAssignmentExpression, IHasOperatorMethodExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IConditionalAccessExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IConditionalAccessInstanceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IConditionalChoiceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IConversionExpression : IHasOperatorMethodExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IDefaultValueExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IEmptyStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IEndStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IEventAssignmentExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IEventReferenceExpression : IMemberReferenceExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IExpressionStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IFieldInitializer : IOperation, ISymbolInitializer
+  public interface Microsoft.CodeAnalysis.Semantics.IFieldReferenceExpression : IMemberReferenceExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IFixedStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IForEachLoopStatement : ILoopStatement, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IForLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IForWhileUntilLoopStatement : ILoopStatement, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IHasArgumentsExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IHasOperatorMethodExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IIfStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IIncrementExpression : IAssignmentExpression, ICompoundAssignmentExpression, IHasOperatorMethodExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IIndexedPropertyReferenceExpression : IHasArgumentsExpression, IMemberReferenceExpression, IOperation, IPropertyReferenceExpression
+  public interface Microsoft.CodeAnalysis.Semantics.IInstanceReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IInvalidExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IInvalidStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IInvocationExpression : IHasArgumentsExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IIsTypeExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILabelStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILambdaExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILateBoundMemberReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILiteralExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILocalReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILockStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ILoopStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IMemberReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IMethodBindingExpression : IMemberReferenceExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.INullCoalescingExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IObjectCreationExpression : IHasArgumentsExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IOmittedArgumentExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IParameterInitializer : IOperation, ISymbolInitializer
+  public interface Microsoft.CodeAnalysis.Semantics.IParameterReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IParenthesizedExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IPlaceholderExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IPointerIndirectionReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IPropertyInitializer : IOperation, ISymbolInitializer
+  public interface Microsoft.CodeAnalysis.Semantics.IPropertyReferenceExpression : IMemberReferenceExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IRangeCaseClause : ICaseClause, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IRelationalCaseClause : ICaseClause, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IReturnStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ISingleValueCaseClause : ICaseClause, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ISizeOfExpression : IOperation, ITypeOperationExpression
+  public interface Microsoft.CodeAnalysis.Semantics.IStopStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ISwitchCase : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ISwitchStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ISymbolInitializer : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ISyntheticLocalReferenceExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IThrowStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ITryStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ITypeOfExpression : IOperation, ITypeOperationExpression
+  public interface Microsoft.CodeAnalysis.Semantics.ITypeOperationExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.ITypeParameterObjectCreationExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IUnaryOperatorExpression : IHasOperatorMethodExpression, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IUnboundLambdaExpression : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IUsingStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IVariableDeclaration : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IVariableDeclarationStatement : IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IWhileUntilLoopStatement : IForWhileUntilLoopStatement, ILoopStatement, IOperation
+  public interface Microsoft.CodeAnalysis.Semantics.IWithStatement : IOperation
   public interface Roslynator.ISelection<T> : IReadOnlyList<T>

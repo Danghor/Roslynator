@@ -2,7 +2,7 @@
   "profiles": {
     "CommandLine": {
       "commandName": "Project",
-      "commandLineArgs": "list-symbols \"..\\..\\..\\..\\Core.sln\" --msbuild-path \"C:\\Program Files\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\" --visibility public --depth member --omit-containing-namespace --ignored-attribute-names \"System.Obsolete\" --verbosity diag --include-documentation"
+      "commandLineArgs": "list-symbols \"..\\..\\..\\..\\Core.sln\" --msbuild-path \"C:\\Program Files\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\" --visibility public --layout type-hierarchy --ignored-parts containing-namespace --include-documentation --references Microsoft.CodeAnalysis.dll Microsoft.CodeAnalysis.CSharp.dll Microsoft.CodeAnalysis.Workspaces.dll Microsoft.CodeAnalysis.CSharp.Workspaces.dll -v m"
     }
   }
 }

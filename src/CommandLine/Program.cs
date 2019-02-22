@@ -176,20 +176,31 @@ namespace Roslynator.CommandLine
             if (!options.TryGetProjectFilter(out ProjectFilter projectFilter))
                 return 1;
 
-            if (!TryParseOptionValueAsEnumFlags(options.SymbolGroupFilter, ParameterNames.SymbolGroupFilter, out SymbolGroupFilter symbolGroupFilter, SymbolFinderOptions.Default.SymbolGroupFilter))
+            if (!TryParseOptionValueAsEnumFlags(options.SymbolGroupFilter, ParameterNames.SymbolGroupFilter, out SymbolGroupFilter symbolGroups, SymbolFinderOptions.Default.SymbolGroups))
                 return 1;
 
-            if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFinderOptions.Default.VisibilityFilter))
+            if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibility, SymbolFinderOptions.Default.Visibility))
                 return 1;
 
-            if (!TryParseMetadataNames(options.IgnoredAttributes, out ImmutableArray<MetadataName> ignoredAttributes))
+            if (!TryParseMetadataNames(options.WithAttributes, out ImmutableArray<MetadataName> withAttributes))
                 return 1;
+
+            if (!TryParseMetadataNames(options.WithoutAttributes, out ImmutableArray<MetadataName> withoutAttributes))
+                return 1;
+
+            var symbolFinderOptions = new SymbolFinderOptions(
+                visibility: visibility,
+                symbolGroups: symbolGroups,
+                ignoredSymbols: null,
+                ignoredAttributes: null,
+                withAttributes: withAttributes,
+                withoutAttributes: withoutAttributes,
+                ignoreGeneratedCode: options.IgnoreGeneratedCode,
+                unusedOnly: options.UnusedOnly);
 
             var command = new FindSymbolsCommand(
                 options: options,
-                visibilityFilter: visibilityFilter,
-                symbolGroupFilter: symbolGroupFilter,
-                ignoredAttributes: ignoredAttributes,
+                symbolFinderOptions: symbolFinderOptions,
                 projectFilter: projectFilter);
 
             CommandResult result = await command.ExecuteAsync(options.Path, options.MSBuildPath, options.Properties);
@@ -224,10 +235,10 @@ namespace Roslynator.CommandLine
                 return 1;
 
             var symbolFilterOptions = new SymbolFilterOptions(
-                visibilityFilter: visibilityFilter,
-                symbolGroupFilter: GetSymbolGroupFilter(),
+                visibility: visibilityFilter,
+                symbolGroups: GetSymbolGroupFilter(),
                 ignoredSymbols: ignoredSymbols,
-                ignoredAttributes: ignoredAttributes.AddRange(SymbolFilterOptions.Documentation.IgnoredAttributeNames));
+                ignoredAttributes: ignoredAttributes.AddRange(SymbolFilterOptions.Documentation.IgnoredAttributes));
 
             var command = new ListSymbolsCommand(
                 options: options,
@@ -247,11 +258,11 @@ namespace Roslynator.CommandLine
                 switch (depth)
                 {
                     case DocumentationDepth.Member:
-                        return SymbolGroupFilter.NamespaceOrTypeOrMember;
+                        return SymbolGroupFilter.TypeOrMember;
                     case DocumentationDepth.Type:
-                        return SymbolGroupFilter.NamespaceOrType;
+                        return SymbolGroupFilter.Type;
                     case DocumentationDepth.Namespace:
-                        return SymbolGroupFilter.Namespace;
+                        return SymbolGroupFilter.None;
                     default:
                         throw new InvalidOperationException();
                 }

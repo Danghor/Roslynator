@@ -8,22 +8,20 @@ namespace Roslynator
     internal enum SymbolGroupFilter
     {
         None = 0,
-        Namespace = 1,
-        Class = 2,
-        Delegate = 4,
-        Enum = 8,
-        Interface = 16,
-        Struct = 32,
+        Class = 1,
+        Delegate = 2,
+        Enum = 4,
+        Interface = 8,
+        Struct = 16,
         Type = Class | Delegate | Enum | Interface | Struct,
-        NamespaceOrType = Namespace | Type,
-        Event = 64,
-        Field = 128,
+        Event = 32,
+        Field = 64,
+        EnumField = 128,
         Const = 256,
         Method = 512,
         Property = 1024,
         Indexer = 2048,
-        Member = Event | Field | Const | Method | Property | Indexer,
-        TypeOrMember = Type | Member,
-        NamespaceOrTypeOrMember = Namespace | Type | Member
+        Member = Event | Field | EnumField | Const | Method | Property | Indexer,
+        TypeOrMember = Type | Member
     }
 }

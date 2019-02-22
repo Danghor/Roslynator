@@ -98,7 +98,7 @@ namespace Roslynator.Documentation
             public const SymbolDefinitionPartFilter Parts = SymbolDefinitionPartFilter.All;
             public const SymbolDefinitionFormatOptions FormatOptions = SymbolDefinitionFormatOptions.None;
             public const Visibility Visibility = Roslynator.Visibility.Private;
-            public const SymbolGroupFilter SymbolGroupFilter = Roslynator.SymbolGroupFilter.NamespaceOrTypeOrMember;
+            public const SymbolGroupFilter SymbolGroupFilter = Roslynator.SymbolGroupFilter.TypeOrMember;
             public const string IndentChars = "  ";
             public const bool EmptyLineBetweenMemberGroups = true;
             public const bool EmptyLineBetweenMembers = false;

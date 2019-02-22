@@ -686,6 +686,24 @@ namespace Roslynator
                 }
             }
         }
+
+        internal static ImmutableArray<INamespaceSymbol> GetNamespaces(this IAssemblySymbol assemblySymbol, Func<INamespaceSymbol, bool> predicate = null)
+        {
+            ImmutableArray<INamespaceSymbol>.Builder builder = ImmutableArray.CreateBuilder<INamespaceSymbol>();
+
+            GetNamespaces(assemblySymbol.GlobalNamespace);
+
+            return builder.ToImmutableArray();
+
+            void GetNamespaces(INamespaceSymbol namespaceSymbol)
+            {
+                if (predicate == null || predicate(namespaceSymbol))
+                    builder.Add(namespaceSymbol);
+
+                foreach (INamespaceSymbol namespaceSymbol2 in namespaceSymbol.GetNamespaceMembers())
+                    GetNamespaces(namespaceSymbol2);
+            }
+        }
         #endregion IAssemblySymbol
 
         #region IEventSymbol

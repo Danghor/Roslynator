@@ -18,6 +18,25 @@ namespace Roslynator
 {
     internal static class Extensions
     {
+        public static SymbolGroupFilter ToSymbolGroupFilter(this TypeKind typeKind)
+        {
+            switch (typeKind)
+            {
+                case TypeKind.Class:
+                    return SymbolGroupFilter.Class;
+                case TypeKind.Delegate:
+                    return SymbolGroupFilter.Delegate;
+                case TypeKind.Enum:
+                    return SymbolGroupFilter.Enum;
+                case TypeKind.Interface:
+                    return SymbolGroupFilter.Interface;
+                case TypeKind.Struct:
+                    return SymbolGroupFilter.Struct;
+                default:
+                    throw new ArgumentException("", nameof(typeKind));
+            }
+        }
+
         public static MemberDeclarationKind GetMemberDeclarationKind(this ISymbol symbol)
         {
             switch (symbol.Kind)
@@ -41,7 +60,8 @@ namespace Roslynator
                         switch (methodSymbol.MethodKind)
                         {
                             case MethodKind.Ordinary:
-                                return MemberDeclarationKind.OrdinaryMethod;
+                            case MethodKind.ExplicitInterfaceImplementation:
+                                return MemberDeclarationKind.Method;
                             case MethodKind.Constructor:
                                 return MemberDeclarationKind.Constructor;
                             case MethodKind.Destructor:

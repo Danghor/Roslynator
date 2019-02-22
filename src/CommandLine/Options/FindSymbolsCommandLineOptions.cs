@@ -5,19 +5,14 @@ using CommandLine;
 
 namespace Roslynator.CommandLine
 {
+    // WithModifiers, WithoutModifiers
 #if DEBUG
     [Verb("find-symbols", HelpText = "Finds symbols in the specified project or solution.")]
 #endif
     public class FindSymbolsCommandLineOptions : MSBuildCommandLineOptions
     {
-        [Option(longName: "ignored-attributes")]
-        public IEnumerable<string> IgnoredAttributes { get; set; }
-
-        [Option(longName: "ignore-obsolete")]
-        public bool IgnoreObsolete { get; set; }
-
-        [Option(longName: "ignored-symbols")]
-        public IEnumerable<string> IgnoredSymbols { get; set; }
+        [Option(longName: "ignored-symbol-ids")]
+        public IEnumerable<string> IgnoredSymbolIds { get; set; }
 
         [Option(longName: "ignore-generated-code")]
         public bool IgnoreGeneratedCode { get; set; }
@@ -30,5 +25,11 @@ namespace Roslynator.CommandLine
 
         [Option(longName: ParameterNames.Visibility)]
         public IEnumerable<string> Visibility { get; set; }
+
+        [Option(longName: "with-attributes")]
+        public IEnumerable<string> WithAttributes { get; set; }
+
+        [Option(longName: "without-attributes")]
+        public IEnumerable<string> WithoutAttributes { get; set; }
     }
 }

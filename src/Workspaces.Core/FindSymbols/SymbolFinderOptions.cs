@@ -1,63 +1,137 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator.FindSymbols
 {
-    internal class SymbolFinderOptions
+    internal class SymbolFinderOptions : SymbolFilterOptions
     {
-        public SymbolFinderOptions(
-            SymbolGroupFilter symbolGroupFilter = SymbolGroupFilter.TypeOrMember,
-            VisibilityFilter visibilityFilter = default,
-            ImmutableArray<MetadataName> ignoredAttributes = default,
-            bool ignoreObsolete = false,
+        internal SymbolFinderOptions(
+            VisibilityFilter visibility = VisibilityFilter.All,
+            SymbolGroupFilter symbolGroups = SymbolGroupFilter.TypeOrMember,
+            IEnumerable<MetadataName> ignoredSymbols = null,
+            IEnumerable<MetadataName> ignoredAttributes = null,
+            IEnumerable<MetadataName> withAttributes = null,
+            IEnumerable<MetadataName> withoutAttributes = null,
             bool ignoreGeneratedCode = false,
-            bool unusedOnly = false)
+            bool unusedOnly = false) : base(visibility, symbolGroups, ignoredSymbols, ignoredAttributes)
         {
-            SymbolGroupFilter = symbolGroupFilter;
-            VisibilityFilter = visibilityFilter;
-            IgnoredAttributes = (!ignoredAttributes.IsDefault) ? ignoredAttributes : ImmutableArray<MetadataName>.Empty;
+            WithAttributes = (withAttributes != null) ? new MetadataNameSet(withAttributes) : MetadataNameSet.Empty;
+            WithoutAttributes = (withoutAttributes != null) ? new MetadataNameSet(withoutAttributes) : MetadataNameSet.Empty;
+
             IgnoreGeneratedCode = ignoreGeneratedCode;
             UnusedOnly = unusedOnly;
-            IgnoreObsolete = ignoreObsolete;
         }
 
-        public static SymbolFinderOptions Default { get; } = new SymbolFinderOptions();
-
-        public SymbolGroupFilter SymbolGroupFilter { get; }
-
-        public VisibilityFilter VisibilityFilter{ get; }
-
-        public bool IgnoreObsolete { get; }
+        new public static SymbolFinderOptions Default { get; } = new SymbolFinderOptions();
 
         public bool IgnoreGeneratedCode { get; }
 
         public bool UnusedOnly { get; }
 
-        public ImmutableArray<MetadataName> IgnoredAttributes { get; }
+        public MetadataNameSet WithAttributes { get; }
 
-        public bool IsVisible(ISymbol symbol)
+        public MetadataNameSet WithoutAttributes { get; }
+
+        public override SymbolFilterResult GetResult(INamespaceSymbol namespaceSymbol)
         {
-            return symbol.IsVisible(VisibilityFilter);
+            SymbolFilterResult result = base.GetResult(namespaceSymbol);
+
+            if (result != SymbolFilterResult.Success)
+                return result;
+
+            return VerifyAttributes(namespaceSymbol);
         }
 
-        public bool HasIgnoredAttribute(ISymbol symbol)
+        public override SymbolFilterResult GetResult(INamedTypeSymbol typeSymbol)
         {
-            if (IgnoredAttributes.Any())
+            SymbolFilterResult result = base.GetResult(typeSymbol);
+
+            if (result != SymbolFilterResult.Success)
+                return result;
+
+            return VerifyAttributes(typeSymbol);
+        }
+
+        public override SymbolFilterResult GetResult(IEventSymbol symbol)
+        {
+            SymbolFilterResult result = base.GetResult(symbol);
+
+            if (result != SymbolFilterResult.Success)
+                return result;
+
+            return VerifyAttributes(symbol);
+        }
+
+        public override SymbolFilterResult GetResult(IFieldSymbol symbol)
+        {
+            SymbolFilterResult result = base.GetResult(symbol);
+
+            if (result != SymbolFilterResult.Success)
+                return result;
+
+            return VerifyAttributes(symbol);
+        }
+
+        public override SymbolFilterResult GetResult(IMethodSymbol symbol)
+        {
+            SymbolFilterResult result = base.GetResult(symbol);
+
+            if (result != SymbolFilterResult.Success)
+                return result;
+
+            return VerifyAttributes(symbol);
+        }
+
+        public override SymbolFilterResult GetResult(IPropertySymbol symbol)
+        {
+            SymbolFilterResult result = base.GetResult(symbol);
+
+            if (result != SymbolFilterResult.Success)
+                return result;
+
+            return VerifyAttributes(symbol);
+        }
+
+        private SymbolFilterResult VerifyAttributes(ISymbol symbol)
+        {
+            if (WithAttributes.IsEmpty
+                && WithoutAttributes.IsEmpty)
             {
-                foreach (AttributeData attribute in symbol.GetAttributes())
+                return SymbolFilterResult.Success;
+            }
+
+            ImmutableArray<AttributeData> attributes = symbol.GetAttributes();
+
+            if (!WithAttributes.IsEmpty)
+            {
+                bool hasAttribute = false;
+
+                foreach (AttributeData attribute in attributes)
                 {
-                    foreach (MetadataName attributeName in IgnoredAttributes)
+                    if (WithAttributes.Contains(attribute.AttributeClass))
                     {
-                        if (attribute.AttributeClass.HasMetadataName(attributeName))
-                            return true;
+                        hasAttribute = true;
+                        break;
                     }
+                }
+
+                if (!hasAttribute)
+                    return SymbolFilterResult.HasNotAttribute;
+            }
+
+            if (!WithoutAttributes.IsEmpty)
+            {
+                foreach (AttributeData attribute in attributes)
+                {
+                    if (WithoutAttributes.Contains(attribute.AttributeClass))
+                        return SymbolFilterResult.HasAttribute;
                 }
             }
 
-            return false;
+            return  SymbolFilterResult.Success;
         }
     }
 }

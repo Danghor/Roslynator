@@ -27,40 +27,24 @@ namespace Roslynator.CommandLine
 
         public FindSymbolsCommand(
             FindSymbolsCommandLineOptions options,
-            VisibilityFilter visibilityFilter,
-            SymbolGroupFilter symbolGroupFilter,
-            ImmutableArray<MetadataName> ignoredAttributes,
+            SymbolFinderOptions symbolFinderOptions,
             in ProjectFilter projectFilter) : base(projectFilter)
         {
             Options = options;
-            VisibilityFilter = visibilityFilter;
-            SymbolGroupFilter = symbolGroupFilter;
-            IgnoredAttributes = ignoredAttributes;
+            SymbolFinderOptions = symbolFinderOptions;
         }
 
         public FindSymbolsCommandLineOptions Options { get; }
 
-        public VisibilityFilter VisibilityFilter { get; }
-
-        public SymbolGroupFilter SymbolGroupFilter { get; }
-
-        public ImmutableArray<MetadataName> IgnoredAttributes { get; }
+        public SymbolFinderOptions SymbolFinderOptions { get; }
 
         public override async Task<CommandResult> ExecuteAsync(ProjectOrSolution projectOrSolution, CancellationToken cancellationToken = default)
         {
             AssemblyResolver.Register();
 
-            HashSet<string> ignoredSymbols = (Options.IgnoredSymbols.Any())
-                ? new HashSet<string>(Options.IgnoredSymbols)
+            HashSet<string> ignoredSymbolIds = (Options.IgnoredSymbolIds.Any())
+                ? new HashSet<string>(Options.IgnoredSymbolIds)
                 : null;
-
-            var options = new SymbolFinderOptions(
-                symbolGroupFilter: SymbolGroupFilter,
-                visibilityFilter: VisibilityFilter,
-                ignoredAttributes: IgnoredAttributes,
-                ignoreObsolete: Options.IgnoreObsolete,
-                ignoreGeneratedCode: Options.IgnoreGeneratedCode,
-                unusedOnly: Options.UnusedOnly);
 
             var progress = new FindSymbolsProgress();
 
@@ -72,7 +56,7 @@ namespace Roslynator.CommandLine
 
                 WriteLine($"Analyze '{project.Name}'", Verbosity.Minimal);
 
-                allSymbols = await AnalyzeProject(project, options, progress, cancellationToken);
+                allSymbols = await AnalyzeProject(project, SymbolFinderOptions, progress, cancellationToken);
             }
             else
             {
@@ -93,21 +77,21 @@ namespace Roslynator.CommandLine
 
                     WriteLine($"  Analyze '{project.Name}'", Verbosity.Minimal);
 
-                    ImmutableArray<ISymbol> projectSymbols = await AnalyzeProject(project, options, progress, cancellationToken);
+                    ImmutableArray<ISymbol> projectSymbols = await AnalyzeProject(project, SymbolFinderOptions, progress, cancellationToken);
 
                     if (!projectSymbols.Any())
                         continue;
 
-                    if (ignoredSymbols?.Count > 0)
+                    if (ignoredSymbolIds?.Count > 0)
                     {
                         Compilation compilation = await project.GetCompilationAsync(cancellationToken);
 
-                        ImmutableDictionary<string, ISymbol> symbolsById = ignoredSymbols
+                        ImmutableDictionary<string, ISymbol> symbolsById = ignoredSymbolIds
                             .Select(f => (id: f, symbol: DocumentationCommentId.GetFirstSymbolForDeclarationId(f, compilation)))
                             .Where(f => f.id != null)
                             .ToImmutableDictionary(f => f.id, f => f.symbol);
 
-                        ignoredSymbols.ExceptWith(symbolsById.Select(f => f.Key));
+                        ignoredSymbolIds.ExceptWith(symbolsById.Select(f => f.Key));
 
                         projectSymbols = projectSymbols.Except(symbolsById.Select(f => f.Value)).ToImmutableArray();
 

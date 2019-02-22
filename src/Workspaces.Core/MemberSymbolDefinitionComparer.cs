@@ -41,7 +41,7 @@ namespace Roslynator
             switch (kind1)
             {
                 case MemberDeclarationKind.Constructor:
-                case MemberDeclarationKind.OrdinaryMethod:
+                case MemberDeclarationKind.Method:
                     {
                         var methodSymbol1 = (IMethodSymbol)x;
                         var methodSymbol2 = (IMethodSymbol)y;

@@ -5,10 +5,12 @@ using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
-namespace Roslynator.Documentation
+namespace Roslynator
 {
     internal class MetadataNameSet
     {
+        public static MetadataNameSet Empty { get; } = new MetadataNameSet(ImmutableArray<MetadataName>.Empty);
+
         public ImmutableArray<MetadataName> Values { get; }
 
         private readonly ImmutableDictionary<string, ImmutableArray<MetadataName>> _valuesByName;
@@ -26,6 +28,8 @@ namespace Roslynator.Documentation
                 .GroupBy(f => f.Name)
                 .ToImmutableDictionary(f => f.Key, f => f.ToImmutableArray());
         }
+
+        public bool IsEmpty => Values.IsEmpty;
 
         public bool Contains(ISymbol symbol)
         {

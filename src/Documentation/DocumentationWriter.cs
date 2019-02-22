@@ -461,7 +461,9 @@ namespace Roslynator.Documentation
 
             ImmutableArray<SymbolDisplayPart> parts = SymbolDefinitionDisplay.GetDisplayParts(
                 symbol,
-                SymbolDisplayFormats.FullDeclaration,
+                (symbol.GetFirstExplicitInterfaceImplementation() != null)
+                    ? SymbolDisplayFormats.ExplicitImplementationFullDeclaration
+                    : SymbolDisplayFormats.FullDeclaration,
                 typeDeclarationOptions: SymbolDisplayTypeDeclarationOptions.IncludeAccessibility
                     | SymbolDisplayTypeDeclarationOptions.IncludeModifiers
                     | SymbolDisplayTypeDeclarationOptions.BaseList,

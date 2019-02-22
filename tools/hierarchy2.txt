@@ -1831,7 +1831,6 @@ public class System.Object
     public static SyntaxToken WithSimplifierAnnotation(this SyntaxToken token)
     public static TNode WithSimplifierAnnotation<TNode>(this TNode node) where TNode : SyntaxNode
 
-
   public interface Roslynator.ISelection<T> : IReadOnlyList<T>
 
     int FirstIndex { get; }

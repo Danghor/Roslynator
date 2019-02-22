@@ -163,38 +163,55 @@ namespace Roslynator.CommandLine
             WriteLine($"{assemblies.Count()} assemblies", verbosity);
 
             INamedTypeSymbol[] types = assemblies
-                .SelectMany(a => a.GetTypes(t => filter.IsVisibleType(t)))
+                .SelectMany(a => a.GetTypes(t => filter.IsSuccess(t)))
                 .ToArray();
 
-            IEnumerable<INamespaceSymbol> namespaces = types
-                .Select(f => f.ContainingNamespace)
-                .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
-                .Where(f => filter.IsVisibleNamespace(f));
+            IEnumerable<INamespaceSymbol> namespaces = null;
+
+            if (filter.SymbolGroups == SymbolGroupFilter.None)
+            {
+                namespaces = assemblies
+                    .SelectMany(a => a.GetNamespaces(n => !n.IsGlobalNamespace && filter.IsSuccess(n)))
+                    .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance);
+            }
+            else
+            {
+                namespaces = types
+                    .Select(f => f.ContainingNamespace)
+                    .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
+                    .Where(f => filter.IsSuccess(f));
+            }
 
             WriteLine($"  {namespaces.Count()} namespaces", verbosity);
 
             WriteLine($"    {types.Length} types", verbosity);
 
-            foreach (IGrouping<SymbolGroup, INamedTypeSymbol> grouping in types.GroupBy(f => f.GetSymbolGroup()))
+            if (types.Length > 0)
             {
-                WriteLine($"      {grouping.Count()} {grouping.Key.GetPluralText()}", verbosity);
+                foreach (IGrouping<SymbolGroup, INamedTypeSymbol> grouping in types.GroupBy(f => f.GetSymbolGroup()))
+                {
+                    WriteLine($"      {grouping.Count()} {grouping.Key.GetPluralText()}", verbosity);
+                }
+
+                WriteLine(verbosity);
+
+                ISymbol[] members = types
+                    .Where(f => f.TypeKind.Is(TypeKind.Class, TypeKind.Struct, TypeKind.Interface))
+                    .SelectMany(t => t.GetMembers().Where(m => !m.IsKind(SymbolKind.NamedType) && filter.IsSuccess(m)))
+                    .ToArray();
+
+                WriteLine($"    {members.Length} members", verbosity);
+
+                if (members.Length > 0)
+                {
+                    foreach (IGrouping<SymbolGroup, ISymbol> grouping in members.GroupBy(f => f.GetSymbolGroup()))
+                    {
+                        WriteLine($"      {grouping.Count()} {grouping.Key.GetPluralText()}", verbosity);
+                    }
+
+                    WriteLine(verbosity);
+                }
             }
-
-            WriteLine(verbosity);
-
-            ISymbol[] members = types
-                .Where(f => f.TypeKind.Is(TypeKind.Class, TypeKind.Struct, TypeKind.Interface))
-                .SelectMany(t => t.GetMembers().Where(m => filter.IsVisibleMember(m)))
-                .ToArray();
-
-            WriteLine($"    {members.Length} members", verbosity);
-
-            foreach (IGrouping<SymbolGroup, ISymbol> grouping in members.GroupBy(f => f.GetSymbolGroup()))
-            {
-                WriteLine($"      {grouping.Count()} {grouping.Key.GetPluralText()}", verbosity);
-            }
-
-            WriteLine(verbosity);
         }
 
         private static IAssemblySymbol FindExternalAssembly(IEnumerable<Compilation> compilations, string path)

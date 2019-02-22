@@ -81,6 +81,9 @@ namespace Roslynator.Documentation
                 | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
             );
 
+        public static SymbolDisplayFormat ExplicitImplementationFullDeclaration { get; } = FullDeclaration.Update(
+             memberOptions: FullDeclaration.MemberOptions & ~SymbolDisplayMemberOptions.IncludeAccessibility);
+
         public static SymbolDisplayFormat SimpleDeclaration { get; } = Default.Update(
             typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly,
             genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,

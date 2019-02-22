@@ -44,10 +44,10 @@ namespace Roslynator.Documentation
             {
                 var rootInterfaces = new List<TypeHierarchyItem>();
 
-                foreach (TypeHierarchyItem interfaceItem in Interfaces)
+                for (int i = Interfaces.Length - 1; i >= 0; i--)
                 {
-                    if (IsRootInterface(interfaceItem.Symbol))
-                        rootInterfaces.Add(interfaceItem);
+                    if (IsRootInterface(Interfaces[i].Symbol))
+                        rootInterfaces.Add(Interfaces[i]);
                 }
 
                 FillHierarchyItems(rootInterfaces, interfaceRoot, FillHierarchyItem);
@@ -75,13 +75,14 @@ namespace Roslynator.Documentation
 
                 item = new TypeHierarchyItem(symbol) { Parent = parent };
 
-                TypeHierarchyItem[] derivedTypes = Interfaces
+                TypeHierarchyItem[] derivedInterfaces = Interfaces
                     .Where(f => f.Symbol.Interfaces.Any(i => i.OriginalDefinition == symbol.OriginalDefinition))
                     .ToArray();
 
-                if (derivedTypes.Length > 0)
+                if (derivedInterfaces.Length > 0)
                 {
-                    FillHierarchyItems(derivedTypes, item, FillHierarchyItem);
+                    Array.Reverse(derivedInterfaces);
+                    FillHierarchyItems(derivedInterfaces, item, FillHierarchyItem);
                 }
 
                 return item;
@@ -96,7 +97,7 @@ namespace Roslynator.Documentation
             Func<INamedTypeSymbol, bool> predicate = null;
 
             if (filter != null)
-                predicate = t => filter.IsVisibleType(t);
+                predicate = t => filter.IsSuccess(t);
 
             IEnumerable<INamedTypeSymbol> types = assemblies.SelectMany(a => a.GetTypes(predicate));
 
@@ -135,7 +136,7 @@ namespace Roslynator.Documentation
 
             ImmutableArray<TypeHierarchyItem> interfaces = allItems
                 .Select(f => f.Value)
-                .OrderByDescending(f => f.Symbol, comparer)
+                .OrderBy(f => f.Symbol, comparer)
                 .ToImmutableArray();
 
             return new TypeHierarchy(root, interfaces);

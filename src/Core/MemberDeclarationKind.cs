@@ -13,7 +13,7 @@ namespace Roslynator
         Event = 6,
         Property = 7,
         Indexer = 8,
-        OrdinaryMethod = 9,
+        Method = 9,
         ConversionOperator = 10,
         Operator = 11
     }

@@ -167,8 +167,15 @@ namespace Roslynator.Documentation.Xml
 
         public override void WriteMember(ISymbol symbol, SymbolDisplayFormat format = null)
         {
+            if (format == null)
+            {
+                format = (symbol.GetFirstExplicitInterfaceImplementation() != null)
+                    ? ExplicitInterfaceImplementationFormat
+                    : MemberFormat;
+            }
+
             WriteStartAttribute("def");
-            Write(symbol, format ?? MemberFormat);
+            Write(symbol, format);
             WriteEndAttribute();
             WriteDocumentationComment(symbol);
 
