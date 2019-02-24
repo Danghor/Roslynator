@@ -18,7 +18,7 @@ namespace Roslynator.Documentation
             SymbolDisplayFormat format,
             SymbolDisplayTypeDeclarationOptions typeDeclarationOptions = SymbolDisplayTypeDeclarationOptions.None,
             SymbolDisplayAdditionalOptions additionalOptions = SymbolDisplayAdditionalOptions.None,
-            Func<AttributeData, bool> shouldDisplayAttribute = null)
+            Func<ISymbol, AttributeData, bool> shouldDisplayAttribute = null)
         {
             ImmutableArray<SymbolDisplayPart> parts;
 
@@ -32,15 +32,9 @@ namespace Roslynator.Documentation
                 typeSymbol = null;
             }
 
-            IEnumerable<AttributeData> attributes = ImmutableArray<AttributeData>.Empty;
-
-            if (additionalOptions.HasOption(SymbolDisplayAdditionalOptions.IncludeAttributes))
-            {
-                attributes = symbol.GetAttributes();
-
-                if (shouldDisplayAttribute != null)
-                    attributes = attributes.Where(f => shouldDisplayAttribute(f));
-            }
+            IEnumerable<AttributeData> attributes = (additionalOptions.HasOption(SymbolDisplayAdditionalOptions.IncludeAttributes))
+                ? GetAttributes(symbol, shouldDisplayAttribute)
+                : ImmutableArray<AttributeData>.Empty;
 
             int baseListCount = 0;
             INamedTypeSymbol baseType = null;
@@ -291,14 +285,11 @@ namespace Roslynator.Documentation
         private static ImmutableArray<SymbolDisplayPart> GetAttributesParts(
             ISymbol symbol,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<AttributeData, bool> shouldDisplayAttribute,
+            Func<ISymbol, AttributeData, bool> shouldDisplayAttribute,
             bool includeTrailingNewLine = false,
             bool? formatAttributes = null)
         {
-            IEnumerable<AttributeData> attributes = symbol.GetAttributes();
-
-            if (shouldDisplayAttribute != null)
-                attributes = attributes.Where(f => shouldDisplayAttribute(f));
+            IEnumerable<AttributeData> attributes = GetAttributes(symbol, shouldDisplayAttribute);
 
             if (!attributes.Any())
                 return ImmutableArray<SymbolDisplayPart>.Empty;
@@ -599,7 +590,7 @@ namespace Roslynator.Documentation
             ISymbol symbol,
             ImmutableArray<IParameterSymbol> parameters,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<AttributeData, bool> shouldDisplayAttribute)
+            Func<ISymbol, AttributeData, bool> shouldDisplayAttribute)
         {
             int i = FindParameterListStart(symbol, parts);
 
@@ -731,7 +722,7 @@ namespace Roslynator.Documentation
             ImmutableArray<SymbolDisplayPart>.Builder parts,
             IMethodSymbol methodSymbol,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<AttributeData, bool> shouldDisplayAttribute)
+            Func<ISymbol, AttributeData, bool> shouldDisplayAttribute)
         {
             ImmutableArray<SymbolDisplayPart> attributeParts = GetAttributesParts(
                 methodSymbol,
@@ -778,27 +769,25 @@ namespace Roslynator.Documentation
             ImmutableArray<SymbolDisplayPart>.Builder parts,
             IEventSymbol eventSymbol,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<AttributeData, bool> shouldDisplayAttribute)
+            Func<ISymbol, AttributeData, bool> shouldDisplayAttribute)
         {
-            bool addMethodHasAttributes = HasAttributes(eventSymbol.AddMethod);
-            bool removeMethodHasAttributes = HasAttributes(eventSymbol.RemoveMethod);
+            IEnumerable<AttributeData> addAttributes = GetAttributes(eventSymbol.AddMethod, shouldDisplayAttribute);
+            IEnumerable<AttributeData> removeAttributes = GetAttributes(eventSymbol.RemoveMethod, shouldDisplayAttribute);
 
-            if (addMethodHasAttributes
-                || removeMethodHasAttributes)
+            if (addAttributes.Any()
+                || removeAttributes.Any())
             {
                 parts.AddSpace();
                 parts.AddPunctuation("{");
                 parts.AddSpace();
 
-                if (addMethodHasAttributes)
-                    AddAttributes(eventSymbol.AddMethod);
+                AddAccessorAttributes(addAttributes);
 
                 parts.AddKeyword("add");
                 parts.AddPunctuation(";");
                 parts.AddSpace();
 
-                if (removeMethodHasAttributes)
-                    AddAttributes(eventSymbol.RemoveMethod);
+                AddAccessorAttributes(removeAttributes);
 
                 parts.AddKeyword("remove");
                 parts.AddPunctuation(";");
@@ -806,35 +795,15 @@ namespace Roslynator.Documentation
                 parts.AddPunctuation("}");
             }
 
-            bool HasAttributes(IMethodSymbol accessorSymbol)
+            void AddAccessorAttributes(IEnumerable<AttributeData> attributes)
             {
-                if (accessorSymbol != null)
-                {
-                    ImmutableArray<AttributeData> attributes = accessorSymbol.GetAttributes();
-                    addMethodHasAttributes = attributes.Any();
-
-                    if (shouldDisplayAttribute != null)
-                    {
-                        addMethodHasAttributes = attributes.Any(f => shouldDisplayAttribute(f));
-                    }
-                    else
-                    {
-                        return attributes.Any();
-                    }
-                }
-
-                return false;
-            }
-
-            void AddAttributes(IMethodSymbol accessorMethod)
-            {
-                ImmutableArray<SymbolDisplayPart> attributeParts = GetAttributesParts(
-                    accessorMethod,
+                AddAttributes(
+                    parts: parts,
+                    attributes: attributes,
                     additionalOptions: additionalOptions,
-                    shouldDisplayAttribute: shouldDisplayAttribute,
+                    includeTrailingNewLine: false,
                     formatAttributes: false);
 
-                parts.AddRange(attributeParts);
                 parts.AddSpace();
             }
         }
@@ -1311,6 +1280,19 @@ namespace Roslynator.Documentation
         private static bool HasOption(this SymbolDisplayAdditionalOptions options, SymbolDisplayAdditionalOptions option)
         {
             return (options & option) == option;
+        }
+
+        private static IEnumerable<AttributeData> GetAttributes(ISymbol symbol, Func<ISymbol, AttributeData, bool> predicate)
+        {
+            if (symbol == null)
+                return ImmutableArray<AttributeData>.Empty;
+
+            ImmutableArray<AttributeData> attributes = symbol.GetAttributes();
+
+            if (predicate != null)
+                return attributes.Where(f => predicate(symbol, f));
+
+            return attributes;
         }
     }
 }

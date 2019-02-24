@@ -7,10 +7,12 @@ set _msbuildPath="C:\Program Files\Microsoft Visual Studio\2017\Community\MSBuil
 "..\src\CommandLine\bin\Debug\net461\roslynator" find-symbols "..\src\Core.sln" ^
  --msbuild-path %_msbuildPath% ^
  --visibility public ^
- --symbol-groups type ^
- --without-attributes "System.ObsoleteAttribute" ^
+ --symbol-groups class struct ^
+ --without-attributes ^
+  "System.Diagnostics.DebuggerDisplayAttribute" ^
+ --without-flags static ^
  --verbosity n ^
  --file-log "roslynator.log" ^
- --file-log-verbosity n
+ --file-log-verbosity diag
 
 pause

@@ -30,6 +30,11 @@ namespace Roslynator.Documentation.Xml
             return format.Update(kindOptions: SymbolDisplayKindOptions.None);
         }
 
+        protected override SymbolDisplayAdditionalOptions GetAdditionalOptions()
+        {
+            return base.GetAdditionalOptions() & ~(SymbolDisplayAdditionalOptions.IncludeAccessorAttributes | SymbolDisplayAdditionalOptions.IncludeParameterAttributes);
+        }
+
         public override void WriteStartDocument()
         {
             _writer.WriteStartDocument();
@@ -137,7 +142,7 @@ namespace Roslynator.Documentation.Xml
             }
             else
             {
-                _writer.WriteAttributeString("def", "");
+                WriteAttributeString("def", "");
             }
         }
 
@@ -180,7 +185,61 @@ namespace Roslynator.Documentation.Xml
             WriteDocumentationComment(symbol);
 
             if (Format.Includes(SymbolDefinitionPartFilter.Attributes))
+            {
                 WriteAttributes(symbol);
+
+                switch (symbol.Kind)
+                {
+                    case SymbolKind.NamedType:
+                        {
+                            var typeSymbol = (INamedTypeSymbol)symbol;
+
+                            if (typeSymbol.TypeKind == TypeKind.Delegate)
+                            {
+                                foreach (IParameterSymbol parameterSymbol in typeSymbol.DelegateInvokeMethod.Parameters)
+                                    WriteAttributes(parameterSymbol);
+                            }
+
+                            break;
+                        }
+                    case SymbolKind.Event:
+                        {
+                            var eventSymbol = (IEventSymbol)symbol;
+
+                            if (eventSymbol.AddMethod != null)
+                                WriteAttributes(eventSymbol.AddMethod);
+
+                            if (eventSymbol.RemoveMethod != null)
+                                WriteAttributes(eventSymbol.RemoveMethod);
+
+                            break;
+                        }
+                    case SymbolKind.Method:
+                        {
+                            var methodSymbol = (IMethodSymbol)symbol;
+
+                            foreach (IParameterSymbol parameterSymbol in methodSymbol.Parameters)
+                                WriteAttributes(parameterSymbol);
+
+                            break;
+                        }
+                    case SymbolKind.Property:
+                        {
+                            var propertySymbol = (IPropertySymbol)symbol;
+
+                            foreach (IParameterSymbol parameterSymbol in propertySymbol.Parameters)
+                                WriteAttributes(parameterSymbol);
+
+                            if (propertySymbol.GetMethod != null)
+                                WriteAttributes(propertySymbol.GetMethod);
+
+                            if (propertySymbol.SetMethod != null)
+                                WriteAttributes(propertySymbol.SetMethod);
+
+                            break;
+                        }
+                }
+            }
         }
 
         public override void WriteEndMember(ISymbol symbol)
@@ -227,27 +286,66 @@ namespace Roslynator.Documentation.Xml
         {
         }
 
-        public override void WriteStartAttributes(bool assemblyAttribute)
+        public override void WriteStartAttributes(ISymbol symbol)
         {
             WriteStartElement("attributes");
+
+            switch (symbol.Kind)
+            {
+                case SymbolKind.Method:
+                    {
+                        var methodSymbol = (IMethodSymbol)symbol;
+
+                        string accessorName = GetAccessorName(methodSymbol);
+
+                        if (accessorName != null)
+                            WriteAttributeString("accessor", accessorName);
+
+                        break;
+                    }
+                case SymbolKind.Parameter:
+                    {
+                        var parameterSymbol = (IParameterSymbol)symbol;
+
+                        WriteAttributeString("parameter", parameterSymbol.Name);
+                        break;
+                    }
+            }
+
+            string GetAccessorName(IMethodSymbol methodSymbol)
+            {
+                switch (methodSymbol.MethodKind)
+                {
+                    case MethodKind.EventAdd:
+                        return "add";
+                    case MethodKind.EventRemove:
+                        return "remove";
+                    case MethodKind.PropertyGet:
+                        return "get";
+                    case MethodKind.PropertySet:
+                        return "set";
+                    default:
+                        return null;
+                }
+            }
         }
 
-        public override void WriteEndAttributes(bool assemblyAttribute)
+        public override void WriteEndAttributes(ISymbol symbol)
         {
             WriteEndElement();
         }
 
-        public override void WriteStartAttribute(AttributeData attribute, bool assemblyAttribute)
+        public override void WriteStartAttribute(AttributeData attribute, ISymbol symbol)
         {
             WriteStartElement("attribute");
         }
 
-        public override void WriteEndAttribute(AttributeData attribute, bool assemblyAttribute)
+        public override void WriteEndAttribute(AttributeData attribute, ISymbol symbol)
         {
             WriteEndElement();
         }
 
-        public override void WriteAttributeSeparator(bool assemblyAttribute)
+        public override void WriteAttributeSeparator(ISymbol symbol)
         {
         }
 
@@ -289,6 +387,11 @@ namespace Roslynator.Documentation.Xml
         private void WriteEndAttribute()
         {
             _writer.WriteEndAttribute();
+        }
+
+        private void WriteAttributeString(string name, string value)
+        {
+            _writer.WriteAttributeString(name, value);
         }
 
         public override void WriteDocumentationComment(ISymbol symbol)

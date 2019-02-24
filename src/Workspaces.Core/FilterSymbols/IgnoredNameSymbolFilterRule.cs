@@ -1,41 +1,44 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     internal class IgnoredNameSymbolFilterRule : SymbolFilterRule
     {
-        public override SymbolFilterResult Result => SymbolFilterResult.Ignored;
+        public override SymbolFilterReason Reason => SymbolFilterReason.Ignored;
 
-        public MetadataNameSet MetadataNames { get; }
+        public MetadataNameSet Names { get; }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private string DebuggerDisplay => $"{Reason} {string.Join(" ", Names.Values)}";
 
         public IgnoredNameSymbolFilterRule(IEnumerable<MetadataName> values)
         {
-            MetadataNames = new MetadataNameSet(values);
+            Names = new MetadataNameSet(values);
         }
 
-        public override bool IsSuccess(ISymbol symbol)
+        public override bool IsApplicable(ISymbol value)
         {
-            if (MetadataNames.Contains(symbol.ContainingNamespace))
+            return true;
+        }
+
+        public override bool IsMatch(ISymbol value)
+        {
+            if (Names.Contains(value.ContainingNamespace))
                 return false;
 
-            switch (symbol.Kind)
+            switch (value.Kind)
             {
                 case SymbolKind.Namespace:
                 case SymbolKind.NamedType:
                     {
-                        if (MetadataNames.Contains(symbol))
+                        if (Names.Contains(value))
                             return false;
 
-                        break;
-                    }
-                case SymbolKind.Event:
-                case SymbolKind.Field:
-                case SymbolKind.Method:
-                case SymbolKind.Property:
-                    {
                         break;
                     }
             }

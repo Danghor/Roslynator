@@ -1,26 +1,36 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     internal class WithAttributeFilterRule : SymbolFilterRule
     {
         public WithAttributeFilterRule(IEnumerable<MetadataName> attributeNames)
         {
-            Attributes = new MetadataNameSet(attributeNames);
+            AttributeNames = new MetadataNameSet(attributeNames);
         }
 
-        public override SymbolFilterResult Result => SymbolFilterResult.WithAttibute;
+        public override SymbolFilterReason Reason => SymbolFilterReason.WithAttibute;
 
-        public MetadataNameSet Attributes { get; }
+        public MetadataNameSet AttributeNames { get; }
 
-        public override bool IsSuccess(ISymbol symbol)
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private string DebuggerDisplay => $"{Reason} {string.Join(" ", AttributeNames.Values)}";
+
+        public override bool IsApplicable(ISymbol value)
         {
-            foreach (AttributeData attribute in symbol.GetAttributes())
+            return !value.IsKind(SymbolKind.Namespace);
+        }
+
+        public override bool IsMatch(ISymbol value)
+        {
+            foreach (AttributeData attribute in value.GetAttributes())
             {
-                if (Attributes.Contains(attribute.AttributeClass))
+                if (AttributeNames.Contains(attribute.AttributeClass))
                     return true;
             }
 

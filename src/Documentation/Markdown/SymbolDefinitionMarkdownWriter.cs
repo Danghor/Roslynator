@@ -120,9 +120,9 @@ namespace Roslynator.Documentation.Markdown
             WriteEndBulletItem();
         }
 
-        public override void WriteStartAttributes(bool assemblyAttribute)
+        public override void WriteStartAttributes(ISymbol symbol)
         {
-            if (assemblyAttribute)
+            if (symbol.Kind == SymbolKind.Assembly)
             {
                 WriteStartBulletItem();
                 WriteIndentation();
@@ -130,26 +130,26 @@ namespace Roslynator.Documentation.Markdown
             }
             else
             {
-                base.WriteStartAttributes(assemblyAttribute);
+                base.WriteStartAttributes(symbol);
             }
         }
 
-        public override void WriteEndAttributes(bool assemblyAttribute)
+        public override void WriteEndAttributes(ISymbol symbol)
         {
-            if (assemblyAttribute)
+            if (symbol.Kind == SymbolKind.Assembly)
             {
                 Write("]");
                 WriteEndBulletItem();
             }
             else
             {
-                base.WriteEndAttributes(assemblyAttribute);
+                base.WriteEndAttributes(symbol);
             }
         }
 
-        public override void WriteAttributeSeparator(bool assemblyAttribute)
+        public override void WriteAttributeSeparator(ISymbol symbol)
         {
-            if (assemblyAttribute)
+            if (symbol.Kind == SymbolKind.Assembly)
             {
                 Write("]");
                 WriteEndBulletItem();
@@ -159,7 +159,7 @@ namespace Roslynator.Documentation.Markdown
             }
             else
             {
-                base.WriteAttributeSeparator(assemblyAttribute);
+                base.WriteAttributeSeparator(symbol);
             }
         }
 

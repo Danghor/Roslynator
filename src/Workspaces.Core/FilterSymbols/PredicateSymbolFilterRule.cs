@@ -5,27 +5,27 @@ using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
-    //TODO: PredicateSymbolFilterRule?
     internal class PredicateSymbolFilterRule : SymbolFilterRule
     {
-        private readonly Func<ISymbol, bool> _predicate;
+        private readonly Func<ISymbol, bool> _isMatch;
+        private readonly Func<ISymbol, bool> _isApplicable;
 
-        public PredicateSymbolFilterRule(Func<ISymbol, bool> predicate, SymbolFilterResult result)
+        public PredicateSymbolFilterRule(Func<ISymbol, bool> isMatch, Func<ISymbol, bool> isApplicable, SymbolFilterReason reason)
         {
-            _predicate = predicate;
-            Result = result;
+            _isMatch = isMatch;
+            _isApplicable = isApplicable;
+            Reason = reason;
         }
 
-        public override bool IsSuccess(ISymbol symbol)
-        {
-            return _predicate(symbol);
-        }
+        public override bool IsApplicable(ISymbol value) => _isApplicable(value);
 
-        public override SymbolFilterResult Result { get; }
+        public override bool IsMatch(ISymbol value) => _isMatch(value);
+
+        public override SymbolFilterReason Reason { get; }
 
         public PredicateSymbolFilterRule Invert()
         {
-            return new PredicateSymbolFilterRule(f => !_predicate(f), Result);
+            return new PredicateSymbolFilterRule(f => !_isMatch(f), _isApplicable, Reason);
         }
     }
 }

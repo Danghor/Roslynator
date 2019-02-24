@@ -58,7 +58,7 @@ namespace Roslynator.Documentation
             {
                 if (_members.IsDefault)
                 {
-                    _members = Symbol.GetMembers(f => Filter.IsSuccess(f));
+                    _members = Symbol.GetMembers(f => Filter.IsMatch(f));
                 }
 
                 return _members;
@@ -77,7 +77,7 @@ namespace Roslynator.Documentation
                     }
                     else
                     {
-                        _membersIncludingInherited = Symbol.GetMembers(f => Filter.IsSuccess(f), includeInherited: true);
+                        _membersIncludingInherited = Symbol.GetMembers(f => Filter.IsMatch(f), includeInherited: true);
                     }
                 }
 

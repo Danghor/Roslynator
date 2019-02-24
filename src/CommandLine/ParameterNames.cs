@@ -18,7 +18,9 @@ namespace Roslynator.CommandLine
         public const string Projects = "projects";
         public const string RootDirectoryUrl = "root-directory-url";
         public const string SeverityLevel = "severity-level";
-        public const string SymbolGroupFilter = "symbol-group-filter";
+        public const string SymbolGroups = "symbol-groups";
         public const string Visibility = "visibility";
+        public const string WithFlags = "with-flags";
+        public const string WithoutFlags = "without-flags";
     }
 }

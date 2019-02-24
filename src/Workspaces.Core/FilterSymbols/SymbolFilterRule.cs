@@ -4,10 +4,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
-    internal abstract class SymbolFilterRule
+    internal abstract class SymbolFilterRule : FilterRule<ISymbol>
     {
-        public abstract SymbolFilterResult Result { get; }
-
-        public abstract bool IsSuccess(ISymbol symbol);
     }
 }

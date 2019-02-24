@@ -39,99 +39,104 @@ namespace Roslynator
             return (SymbolGroups & symbolGroupFilter) == symbolGroupFilter;
         }
 
-        public bool IsSuccess(ISymbol symbol)
+        public bool IsMatch(ISymbol symbol)
         {
-            return GetResult(symbol) == SymbolFilterResult.Success;
+            return GetReason(symbol) == SymbolFilterReason.None;
         }
 
-        public bool IsSuccess(INamespaceSymbol namespaceSymbol)
+        public bool IsMatch(INamespaceSymbol namespaceSymbol)
         {
-            return GetResult(namespaceSymbol) == SymbolFilterResult.Success;
+            return GetReason(namespaceSymbol) == SymbolFilterReason.None;
         }
 
-        public bool IsSuccess(INamedTypeSymbol typeSymbol)
+        public bool IsMatch(INamedTypeSymbol typeSymbol)
         {
-            return GetResult(typeSymbol) == SymbolFilterResult.Success;
+            return GetReason(typeSymbol) == SymbolFilterReason.None;
         }
 
-        public bool IsSuccess(IEventSymbol symbol)
+        public bool IsMatch(IEventSymbol symbol)
         {
-            return GetResult(symbol) == SymbolFilterResult.Success;
+            return GetReason(symbol) == SymbolFilterReason.None;
         }
 
-        public bool IsSuccess(IFieldSymbol symbol)
+        public bool IsMatch(IFieldSymbol symbol)
         {
-            return GetResult(symbol) == SymbolFilterResult.Success;
+            return GetReason(symbol) == SymbolFilterReason.None;
         }
 
-        public bool IsSuccess(IPropertySymbol symbol)
+        public bool IsMatch(IPropertySymbol symbol)
         {
-            return GetResult(symbol) == SymbolFilterResult.Success;
+            return GetReason(symbol) == SymbolFilterReason.None;
         }
 
-        public bool IsSuccess(IMethodSymbol symbol)
+        public bool IsMatch(IMethodSymbol symbol)
         {
-            return GetResult(symbol) == SymbolFilterResult.Success;
+            return GetReason(symbol) == SymbolFilterReason.None;
         }
 
-        public SymbolFilterResult GetResult(ISymbol symbol)
+        public bool IsMatch(ISymbol symbol, AttributeData attribute)
+        {
+            return GetReason(symbol, attribute) == SymbolFilterReason.None;
+        }
+
+        public SymbolFilterReason GetReason(ISymbol symbol)
         {
             switch (symbol.Kind)
             {
                 case SymbolKind.Namespace:
-                    return GetResult((INamespaceSymbol)symbol);
+                    return GetReason((INamespaceSymbol)symbol);
                 case SymbolKind.NamedType:
-                    return GetResult((INamedTypeSymbol)symbol);
+                    return GetReason((INamedTypeSymbol)symbol);
                 case SymbolKind.Event:
-                    return GetResult((IEventSymbol)symbol);
+                    return GetReason((IEventSymbol)symbol);
                 case SymbolKind.Field:
-                    return GetResult((IFieldSymbol)symbol);
+                    return GetReason((IFieldSymbol)symbol);
                 case SymbolKind.Property:
-                    return GetResult((IPropertySymbol)symbol);
+                    return GetReason((IPropertySymbol)symbol);
                 case SymbolKind.Method:
-                    return GetResult((IMethodSymbol)symbol);
+                    return GetReason((IMethodSymbol)symbol);
                 default:
                     throw new ArgumentException("", nameof(symbol));
             }
         }
 
-        public virtual SymbolFilterResult GetResult(INamespaceSymbol namespaceSymbol)
+        public virtual SymbolFilterReason GetReason(INamespaceSymbol namespaceSymbol)
         {
-            return FilterRule.GetResult(namespaceSymbol, Rules);
+            return GetRulesReason(namespaceSymbol);
         }
 
-        public virtual SymbolFilterResult GetResult(INamedTypeSymbol typeSymbol)
+        public virtual SymbolFilterReason GetReason(INamedTypeSymbol typeSymbol)
         {
             if (typeSymbol.IsImplicitlyDeclared)
-                return SymbolFilterResult.ImplicitlyDeclared;
+                return SymbolFilterReason.ImplicitlyDeclared;
 
             if (!IncludesSymbolGroup(typeSymbol.TypeKind.ToSymbolGroupFilter()))
-                return SymbolFilterResult.SymbolGroup;
+                return SymbolFilterReason.SymbolGroup;
 
             if (!typeSymbol.IsVisible(Visibility))
-                return SymbolFilterResult.Visibility;
+                return SymbolFilterReason.Visibility;
 
-            return FilterRule.GetResult(typeSymbol, Rules);
+            return GetRulesReason(typeSymbol);
         }
 
-        public virtual SymbolFilterResult GetResult(IEventSymbol symbol)
+        public virtual SymbolFilterReason GetReason(IEventSymbol symbol)
         {
             if (symbol.IsImplicitlyDeclared)
-                return SymbolFilterResult.ImplicitlyDeclared;
+                return SymbolFilterReason.ImplicitlyDeclared;
 
             if (!IncludesSymbolGroup(SymbolGroupFilter.Event))
-                return SymbolFilterResult.SymbolGroup;
+                return SymbolFilterReason.SymbolGroup;
 
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.Visibility;
+                return SymbolFilterReason.Visibility;
 
-            return FilterRule.GetResult(symbol, Rules);
+            return GetRulesReason(symbol);
         }
 
-        public virtual SymbolFilterResult GetResult(IFieldSymbol symbol)
+        public virtual SymbolFilterReason GetReason(IFieldSymbol symbol)
         {
             if (symbol.IsImplicitlyDeclared)
-                return SymbolFilterResult.ImplicitlyDeclared;
+                return SymbolFilterReason.ImplicitlyDeclared;
 
             var group = SymbolGroupFilter.None;
 
@@ -145,34 +150,34 @@ namespace Roslynator
             }
 
             if (!IncludesSymbolGroup(group))
-                return SymbolFilterResult.SymbolGroup;
+                return SymbolFilterReason.SymbolGroup;
 
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.Visibility;
+                return SymbolFilterReason.Visibility;
 
-            return FilterRule.GetResult(symbol, Rules);
+            return GetRulesReason(symbol);
         }
 
-        public virtual SymbolFilterResult GetResult(IPropertySymbol symbol)
+        public virtual SymbolFilterReason GetReason(IPropertySymbol symbol)
         {
             if (symbol.IsImplicitlyDeclared)
-                return SymbolFilterResult.ImplicitlyDeclared;
+                return SymbolFilterReason.ImplicitlyDeclared;
 
             if (!IncludesSymbolGroup((symbol.IsIndexer) ? SymbolGroupFilter.Indexer : SymbolGroupFilter.Property))
-                return SymbolFilterResult.SymbolGroup;
+                return SymbolFilterReason.SymbolGroup;
 
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.Visibility;
+                return SymbolFilterReason.Visibility;
 
-            return FilterRule.GetResult(symbol, Rules);
+            return GetRulesReason(symbol);
         }
 
-        public virtual SymbolFilterResult GetResult(IMethodSymbol symbol)
+        public virtual SymbolFilterReason GetReason(IMethodSymbol symbol)
         {
             bool canBeImplicitlyDeclared = false;
 
             if (!IncludesSymbolGroup(SymbolGroupFilter.Method))
-                return SymbolFilterResult.SymbolGroup;
+                return SymbolFilterReason.SymbolGroup;
 
             switch (symbol.MethodKind)
             {
@@ -201,27 +206,45 @@ namespace Roslynator
                     }
                 default:
                     {
-                        return SymbolFilterResult.Other;
+                        return SymbolFilterReason.Other;
                     }
             }
 
             if (!canBeImplicitlyDeclared && symbol.IsImplicitlyDeclared)
-                return SymbolFilterResult.ImplicitlyDeclared;
+                return SymbolFilterReason.ImplicitlyDeclared;
 
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.Visibility;
+                return SymbolFilterReason.Visibility;
 
-            return FilterRule.GetResult(symbol, Rules);
+            return GetRulesReason(symbol);
         }
 
-        public bool IsSuccess(AttributeData attribute)
+        private SymbolFilterReason GetRulesReason(ISymbol symbol)
         {
-            return GetResult(attribute) == SymbolFilterResult.Success;
+            foreach (SymbolFilterRule rule in Rules)
+            {
+                if (rule.IsApplicable(symbol)
+                    && !rule.IsMatch(symbol))
+                {
+                    return rule.Reason;
+                }
+            }
+
+            return SymbolFilterReason.None;
         }
 
-        public virtual SymbolFilterResult GetResult(AttributeData attribute)
+        public virtual SymbolFilterReason GetReason(ISymbol symbol, AttributeData attribute)
         {
-            return FilterRule.GetResult(attribute, AttributeRules);
+            foreach (AttributeFilterRule rule in AttributeRules)
+            {
+                if (rule.IsApplicable(attribute)
+                    && !rule.IsMatch(attribute))
+                {
+                    return rule.Reason;
+                }
+            }
+
+            return SymbolFilterReason.None;
         }
     }
 }

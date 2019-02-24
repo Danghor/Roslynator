@@ -5,7 +5,6 @@ using CommandLine;
 
 namespace Roslynator.CommandLine
 {
-    // WithModifiers, WithoutModifiers
 #if DEBUG
     [Verb("find-symbols", HelpText = "Finds symbols in the specified project or solution.")]
 #endif
@@ -17,8 +16,8 @@ namespace Roslynator.CommandLine
         [Option(longName: "ignore-generated-code")]
         public bool IgnoreGeneratedCode { get; set; }
 
-        [Option(longName: ParameterNames.SymbolGroupFilter)]
-        public IEnumerable<string> SymbolGroupFilter { get; set; }
+        [Option(longName: ParameterNames.SymbolGroups)]
+        public IEnumerable<string> SymbolGroups { get; set; }
 
         [Option(longName: "unused-only")]
         public bool UnusedOnly { get; set; }
@@ -31,5 +30,11 @@ namespace Roslynator.CommandLine
 
         [Option(longName: "without-attributes")]
         public IEnumerable<string> WithoutAttributes { get; set; }
+
+        [Option(longName: ParameterNames.WithFlags)]
+        public IEnumerable<string> WithFlags { get; set; }
+
+        [Option(longName: ParameterNames.WithoutFlags)]
+        public IEnumerable<string> WithoutFlags { get; set; }
     }
 }

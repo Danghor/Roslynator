@@ -166,16 +166,16 @@ namespace Roslynator.Documentation
         {
         }
 
-        public override void WriteStartAttributes(bool assemblyAttribute)
+        public override void WriteStartAttributes(ISymbol symbol)
         {
             Write("[");
         }
 
-        public override void WriteEndAttributes(bool assemblyAttribute)
+        public override void WriteEndAttributes(ISymbol symbol)
         {
             Write("]");
 
-            if (assemblyAttribute || SupportsMultilineDefinitions)
+            if (symbol.Kind == SymbolKind.Assembly || SupportsMultilineDefinitions)
             {
                 WriteLine();
             }
@@ -185,17 +185,17 @@ namespace Roslynator.Documentation
             }
         }
 
-        public override void WriteStartAttribute(AttributeData attribute, bool assemblyAttribute)
+        public override void WriteStartAttribute(AttributeData attribute, ISymbol symbol)
         {
         }
 
-        public override void WriteEndAttribute(AttributeData attribute, bool assemblyAttribute)
+        public override void WriteEndAttribute(AttributeData attribute, ISymbol symbol)
         {
         }
 
-        public override void WriteAttributeSeparator(bool assemblyAttribute)
+        public override void WriteAttributeSeparator(ISymbol symbol)
         {
-            if (assemblyAttribute
+            if (symbol.Kind == SymbolKind.Assembly
                 || (Format.Includes(SymbolDefinitionFormatOptions.Attributes) && SupportsMultilineDefinitions))
             {
                 Write("]");

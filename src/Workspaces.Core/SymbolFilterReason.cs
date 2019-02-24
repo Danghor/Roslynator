@@ -2,14 +2,14 @@
 
 namespace Roslynator
 {
-    internal enum SymbolFilterResult
+    internal enum SymbolFilterReason
     {
-        Success = 0,
+        None = 0,
         Visibility = 1,
         SymbolGroup = 2,
         Ignored = 3,
-        WithoutAttibute = 4,
-        WithAttibute = 5,
+        WithAttibute = 4,
+        WithoutAttibute = 5,
         ImplicitlyDeclared = 6,
         Other = 7,
     }

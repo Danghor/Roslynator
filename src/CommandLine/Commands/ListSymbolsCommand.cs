@@ -163,7 +163,7 @@ namespace Roslynator.CommandLine
             WriteLine($"{assemblies.Count()} assemblies", verbosity);
 
             INamedTypeSymbol[] types = assemblies
-                .SelectMany(a => a.GetTypes(t => filter.IsSuccess(t)))
+                .SelectMany(a => a.GetTypes(t => filter.IsMatch(t)))
                 .ToArray();
 
             IEnumerable<INamespaceSymbol> namespaces = null;
@@ -171,7 +171,7 @@ namespace Roslynator.CommandLine
             if (filter.SymbolGroups == SymbolGroupFilter.None)
             {
                 namespaces = assemblies
-                    .SelectMany(a => a.GetNamespaces(n => !n.IsGlobalNamespace && filter.IsSuccess(n)))
+                    .SelectMany(a => a.GetNamespaces(n => !n.IsGlobalNamespace && filter.IsMatch(n)))
                     .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance);
             }
             else
@@ -179,7 +179,7 @@ namespace Roslynator.CommandLine
                 namespaces = types
                     .Select(f => f.ContainingNamespace)
                     .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
-                    .Where(f => filter.IsSuccess(f));
+                    .Where(f => filter.IsMatch(f));
             }
 
             WriteLine($"  {namespaces.Count()} namespaces", verbosity);
@@ -197,7 +197,7 @@ namespace Roslynator.CommandLine
 
                 ISymbol[] members = types
                     .Where(f => f.TypeKind.Is(TypeKind.Class, TypeKind.Struct, TypeKind.Interface))
-                    .SelectMany(t => t.GetMembers().Where(m => !m.IsKind(SymbolKind.NamedType) && filter.IsSuccess(m)))
+                    .SelectMany(t => t.GetMembers().Where(m => !m.IsKind(SymbolKind.NamedType) && filter.IsMatch(m)))
                     .ToArray();
 
                 WriteLine($"    {members.Length} members", verbosity);

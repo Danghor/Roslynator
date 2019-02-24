@@ -40,7 +40,9 @@ namespace Roslynator.FindSymbols
                     {
                         var namespaceSymbol = (INamespaceSymbol)symbol;
 
-                        if (options.IsSuccess(namespaceSymbol))
+                        SymbolFilterReason reason = options.GetReason(namespaceSymbol);
+
+                        if (reason == SymbolFilterReason.None)
                             namespaceOrTypeSymbols.Push(namespaceSymbol);
 
                         continue;
@@ -51,11 +53,11 @@ namespace Roslynator.FindSymbols
                     if (!options.UnusedOnly
                         || UnusedSymbolUtility.CanBeUnusedSymbol(symbol))
                     {
-                        SymbolFilterResult result = options.GetResult(symbol);
+                        SymbolFilterReason reason = options.GetReason(symbol);
 
-                        switch (result)
+                        switch (reason)
                         {
-                            case SymbolFilterResult.Success:
+                            case SymbolFilterReason.None:
                                 {
                                     if (options.IgnoreGeneratedCode
                                         && GeneratedCodeUtility.IsGeneratedCode(symbol, generatedCodeAttribute, MefWorkspaceServices.Default.GetService<ISyntaxFactsService>(compilation.Language).IsComment, cancellationToken))
@@ -78,22 +80,22 @@ namespace Roslynator.FindSymbols
 
                                     break;
                                 }
-                            case SymbolFilterResult.Visibility:
-                            case SymbolFilterResult.WithoutAttibute:
-                            case SymbolFilterResult.ImplicitlyDeclared:
+                            case SymbolFilterReason.Visibility:
+                            case SymbolFilterReason.WithoutAttibute:
+                            case SymbolFilterReason.ImplicitlyDeclared:
                                 {
                                     continue;
                                 }
-                            case SymbolFilterResult.SymbolGroup:
-                            case SymbolFilterResult.Ignored:
-                            case SymbolFilterResult.WithAttibute:
-                            case SymbolFilterResult.Other:
+                            case SymbolFilterReason.SymbolGroup:
+                            case SymbolFilterReason.Ignored:
+                            case SymbolFilterReason.WithAttibute:
+                            case SymbolFilterReason.Other:
                                 {
                                     break;
                                 }
                             default:
                                 {
-                                    Debug.Fail(result.ToString());
+                                    Debug.Fail(reason.ToString());
                                     break;
                                 }
                         }

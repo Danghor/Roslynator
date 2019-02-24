@@ -10,6 +10,8 @@ namespace Roslynator.Documentation
 {
     internal class DocumentationFilterOptions : SymbolFilterOptions
     {
+        private static readonly MetadataName _defaultMemberAttribute = MetadataName.Parse("System.Reflection.DefaultMemberAttribute");
+
         public static ImmutableArray<MetadataName> IgnoredAttributes { get; } = GetIgnoredAttributes().Select(MetadataName.Parse).ToImmutableArray();
 
         public static DocumentationFilterOptions Instance { get; } = new DocumentationFilterOptions(
@@ -33,19 +35,13 @@ namespace Roslynator.Documentation
                 "System.Diagnostics.DebuggerStepThroughAttribute",
                 "System.Diagnostics.DebuggerTypeProxyAttribute",
                 "System.Diagnostics.DebuggerVisualizerAttribute",
-                "System.Reflection.DefaultMemberAttribute",
-                "System.Reflection.AssemblyConfigurationAttribute",
-                "System.Reflection.AssemblyCultureAttribute",
-                "System.Reflection.AssemblyVersionAttribute",
                 "System.Runtime.CompilerServices.AsyncIteratorStateMachineAttribute",
                 "System.Runtime.CompilerServices.AsyncStateMachineAttribute",
                 "System.Runtime.CompilerServices.CompilationRelaxationsAttribute",
                 "System.Runtime.CompilerServices.CompilerGeneratedAttribute",
                 "System.Runtime.CompilerServices.IsReadOnlyAttribute",
-                "System.Runtime.CompilerServices.InternalsVisibleToAttribute",
                 "System.Runtime.CompilerServices.IteratorStateMachineAttribute",
                 "System.Runtime.CompilerServices.MethodImplAttribute",
-                "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute",
                 "System.Runtime.CompilerServices.StateMachineAttribute",
                 "System.Runtime.CompilerServices.TupleElementNamesAttribute",
                 "System.Runtime.CompilerServices.TypeForwardedFromAttribute",
@@ -91,27 +87,36 @@ namespace Roslynator.Documentation
         {
         }
 
-        public override SymbolFilterResult GetResult(AttributeData attribute)
+        public override SymbolFilterReason GetReason(ISymbol symbol, AttributeData attribute)
         {
-            SymbolFilterResult result = base.GetResult(attribute);
+            SymbolFilterReason reason = base.GetReason(symbol, attribute);
 
-            if (result != SymbolFilterResult.Success)
-                return result;
+            if (reason != SymbolFilterReason.None)
+                return reason;
+
+            if (symbol.IsKind(SymbolKind.NamedType)
+                && attribute.AttributeClass.HasMetadataName(_defaultMemberAttribute))
+            {
+                var namedType = (INamedTypeSymbol)symbol;
+
+                if (namedType.GetMembers().Any(f => f.IsKind(SymbolKind.Property) && ((IPropertySymbol)f).IsIndexer))
+                    return SymbolFilterReason.Ignored;
+            }
 
 #if DEBUG
             switch (attribute.AttributeClass.MetadataName)
             {
                 case "FooAttribute":
                 case "BarAttribute":
-                    return SymbolFilterResult.Success;
+                    return SymbolFilterReason.None;
             }
 
             if (_knownVisibleAttributes.Contains(attribute.AttributeClass))
-                return SymbolFilterResult.Success;
+                return SymbolFilterReason.None;
 
             Debug.Fail(attribute.AttributeClass.ToDisplayString());
 #endif
-            return result;
+            return reason;
         }
     }
 }

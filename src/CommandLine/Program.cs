@@ -176,7 +176,7 @@ namespace Roslynator.CommandLine
             if (!options.TryGetProjectFilter(out ProjectFilter projectFilter))
                 return 1;
 
-            if (!TryParseOptionValueAsEnumFlags(options.SymbolGroupFilter, ParameterNames.SymbolGroupFilter, out SymbolGroupFilter symbolGroups, SymbolFinderOptions.Default.SymbolGroups))
+            if (!TryParseOptionValueAsEnumFlags(options.SymbolGroups, ParameterNames.SymbolGroups, out SymbolGroupFilter symbolGroups, SymbolFinderOptions.Default.SymbolGroups))
                 return 1;
 
             if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibility, SymbolFinderOptions.Default.Visibility))
@@ -188,9 +188,25 @@ namespace Roslynator.CommandLine
             if (!TryParseMetadataNames(options.WithoutAttributes, out ImmutableArray<MetadataName> withoutAttributes))
                 return 1;
 
-            ImmutableArray<SymbolFilterRule> rules = ImmutableArray.Create<SymbolFilterRule>(
-                new WithAttributeFilterRule(withAttributes),
-                new WithoutAttributeFilterRule(withoutAttributes));
+            if (!TryParseOptionValueAsEnumFlags(options.WithFlags, ParameterNames.WithFlags, out SymbolFlags withFlags, SymbolFlags.None))
+                return 1;
+
+            if (!TryParseOptionValueAsEnumFlags(options.WithoutFlags, ParameterNames.WithoutFlags, out SymbolFlags withoutFlags, SymbolFlags.None))
+                return 1;
+
+            ImmutableArray<SymbolFilterRule>.Builder rules = ImmutableArray.CreateBuilder<SymbolFilterRule>();
+
+            if (withAttributes.Any())
+                rules.Add(new WithAttributeFilterRule(withAttributes));
+
+            if (withoutAttributes.Any())
+                rules.Add(new WithoutAttributeFilterRule(withoutAttributes));
+
+            if (withFlags != SymbolFlags.None)
+                rules.AddRange(SymbolFilterRuleFactory.FromFlags(withFlags));
+
+            if (withoutFlags != SymbolFlags.None)
+                rules.AddRange(SymbolFilterRuleFactory.FromFlags(withoutFlags, invert: true));
 
             var symbolFinderOptions = new SymbolFinderOptions(
                 visibility: visibility,
@@ -235,7 +251,9 @@ namespace Roslynator.CommandLine
             if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFilterOptions.Default.Visibility))
                 return 1;
 
-            ImmutableArray<SymbolFilterRule> rules = ImmutableArray.Create<SymbolFilterRule>(new IgnoredNameSymbolFilterRule(ignoredSymbols));
+            ImmutableArray<SymbolFilterRule> rules = (ignoredSymbols.Any())
+                ? ImmutableArray.Create<SymbolFilterRule>(new IgnoredNameSymbolFilterRule(ignoredSymbols))
+                : ImmutableArray<SymbolFilterRule>.Empty;
 
             ImmutableArray<AttributeFilterRule> attributeRules = ImmutableArray.Create<AttributeFilterRule>(new IgnoredAttributeNameFilterRule(ignoredAttributes.AddRange(DocumentationFilterOptions.IgnoredAttributes)));
 

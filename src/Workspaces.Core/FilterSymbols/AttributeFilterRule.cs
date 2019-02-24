@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
-    internal abstract class AttributeFilterRule : SymbolFilterRule<AttributeData>
+    internal abstract class AttributeFilterRule : FilterRule<AttributeData>
     {
     }
 }

@@ -69,7 +69,7 @@ namespace Roslynator.Documentation
 
         internal SymbolFilterOptions Filter { get; }
 
-        public bool IsVisible(ISymbol symbol) => Filter.IsSuccess(symbol);
+        public bool IsVisible(ISymbol symbol) => Filter.IsMatch(symbol);
 
         public IEnumerable<INamedTypeSymbol> GetDerivedTypes(INamedTypeSymbol typeSymbol)
         {

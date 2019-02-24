@@ -97,7 +97,7 @@ namespace Roslynator.Documentation
             Func<INamedTypeSymbol, bool> predicate = null;
 
             if (filter != null)
-                predicate = t => filter.IsSuccess(t);
+                predicate = t => filter.IsMatch(t);
 
             IEnumerable<INamedTypeSymbol> types = assemblies.SelectMany(a => a.GetTypes(predicate));
 

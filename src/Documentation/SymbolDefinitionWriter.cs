@@ -209,19 +209,19 @@ namespace Roslynator.Documentation
 
         public abstract void WriteEnumMemberSeparator();
 
-        public abstract void WriteStartAttributes(bool assemblyAttribute);
+        public abstract void WriteStartAttributes(ISymbol symbol);
 
-        public abstract void WriteEndAttributes(bool assemblyAttribute);
+        public abstract void WriteEndAttributes(ISymbol symbol);
 
-        public abstract void WriteStartAttribute(AttributeData attribute, bool assemblyAttribute);
+        public abstract void WriteStartAttribute(AttributeData attribute, ISymbol symbol);
 
-        public abstract void WriteEndAttribute(AttributeData attribute, bool assemblyAttribute);
+        public abstract void WriteEndAttribute(AttributeData attribute, ISymbol symbol);
 
-        public abstract void WriteAttributeSeparator(bool assemblyAttribute);
+        public abstract void WriteAttributeSeparator(ISymbol symbol);
 
         public abstract void WriteDocumentationComment(ISymbol symbol);
 
-        public SymbolDisplayTypeDeclarationOptions GetTypeDeclarationOptions()
+        protected virtual SymbolDisplayTypeDeclarationOptions GetTypeDeclarationOptions()
         {
             var options = SymbolDisplayTypeDeclarationOptions.None;
 
@@ -240,7 +240,7 @@ namespace Roslynator.Documentation
             return options;
         }
 
-        private SymbolDisplayAdditionalOptions GetAdditionalOptions()
+        protected virtual SymbolDisplayAdditionalOptions GetAdditionalOptions()
         {
             var options = SymbolDisplayAdditionalOptions.None;
 
@@ -306,7 +306,7 @@ namespace Roslynator.Documentation
             {
                 if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
                 {
-                    WriteTypeHierarchy(assemblies.SelectMany(a => a.GetTypes(Filter.IsSuccess)), cancellationToken);
+                    WriteTypeHierarchy(assemblies.SelectMany(a => a.GetTypes(Filter.IsMatch)), cancellationToken);
                 }
                 else
                 {
@@ -344,7 +344,7 @@ namespace Roslynator.Documentation
                         {
                             if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
                             {
-                                WriteTypeHierarchy(assembly.GetTypes(Filter.IsSuccess), cancellationToken);
+                                WriteTypeHierarchy(assembly.GetTypes(Filter.IsMatch), cancellationToken);
                             }
                             else
                             {
@@ -376,16 +376,16 @@ namespace Roslynator.Documentation
             if (Filter.SymbolGroups == SymbolGroupFilter.None)
             {
                 typesByNamespace = assemblies
-                    .SelectMany(a => a.GetNamespaces(n => !n.IsGlobalNamespace && Filter.IsSuccess(n)))
+                    .SelectMany(a => a.GetNamespaces(n => !n.IsGlobalNamespace && Filter.IsMatch(n)))
                     .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
                     .ToDictionary(f => f, _ => ImmutableArray<INamedTypeSymbol>.Empty.AsEnumerable());
             }
             else
             {
                 typesByNamespace = assemblies
-                    .SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsSuccess(t)))
+                    .SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsMatch(t)))
                     .GroupBy(t => t.ContainingNamespace, MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
-                    .Where(g => Filter.IsSuccess(g.Key))
+                    .Where(g => Filter.IsMatch(g.Key))
                     .OrderBy(g => g.Key, Comparer)
                     .ToDictionary(f => f.Key, f => f.AsEnumerable());
             }
@@ -652,7 +652,7 @@ namespace Roslynator.Documentation
                         if (Layout != SymbolDefinitionListLayout.TypeHierarchy
                             && (Filter.SymbolGroups & SymbolGroupFilter.Type) != 0)
                         {
-                            WriteTypes(type.GetTypeMembers().Where(f => Filter.IsSuccess(f)));
+                            WriteTypes(type.GetTypeMembers().Where(f => Filter.IsMatch(f)));
                         }
 
                         break;
@@ -675,7 +675,7 @@ namespace Roslynator.Documentation
             {
                 using (IEnumerator<ISymbol> en = type
                     .GetMembers()
-                    .Where(f => !f.IsKind(SymbolKind.NamedType) && Filter.IsSuccess(f))
+                    .Where(f => !f.IsKind(SymbolKind.NamedType) && Filter.IsMatch(f))
                     .OrderBy(f => f, Comparer)
                     .GetEnumerator())
                 {
@@ -718,7 +718,7 @@ namespace Roslynator.Documentation
             {
                 using (IEnumerator<ISymbol> en = type
                     .GetMembers()
-                    .Where(m => m.Kind == SymbolKind.Field && Filter.IsSuccess((IFieldSymbol)m))
+                    .Where(m => m.Kind == SymbolKind.Field && Filter.IsMatch((IFieldSymbol)m))
                     .GetEnumerator())
                 {
                     if (en.MoveNext())
@@ -751,24 +751,24 @@ namespace Roslynator.Documentation
         {
             using (IEnumerator<AttributeData> en = symbol
                 .GetAttributes()
-                .Where(f => Filter.IsSuccess(f))
+                .Where(f => Filter.IsMatch(symbol, f))
                 .OrderBy(f => f.AttributeClass, Comparer).GetEnumerator())
             {
                 if (en.MoveNext())
                 {
                     bool assemblyAttribute = symbol.Kind == SymbolKind.Assembly;
 
-                    WriteStartAttributes(assemblyAttribute);
+                    WriteStartAttributes(symbol);
 
                     while (true)
                     {
-                        WriteStartAttribute(en.Current, assemblyAttribute);
+                        WriteStartAttribute(en.Current, symbol);
                         WriteAttribute(en.Current);
-                        WriteEndAttribute(en.Current, assemblyAttribute);
+                        WriteEndAttribute(en.Current, symbol);
 
                         if (en.MoveNext())
                         {
-                            WriteAttributeSeparator(assemblyAttribute);
+                            WriteAttributeSeparator(symbol);
                         }
                         else
                         {
@@ -776,7 +776,7 @@ namespace Roslynator.Documentation
                         }
                     }
 
-                    WriteEndAttributes(assemblyAttribute);
+                    WriteEndAttributes(symbol);
                 }
             }
         }
@@ -986,7 +986,7 @@ namespace Roslynator.Documentation
                 format,
                 typeDeclarationOptions: typeDeclarationOptions ?? GetTypeDeclarationOptions(),
                 additionalOptions: additionalOptions ?? GetAdditionalOptions(),
-                shouldDisplayAttribute: Filter.IsSuccess);
+                shouldDisplayAttribute: (s, a) => Filter.IsMatch(s, a));
 
             Write(parts);
         }
