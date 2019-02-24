@@ -5,12 +5,12 @@ namespace Roslynator
     internal enum SymbolFilterResult
     {
         Success = 0,
-        NotVisible = 1,
-        UnsupportedSymbolGroup = 2,
+        Visibility = 1,
+        SymbolGroup = 2,
         Ignored = 3,
-        HasAttribute = 4,
-        HasNotAttribute = 5,
+        WithoutAttibute = 4,
+        WithAttibute = 5,
         ImplicitlyDeclared = 6,
-        Other = 7
+        Other = 7,
     }
 }

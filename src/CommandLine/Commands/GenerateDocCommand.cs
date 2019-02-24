@@ -87,7 +87,7 @@ namespace Roslynator.CommandLine
 
             ImmutableArray<Compilation> compilations = await GetCompilationsAsync(projectOrSolution, cancellationToken);
 
-            var documentationModel = new DocumentationModel(compilations, SymbolFilterOptions.Documentation, Options.AdditionalXmlDocumentation);
+            var documentationModel = new DocumentationModel(compilations, DocumentationFilterOptions.Instance, Options.AdditionalXmlDocumentation);
 
             var generator = new MarkdownDocumentationGenerator(documentationModel, WellKnownUrlProviders.GitHub, documentationOptions);
 

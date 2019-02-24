@@ -65,9 +65,6 @@ namespace Roslynator
             if (typeof(TSymbol) == typeof(INamedTypeSymbol))
                 return new MetadataNameEqualityComparer<INamedTypeSymbol>();
 
-            if (typeof(TSymbol) == typeof(ISymbol))
-                return new MetadataNameEqualityComparer<ISymbol>();
-
             if (typeof(TSymbol) == typeof(INamespaceOrTypeSymbol))
                 return new MetadataNameEqualityComparer<INamespaceOrTypeSymbol>();
 

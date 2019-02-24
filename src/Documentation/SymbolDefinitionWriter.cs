@@ -751,7 +751,7 @@ namespace Roslynator.Documentation
         {
             using (IEnumerator<AttributeData> en = symbol
                 .GetAttributes()
-                .Where(f => Filter.IsVisibleAttribute(f.AttributeClass))
+                .Where(f => Filter.IsSuccess(f))
                 .OrderBy(f => f.AttributeClass, Comparer).GetEnumerator())
             {
                 if (en.MoveNext())
@@ -986,7 +986,7 @@ namespace Roslynator.Documentation
                 format,
                 typeDeclarationOptions: typeDeclarationOptions ?? GetTypeDeclarationOptions(),
                 additionalOptions: additionalOptions ?? GetAdditionalOptions(),
-                shouldDisplayAttribute: Filter.IsVisibleAttribute);
+                shouldDisplayAttribute: Filter.IsSuccess);
 
             Write(parts);
         }

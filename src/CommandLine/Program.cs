@@ -188,13 +188,14 @@ namespace Roslynator.CommandLine
             if (!TryParseMetadataNames(options.WithoutAttributes, out ImmutableArray<MetadataName> withoutAttributes))
                 return 1;
 
+            ImmutableArray<SymbolFilterRule> rules = ImmutableArray.Create<SymbolFilterRule>(
+                new WithAttributeFilterRule(withAttributes),
+                new WithoutAttributeFilterRule(withoutAttributes));
+
             var symbolFinderOptions = new SymbolFinderOptions(
                 visibility: visibility,
                 symbolGroups: symbolGroups,
-                ignoredSymbols: null,
-                ignoredAttributes: null,
-                withAttributes: withAttributes,
-                withoutAttributes: withoutAttributes,
+                rules: rules,
                 ignoreGeneratedCode: options.IgnoreGeneratedCode,
                 unusedOnly: options.UnusedOnly);
 
@@ -234,11 +235,15 @@ namespace Roslynator.CommandLine
             if (!TryParseOptionValueAsEnumFlags(options.Visibility, ParameterNames.Visibility, out VisibilityFilter visibilityFilter, SymbolFilterOptions.Default.Visibility))
                 return 1;
 
+            ImmutableArray<SymbolFilterRule> rules = ImmutableArray.Create<SymbolFilterRule>(new IgnoredNameSymbolFilterRule(ignoredSymbols));
+
+            ImmutableArray<AttributeFilterRule> attributeRules = ImmutableArray.Create<AttributeFilterRule>(new IgnoredAttributeNameFilterRule(ignoredAttributes.AddRange(DocumentationFilterOptions.IgnoredAttributes)));
+
             var symbolFilterOptions = new SymbolFilterOptions(
                 visibility: visibilityFilter,
                 symbolGroups: GetSymbolGroupFilter(),
-                ignoredSymbols: ignoredSymbols,
-                ignoredAttributes: ignoredAttributes.AddRange(SymbolFilterOptions.Documentation.IgnoredAttributes));
+                rules: rules,
+                attributeRules: attributeRules);
 
             var command = new ListSymbolsCommand(
                 options: options,

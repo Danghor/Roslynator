@@ -78,15 +78,15 @@ namespace Roslynator.FindSymbols
 
                                     break;
                                 }
-                            case SymbolFilterResult.NotVisible:
-                            case SymbolFilterResult.HasAttribute:
+                            case SymbolFilterResult.Visibility:
+                            case SymbolFilterResult.WithoutAttibute:
                             case SymbolFilterResult.ImplicitlyDeclared:
                                 {
                                     continue;
                                 }
-                            case SymbolFilterResult.UnsupportedSymbolGroup:
+                            case SymbolFilterResult.SymbolGroup:
                             case SymbolFilterResult.Ignored:
-                            case SymbolFilterResult.HasNotAttribute:
+                            case SymbolFilterResult.WithAttibute:
                             case SymbolFilterResult.Other:
                                 {
                                     break;

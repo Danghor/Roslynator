@@ -18,7 +18,7 @@ namespace Roslynator.Documentation
             SymbolDisplayFormat format,
             SymbolDisplayTypeDeclarationOptions typeDeclarationOptions = SymbolDisplayTypeDeclarationOptions.None,
             SymbolDisplayAdditionalOptions additionalOptions = SymbolDisplayAdditionalOptions.None,
-            Func<INamedTypeSymbol, bool> shouldDisplayAttribute = null)
+            Func<AttributeData, bool> shouldDisplayAttribute = null)
         {
             ImmutableArray<SymbolDisplayPart> parts;
 
@@ -39,7 +39,7 @@ namespace Roslynator.Documentation
                 attributes = symbol.GetAttributes();
 
                 if (shouldDisplayAttribute != null)
-                    attributes = attributes.Where(f => shouldDisplayAttribute(f.AttributeClass));
+                    attributes = attributes.Where(f => shouldDisplayAttribute(f));
             }
 
             int baseListCount = 0;
@@ -291,14 +291,14 @@ namespace Roslynator.Documentation
         private static ImmutableArray<SymbolDisplayPart> GetAttributesParts(
             ISymbol symbol,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<INamedTypeSymbol, bool> shouldDisplayAttribute,
+            Func<AttributeData, bool> shouldDisplayAttribute,
             bool includeTrailingNewLine = false,
             bool? formatAttributes = null)
         {
             IEnumerable<AttributeData> attributes = symbol.GetAttributes();
 
             if (shouldDisplayAttribute != null)
-                attributes = attributes.Where(f => shouldDisplayAttribute(f.AttributeClass));
+                attributes = attributes.Where(f => shouldDisplayAttribute(f));
 
             if (!attributes.Any())
                 return ImmutableArray<SymbolDisplayPart>.Empty;
@@ -599,7 +599,7 @@ namespace Roslynator.Documentation
             ISymbol symbol,
             ImmutableArray<IParameterSymbol> parameters,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<INamedTypeSymbol, bool> shouldDisplayAttribute)
+            Func<AttributeData, bool> shouldDisplayAttribute)
         {
             int i = FindParameterListStart(symbol, parts);
 
@@ -731,7 +731,7 @@ namespace Roslynator.Documentation
             ImmutableArray<SymbolDisplayPart>.Builder parts,
             IMethodSymbol methodSymbol,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<INamedTypeSymbol, bool> shouldDisplayAttribute)
+            Func<AttributeData, bool> shouldDisplayAttribute)
         {
             ImmutableArray<SymbolDisplayPart> attributeParts = GetAttributesParts(
                 methodSymbol,
@@ -778,7 +778,7 @@ namespace Roslynator.Documentation
             ImmutableArray<SymbolDisplayPart>.Builder parts,
             IEventSymbol eventSymbol,
             SymbolDisplayAdditionalOptions additionalOptions,
-            Func<INamedTypeSymbol, bool> shouldDisplayAttribute)
+            Func<AttributeData, bool> shouldDisplayAttribute)
         {
             bool addMethodHasAttributes = HasAttributes(eventSymbol.AddMethod);
             bool removeMethodHasAttributes = HasAttributes(eventSymbol.RemoveMethod);
@@ -815,7 +815,7 @@ namespace Roslynator.Documentation
 
                     if (shouldDisplayAttribute != null)
                     {
-                        addMethodHasAttributes = attributes.Any(f => shouldDisplayAttribute(f.AttributeClass));
+                        addMethodHasAttributes = attributes.Any(f => shouldDisplayAttribute(f));
                     }
                     else
                     {

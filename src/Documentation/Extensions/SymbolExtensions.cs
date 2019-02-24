@@ -271,14 +271,14 @@ namespace Roslynator.Documentation
             return parts;
         }
 
-        internal static ImmutableArray<AttributeInfo> GetAttributesIncludingInherited(this INamedTypeSymbol namedType, Func<INamedTypeSymbol, bool> predicate = null)
+        internal static ImmutableArray<AttributeInfo> GetAttributesIncludingInherited(this INamedTypeSymbol namedType, Func<AttributeData, bool> predicate = null)
         {
             HashSet<AttributeInfo> attributes = null;
 
             foreach (AttributeData attributeData in namedType.GetAttributes())
             {
                 if (predicate == null
-                    || predicate(attributeData.AttributeClass))
+                    || predicate(attributeData))
                 {
                     (attributes ?? (attributes = new HashSet<AttributeInfo>(AttributeInfo.AttributeClassComparer))).Add(new AttributeInfo(namedType, attributeData));
                 }
@@ -305,7 +305,7 @@ namespace Roslynator.Documentation
                     }
 
                     if (predicate == null
-                        || predicate(attributeData.AttributeClass))
+                        || predicate(attributeData))
                     {
                         (attributes ?? (attributes = new HashSet<AttributeInfo>(AttributeInfo.AttributeClassComparer))).Add(new AttributeInfo(baseType, attributeData));
                     }

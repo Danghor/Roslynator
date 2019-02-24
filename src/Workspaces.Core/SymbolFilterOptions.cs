@@ -11,107 +11,28 @@ namespace Roslynator
 {
     internal class SymbolFilterOptions
     {
-        private readonly MetadataNameSet _ignoredSymbols;
-        private readonly MetadataNameSet _ignoredAttributes;
-
         public static SymbolFilterOptions Default { get; } = new SymbolFilterOptions();
-
-        public static SymbolFilterOptions Documentation { get; } = new SymbolFilterOptions(
-            visibility: VisibilityFilter.Public,
-            symbolGroups: SymbolGroupFilter.TypeOrMember,
-            ignoredSymbols: null,
-            ignoredAttributes: GetDocumentationIgnoredAttributeNames().Select(f => MetadataName.Parse(f)));
-
-        internal static string[] GetDocumentationIgnoredAttributeNames()
-        {
-            return new string[]
-            {
-                "System.Diagnostics.CodeAnalysis.SuppressMessageAttribute",
-                "System.Diagnostics.ConditionalAttribute",
-                "System.Diagnostics.DebuggableAttribute",
-                "System.Diagnostics.DebuggerBrowsableAttribute",
-                "System.Diagnostics.DebuggerDisplayAttribute",
-                "System.Diagnostics.DebuggerHiddenAttribute",
-                "System.Diagnostics.DebuggerNonUserCodeAttribute",
-                "System.Diagnostics.DebuggerStepperBoundaryAttribute",
-                "System.Diagnostics.DebuggerStepThroughAttribute",
-                "System.Diagnostics.DebuggerTypeProxyAttribute",
-                "System.Diagnostics.DebuggerVisualizerAttribute",
-                "System.Reflection.DefaultMemberAttribute",
-                "System.Reflection.AssemblyConfigurationAttribute",
-                "System.Reflection.AssemblyCultureAttribute",
-                "System.Reflection.AssemblyVersionAttribute",
-                "System.Runtime.CompilerServices.AsyncIteratorStateMachineAttribute",
-                "System.Runtime.CompilerServices.AsyncStateMachineAttribute",
-                "System.Runtime.CompilerServices.CompilationRelaxationsAttribute",
-                "System.Runtime.CompilerServices.CompilerGeneratedAttribute",
-                "System.Runtime.CompilerServices.IsReadOnlyAttribute",
-                "System.Runtime.CompilerServices.InternalsVisibleToAttribute",
-                "System.Runtime.CompilerServices.IteratorStateMachineAttribute",
-                "System.Runtime.CompilerServices.MethodImplAttribute",
-                "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute",
-                "System.Runtime.CompilerServices.StateMachineAttribute",
-                "System.Runtime.CompilerServices.TupleElementNamesAttribute",
-                "System.Runtime.CompilerServices.TypeForwardedFromAttribute",
-                "System.Runtime.CompilerServices.TypeForwardedToAttribute"
-            };
-        }
-#if DEBUG
-        private static readonly MetadataNameSet _knownVisibleAttributes = new MetadataNameSet(new string[]
-        {
-            "Microsoft.CodeAnalysis.CommitHashAttribute",
-            "System.AttributeUsageAttribute",
-            "System.CLSCompliantAttribute",
-            "System.ComVisibleAttribute",
-            "System.FlagsAttribute",
-            "System.ObsoleteAttribute",
-            "System.ComponentModel.DefaultValueAttribute",
-            "System.ComponentModel.EditorBrowsableAttribute",
-            "System.Composition.MetadataAttributeAttribute",
-            "System.Reflection.AssemblyCompanyAttribute",
-            "System.Reflection.AssemblyCopyrightAttribute",
-            "System.Reflection.AssemblyDescriptionAttribute",
-            "System.Reflection.AssemblyFileVersionAttribute",
-            "System.Reflection.AssemblyInformationalVersionAttribute",
-            "System.Reflection.AssemblyMetadataAttribute",
-            "System.Reflection.AssemblyProductAttribute",
-            "System.Reflection.AssemblyTitleAttribute",
-            "System.Reflection.AssemblyTrademarkAttribute",
-            "System.Runtime.CompilerServices.InternalImplementationOnlyAttribute",
-            "System.Runtime.InteropServices.GuidAttribute",
-            "System.Runtime.Versioning.TargetFrameworkAttribute",
-            "System.Xml.Serialization.XmlArrayItemAttribute",
-            "System.Xml.Serialization.XmlAttributeAttribute",
-            "System.Xml.Serialization.XmlElementAttribute",
-            "System.Xml.Serialization.XmlRootAttribute",
-        });
-#endif
 
         internal SymbolFilterOptions(
             VisibilityFilter visibility = VisibilityFilter.All,
             SymbolGroupFilter symbolGroups = SymbolGroupFilter.TypeOrMember,
-            IEnumerable<MetadataName> ignoredSymbols = null,
-            IEnumerable<MetadataName> ignoredAttributes = null)
+            IEnumerable<SymbolFilterRule> rules = null,
+            IEnumerable<AttributeFilterRule> attributeRules = null)
         {
             Visibility = visibility;
             SymbolGroups = symbolGroups;
-            _ignoredSymbols = (ignoredSymbols != null) ? new MetadataNameSet(ignoredSymbols) : null;
-            _ignoredAttributes = (ignoredAttributes != null) ? new MetadataNameSet(ignoredAttributes) : null;
+
+            Rules = rules?.ToImmutableArray() ?? ImmutableArray<SymbolFilterRule>.Empty;
+            AttributeRules = attributeRules?.ToImmutableArray() ?? ImmutableArray<AttributeFilterRule>.Empty;
         }
 
         public VisibilityFilter Visibility { get; }
 
         public SymbolGroupFilter SymbolGroups { get; }
 
-        public ImmutableArray<MetadataName> IgnoredSymbols
-        {
-            get { return _ignoredSymbols?.Values ?? ImmutableArray<MetadataName>.Empty; }
-        }
+        public ImmutableArray<SymbolFilterRule> Rules { get; }
 
-        public ImmutableArray<MetadataName> IgnoredAttributes
-        {
-            get { return _ignoredAttributes?.Values ?? ImmutableArray<MetadataName>.Empty; }
-        }
+        public ImmutableArray<AttributeFilterRule> AttributeRules { get; }
 
         public bool IncludesSymbolGroup(SymbolGroupFilter symbolGroupFilter)
         {
@@ -176,10 +97,7 @@ namespace Roslynator
 
         public virtual SymbolFilterResult GetResult(INamespaceSymbol namespaceSymbol)
         {
-            if (_ignoredSymbols?.Contains(namespaceSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            return SymbolFilterResult.Success;
+            return FilterRule.GetResult(namespaceSymbol, Rules);
         }
 
         public virtual SymbolFilterResult GetResult(INamedTypeSymbol typeSymbol)
@@ -188,39 +106,33 @@ namespace Roslynator
                 return SymbolFilterResult.ImplicitlyDeclared;
 
             if (!IncludesSymbolGroup(typeSymbol.TypeKind.ToSymbolGroupFilter()))
-                return SymbolFilterResult.UnsupportedSymbolGroup;
+                return SymbolFilterResult.SymbolGroup;
 
             if (!typeSymbol.IsVisible(Visibility))
-                return SymbolFilterResult.NotVisible;
+                return SymbolFilterResult.Visibility;
 
-            if (_ignoredSymbols?.Contains(typeSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            if (_ignoredSymbols?.Contains(typeSymbol.ContainingSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            return SymbolFilterResult.Success;
+            return FilterRule.GetResult(typeSymbol, Rules);
         }
 
         public virtual SymbolFilterResult GetResult(IEventSymbol symbol)
         {
-            if (!IncludesSymbolGroup(SymbolGroupFilter.Event))
-                return SymbolFilterResult.UnsupportedSymbolGroup;
-
             if (symbol.IsImplicitlyDeclared)
                 return SymbolFilterResult.ImplicitlyDeclared;
 
+            if (!IncludesSymbolGroup(SymbolGroupFilter.Event))
+                return SymbolFilterResult.SymbolGroup;
+
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.NotVisible;
+                return SymbolFilterResult.Visibility;
 
-            if (_ignoredSymbols?.Contains(symbol.ContainingSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            return SymbolFilterResult.Success;
+            return FilterRule.GetResult(symbol, Rules);
         }
 
         public virtual SymbolFilterResult GetResult(IFieldSymbol symbol)
         {
+            if (symbol.IsImplicitlyDeclared)
+                return SymbolFilterResult.ImplicitlyDeclared;
+
             var group = SymbolGroupFilter.None;
 
             if (symbol.IsConst)
@@ -233,35 +145,26 @@ namespace Roslynator
             }
 
             if (!IncludesSymbolGroup(group))
-                return SymbolFilterResult.UnsupportedSymbolGroup;
-
-            if (symbol.IsImplicitlyDeclared)
-                return SymbolFilterResult.ImplicitlyDeclared;
+                return SymbolFilterResult.SymbolGroup;
 
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.NotVisible;
+                return SymbolFilterResult.Visibility;
 
-            if (_ignoredSymbols?.Contains(symbol.ContainingSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            return SymbolFilterResult.Success;
+            return FilterRule.GetResult(symbol, Rules);
         }
 
         public virtual SymbolFilterResult GetResult(IPropertySymbol symbol)
         {
-            if (!IncludesSymbolGroup((symbol.IsIndexer) ? SymbolGroupFilter.Indexer : SymbolGroupFilter.Property))
-                return SymbolFilterResult.UnsupportedSymbolGroup;
-
             if (symbol.IsImplicitlyDeclared)
                 return SymbolFilterResult.ImplicitlyDeclared;
 
+            if (!IncludesSymbolGroup((symbol.IsIndexer) ? SymbolGroupFilter.Indexer : SymbolGroupFilter.Property))
+                return SymbolFilterResult.SymbolGroup;
+
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.NotVisible;
+                return SymbolFilterResult.Visibility;
 
-            if (_ignoredSymbols?.Contains(symbol.ContainingSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            return SymbolFilterResult.Success;
+            return FilterRule.GetResult(symbol, Rules);
         }
 
         public virtual SymbolFilterResult GetResult(IMethodSymbol symbol)
@@ -269,7 +172,7 @@ namespace Roslynator
             bool canBeImplicitlyDeclared = false;
 
             if (!IncludesSymbolGroup(SymbolGroupFilter.Method))
-                return SymbolFilterResult.UnsupportedSymbolGroup;
+                return SymbolFilterResult.SymbolGroup;
 
             switch (symbol.MethodKind)
             {
@@ -277,7 +180,7 @@ namespace Roslynator
                     {
                         TypeKind typeKind = symbol.ContainingType.TypeKind;
 
-                        Debug.Assert(typeKind.Is(TypeKind.Class, TypeKind.Struct, TypeKind.Enum), symbol.ToDisplayString(Roslynator.SymbolDisplayFormats.Test));
+                        Debug.Assert(typeKind.Is(TypeKind.Class, TypeKind.Struct, TypeKind.Enum), symbol.ToDisplayString(SymbolDisplayFormats.Test));
 
                         if (typeKind == TypeKind.Class
                             && !symbol.Parameters.Any())
@@ -306,38 +209,19 @@ namespace Roslynator
                 return SymbolFilterResult.ImplicitlyDeclared;
 
             if (!symbol.IsVisible(Visibility))
-                return SymbolFilterResult.NotVisible;
+                return SymbolFilterResult.Visibility;
 
-            if (_ignoredSymbols?.Contains(symbol.ContainingSymbol) == true)
-                return SymbolFilterResult.Ignored;
-
-            return SymbolFilterResult.Success;
+            return FilterRule.GetResult(symbol, Rules);
         }
 
-        public virtual bool IsVisibleAttribute(INamedTypeSymbol attributeType)
+        public bool IsSuccess(AttributeData attribute)
         {
-            if (_ignoredAttributes?.Contains(attributeType) == true)
-                return false;
-#if DEBUG
-            switch (attributeType.MetadataName)
-            {
-                case "FooAttribute":
-                case "BarAttribute":
-                    return true;
-            }
+            return GetResult(attribute) == SymbolFilterResult.Success;
+        }
 
-            if (!object.ReferenceEquals(this, Documentation)
-                && !Documentation.IsVisibleAttribute(attributeType))
-            {
-                return true;
-            }
-
-            if (_knownVisibleAttributes.Contains(attributeType))
-                return true;
-
-            Debug.Fail(attributeType.ToDisplayString());
-#endif
-            return true;
+        public virtual SymbolFilterResult GetResult(AttributeData attribute)
+        {
+            return FilterRule.GetResult(attribute, AttributeRules);
         }
     }
 }

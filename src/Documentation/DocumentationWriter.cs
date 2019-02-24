@@ -468,7 +468,7 @@ namespace Roslynator.Documentation
                     | SymbolDisplayTypeDeclarationOptions.IncludeModifiers
                     | SymbolDisplayTypeDeclarationOptions.BaseList,
                 additionalOptions: additionalOptions,
-                shouldDisplayAttribute: f => DocumentationModel.Filter.IsVisibleAttribute(f));
+                shouldDisplayAttribute: f => DocumentationModel.Filter.IsSuccess(f));
 
             WriteCodeBlock(parts.ToDisplayString(), symbol.Language);
         }
@@ -712,13 +712,13 @@ namespace Roslynator.Documentation
             if (symbol is INamedTypeSymbol typeSymbol
                 && Options.IncludeInheritedAttributes)
             {
-                attributes = typeSymbol.GetAttributesIncludingInherited(f => DocumentationModel.Filter.IsVisibleAttribute(f));
+                attributes = typeSymbol.GetAttributesIncludingInherited(f => DocumentationModel.Filter.IsSuccess(f));
             }
             else
             {
                 attributes = symbol
                     .GetAttributes()
-                    .Where(f => DocumentationModel.Filter.IsVisibleAttribute(f.AttributeClass))
+                    .Where(f => DocumentationModel.Filter.IsSuccess(f))
                     .Select(f => new AttributeInfo(symbol, f))
                     .ToImmutableArray();
             }
