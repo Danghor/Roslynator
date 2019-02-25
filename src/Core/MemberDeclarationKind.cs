@@ -14,7 +14,11 @@ namespace Roslynator
         Property = 7,
         Indexer = 8,
         Method = 9,
-        ConversionOperator = 10,
-        Operator = 11
+        ExplicitlyImplementedEvent = 10,
+        ExplicitlyImplementedProperty = 11,
+        ExplicitlyImplementedIndexer = 12,
+        ExplicitlyImplementedMethod = 13,
+        ConversionOperator = 14,
+        Operator = 15
     }
 }

@@ -8,11 +8,12 @@ namespace Roslynator
 {
     internal sealed class NamedTypeSymbolDefinitionComparer : IComparer<INamedTypeSymbol>
     {
-        public static NamedTypeSymbolDefinitionComparer Instance { get; } = new NamedTypeSymbolDefinitionComparer();
-
-        internal NamedTypeSymbolDefinitionComparer()
+        internal NamedTypeSymbolDefinitionComparer(SymbolDefinitionComparer symbolComparer)
         {
+            SymbolComparer = symbolComparer;
         }
+
+        public SymbolDefinitionComparer SymbolComparer { get; }
 
         public int Compare(INamedTypeSymbol x, INamedTypeSymbol y)
         {
@@ -25,7 +26,17 @@ namespace Roslynator
             if (y == null)
                 return 1;
 
-            int diff = GetRank(x).CompareTo(GetRank(y));
+            int diff = 0;
+
+            if ((SymbolComparer.Options & SymbolDefinitionSortOptions.OmitContainingNamespace) == 0)
+            {
+                diff = SymbolComparer.NamespaceComparer.Compare(x.ContainingNamespace, y.ContainingNamespace);
+
+                if (diff != 0)
+                    return diff;
+            }
+
+            diff = GetRank(x).CompareTo(GetRank(y));
 
             if (diff != 0)
                 return diff;

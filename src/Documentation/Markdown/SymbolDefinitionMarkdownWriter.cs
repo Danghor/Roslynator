@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using DotMarkdown;
@@ -17,8 +16,7 @@ namespace Roslynator.Documentation.Markdown
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
             SymbolDocumentationProvider documentationProvider = null,
-            IComparer<ISymbol> comparer = null,
-            string rootDirectoryUrl = null) : base(filter, format, documentationProvider, comparer)
+            string rootDirectoryUrl = null) : base(filter, format, documentationProvider)
         {
             _writer = writer;
             RootDirectoryUrl = rootDirectoryUrl;

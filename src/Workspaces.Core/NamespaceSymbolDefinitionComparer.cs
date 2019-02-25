@@ -1,28 +1,18 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
     internal sealed class NamespaceSymbolDefinitionComparer : IComparer<INamespaceSymbol>
     {
-        public static NamespaceSymbolDefinitionComparer Instance { get; } = new NamespaceSymbolDefinitionComparer(systemNamespaceFirst: false);
-
-        public static NamespaceSymbolDefinitionComparer SystemNamespaceFirstInstance { get; } = new NamespaceSymbolDefinitionComparer(systemNamespaceFirst: true);
-
-        public bool SystemNamespaceFirst { get; }
-
-        internal NamespaceSymbolDefinitionComparer(bool systemNamespaceFirst = false)
+        internal NamespaceSymbolDefinitionComparer(SymbolDefinitionComparer symbolComparer)
         {
-            SystemNamespaceFirst = systemNamespaceFirst;
+            SymbolComparer = symbolComparer;
         }
 
-        public static NamespaceSymbolDefinitionComparer GetInstance(bool systemNamespaceFirst)
-        {
-            return (systemNamespaceFirst) ? SystemNamespaceFirstInstance : Instance;
-        }
+        public SymbolDefinitionComparer SymbolComparer { get; }
 
         public int Compare(INamespaceSymbol x, INamespaceSymbol y)
         {
@@ -47,7 +37,7 @@ namespace Roslynator
             int count1 = CountContainingNamespaces(x);
             int count2 = CountContainingNamespaces(y);
 
-            if (SystemNamespaceFirst)
+            if ((SymbolComparer.Options & SymbolDefinitionSortOptions.SystemFirst) != 0)
             {
                 INamespaceSymbol namespaceSymbol1 = GetNamespaceSymbol(x, count1);
                 INamespaceSymbol namespaceSymbol2 = GetNamespaceSymbol(y, count2);

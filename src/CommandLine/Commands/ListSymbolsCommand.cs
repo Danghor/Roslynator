@@ -67,8 +67,6 @@ namespace Roslynator.CommandLine
 
             ImmutableArray<Compilation> compilations = await GetCompilationsAsync(projectOrSolution, cancellationToken);
 
-            SymbolDefinitionComparer comparer = SymbolDefinitionComparer.SystemNamespaceFirstInstance;
-
             IEnumerable<IAssemblySymbol> assemblies = compilations.Select(f => f.Assembly);
 
             HashSet<IAssemblySymbol> externalAssemblies = null;
@@ -89,7 +87,7 @@ namespace Roslynator.CommandLine
             if (externalAssemblies != null)
                 assemblies = assemblies.Concat(externalAssemblies);
 
-            TestOutput(compilations, assemblies, format, comparer, cancellationToken);
+            TestOutput(compilations, assemblies, format, cancellationToken);
 
             string text = null;
 
@@ -103,8 +101,7 @@ namespace Roslynator.CommandLine
                     stringWriter,
                     filter: SymbolFilterOptions,
                     format: format,
-                    documentationProvider: documentationProvider,
-                    comparer: comparer);
+                    documentationProvider: documentationProvider);
 
                 writer.WriteDocument(assemblies, cancellationToken);
 
@@ -126,7 +123,7 @@ namespace Roslynator.CommandLine
 
                     using (XmlWriter xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
                     {
-                        SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, documentationProvider, comparer);
+                        SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, documentationProvider);
 
                         writer.WriteDocument(assemblies, cancellationToken);
                     }
@@ -139,7 +136,7 @@ namespace Roslynator.CommandLine
                     using (var streamWriter = new StreamWriter(fileStream, Encodings.UTF8NoBom))
                     using (MarkdownWriter markdownWriter = MarkdownWriter.Create(streamWriter, markdownWriterSettings))
                     {
-                        SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, comparer, RootDirectoryUrl);
+                        SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, rootDirectoryUrl: RootDirectoryUrl);
 
                         writer.WriteDocument(assemblies, cancellationToken);
                     }
@@ -150,12 +147,15 @@ namespace Roslynator.CommandLine
                 }
             }
 
+#if DEBUG
             if (ShouldWrite(Verbosity.Normal))
                 WriteSummary(assemblies, SymbolFilterOptions, Verbosity.Normal);
+#endif
 
             return CommandResult.Success;
         }
 
+#if DEBUG
         private static void WriteSummary(IEnumerable<IAssemblySymbol> assemblies, SymbolFilterOptions filter, Verbosity verbosity)
         {
             WriteLine(verbosity);
@@ -190,7 +190,11 @@ namespace Roslynator.CommandLine
             {
                 foreach (IGrouping<SymbolGroup, INamedTypeSymbol> grouping in types.GroupBy(f => f.GetSymbolGroup()))
                 {
-                    WriteLine($"      {grouping.Count()} {grouping.Key.GetPluralText()}", verbosity);
+                    SymbolGroup group = grouping.Key;
+                    WriteLine($"      {grouping.Count()} {group.GetPluralText()}", verbosity);
+
+                    if (group == SymbolGroup.Class)
+                        WriteLine($"        {grouping.Count(f => f.IsStatic)} static {group.GetPluralText()}", verbosity);
                 }
 
                 WriteLine(verbosity);
@@ -206,13 +210,18 @@ namespace Roslynator.CommandLine
                 {
                     foreach (IGrouping<SymbolGroup, ISymbol> grouping in members.GroupBy(f => f.GetSymbolGroup()))
                     {
-                        WriteLine($"      {grouping.Count()} {grouping.Key.GetPluralText()}", verbosity);
+                        SymbolGroup group = grouping.Key;
+                        WriteLine($"      {grouping.Count()} {group.GetPluralText()}", verbosity);
+
+                        if (group == SymbolGroup.Method)
+                            WriteLine($"        {grouping.Count(f => f.IsKind(SymbolKind.Method) && ((IMethodSymbol)f).IsExtensionMethod)} extension {group.GetPluralText()}", verbosity);
                     }
 
                     WriteLine(verbosity);
                 }
             }
         }
+#endif
 
         private static IAssemblySymbol FindExternalAssembly(IEnumerable<Compilation> compilations, string path)
         {
@@ -239,14 +248,12 @@ namespace Roslynator.CommandLine
             ImmutableArray<Compilation> compilations,
             IEnumerable<IAssemblySymbol> assemblies,
             DefinitionListFormat format,
-            SymbolDefinitionComparer comparer,
             CancellationToken cancellationToken)
         {
             SymbolDefinitionWriter textWriter = new SymbolDefinitionTextWriter(
                 ConsoleOut,
                 filter: SymbolFilterOptions,
-                format: format,
-                comparer: comparer);
+                format: format);
 
             textWriter.WriteDocument(assemblies, cancellationToken);
 
@@ -254,7 +261,7 @@ namespace Roslynator.CommandLine
 
             using (XmlWriter xmlWriter = XmlWriter.Create(ConsoleOut, new XmlWriterSettings() { Indent = true, IndentChars = Options.IndentChars }))
             {
-                SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, new SymbolDocumentationProvider(compilations), comparer);
+                SymbolDefinitionWriter writer = new SymbolDefinitionXmlWriter(xmlWriter, SymbolFilterOptions, format, new SymbolDocumentationProvider(compilations));
 
                 writer.WriteDocument(assemblies, cancellationToken);
             }
@@ -263,7 +270,7 @@ namespace Roslynator.CommandLine
 
             using (MarkdownWriter markdownWriter = MarkdownWriter.Create(ConsoleOut))
             {
-                SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, comparer, RootDirectoryUrl);
+                SymbolDefinitionWriter writer = new SymbolDefinitionMarkdownWriter(markdownWriter, SymbolFilterOptions, format, null, RootDirectoryUrl);
 
                 writer.WriteDocument(assemblies, cancellationToken);
             }

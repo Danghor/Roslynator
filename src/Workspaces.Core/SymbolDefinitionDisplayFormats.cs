@@ -68,9 +68,8 @@ namespace Roslynator
         public static SymbolDisplayFormat FullDefinition_NameAndContainingTypesAndNamespaces { get; } = FullDefinition_NameOnly.Update(
             typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
 
-        public static SymbolDisplayFormat HierarchyType { get; } = FullDefinition_NameOnly.Update(
-            typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-            miscellaneousOptions: SymbolDisplayMiscellaneousOptions.None);
+        public static SymbolDisplayFormat HierarchyType { get; } = FullDefinition_NameAndContainingTypesAndNamespaces.Update(
+            miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers);
 
         internal const SymbolDisplayGlobalNamespaceStyle DefaultGlobalNamespaceStyle
             = SymbolDisplayGlobalNamespaceStyle.Omitted;

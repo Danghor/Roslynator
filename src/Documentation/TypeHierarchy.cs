@@ -107,7 +107,7 @@ namespace Roslynator.Documentation
         public static TypeHierarchy Create(IEnumerable<INamedTypeSymbol> types, IComparer<INamedTypeSymbol> comparer = null)
         {
             if (comparer == null)
-                comparer = SymbolDefinitionComparer.SystemNamespaceFirstInstance;
+                comparer = SymbolDefinitionComparer.SystemFirst.TypeComparer;
 
             INamedTypeSymbol objectType = FindObjectType();
 

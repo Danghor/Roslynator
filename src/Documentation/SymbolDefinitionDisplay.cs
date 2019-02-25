@@ -137,17 +137,11 @@ namespace Roslynator.Documentation
                     }
                 }
 
-                interfaces = interfaces.Sort((x, y) =>
-                {
-                    if (additionalOptions.HasOption(SymbolDisplayAdditionalOptions.OmitContainingNamespace))
-                    {
-                        return NamedTypeSymbolDefinitionComparer.Instance.Compare(x, y);
-                    }
-                    else
-                    {
-                        return SymbolDefinitionComparer.SystemNamespaceFirstInstance.Compare(x, y);
-                    }
-                });
+                NamedTypeSymbolDefinitionComparer comparer = (additionalOptions.HasOption(SymbolDisplayAdditionalOptions.OmitContainingNamespace))
+                    ? SymbolDefinitionComparer.SystemFirstOmitContainingNamespace.TypeComparer
+                    : SymbolDefinitionComparer.SystemFirst.TypeComparer;
+
+                interfaces = interfaces.Sort(comparer);
 
                 ImmutableArray<INamedTypeSymbol>.Enumerator en = interfaces.GetEnumerator();
 
@@ -313,14 +307,11 @@ namespace Roslynator.Documentation
             bool includeTrailingNewLine = true,
             bool? formatAttributes = null)
         {
-            if (additionalOptions.HasOption(SymbolDisplayAdditionalOptions.OmitContainingNamespace))
-            {
-                attributes = attributes.OrderBy(f => f.AttributeClass, NamedTypeSymbolDefinitionComparer.Instance);
-            }
-            else
-            {
-                attributes = attributes.OrderBy(f => f.AttributeClass, SymbolDefinitionComparer.SystemNamespaceFirstInstance);
-            }
+            NamedTypeSymbolDefinitionComparer comparer = (additionalOptions.HasOption(SymbolDisplayAdditionalOptions.OmitContainingNamespace))
+                ? SymbolDefinitionComparer.SystemFirstOmitContainingNamespace.TypeComparer
+                : SymbolDefinitionComparer.SystemFirst.TypeComparer;
+
+            attributes = attributes.OrderBy(f => f.AttributeClass, comparer);
 
             using (IEnumerator<AttributeData> en = attributes.GetEnumerator())
             {

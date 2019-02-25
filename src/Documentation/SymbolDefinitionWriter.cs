@@ -22,13 +22,11 @@ namespace Roslynator.Documentation
         protected SymbolDefinitionWriter(
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
-            SymbolDocumentationProvider documentationProvider = null,
-            IComparer<ISymbol> comparer = null)
+            SymbolDocumentationProvider documentationProvider = null)
         {
             Filter = filter ?? SymbolFilterOptions.Default;
             Format = format ?? DefinitionListFormat.Default;
             DocumentationProvider = documentationProvider;
-            Comparer = comparer ?? SymbolDefinitionComparer.SystemNamespaceFirstInstance;
         }
 
         public SymbolFilterOptions Filter { get; }
@@ -37,7 +35,15 @@ namespace Roslynator.Documentation
 
         public SymbolDocumentationProvider DocumentationProvider { get; }
 
-        public IComparer<ISymbol> Comparer { get; }
+        public SymbolDefinitionComparer Comparer
+        {
+            get
+            {
+                return (Format.Includes(SymbolDefinitionPartFilter.ContainingNamespace))
+                    ? SymbolDefinitionComparer.SystemFirst
+                    : SymbolDefinitionComparer.SystemFirstOmitContainingNamespace;
+            }
+        }
 
         public virtual bool SupportsMultilineDefinitions => Layout != SymbolDefinitionListLayout.TypeHierarchy;
 
@@ -68,9 +74,18 @@ namespace Roslynator.Documentation
             {
                 if (_typeFormat == null)
                 {
-                    SymbolDisplayFormat format = (Layout == SymbolDefinitionListLayout.TypeHierarchy)
-                        ? SymbolDefinitionDisplayFormats.HierarchyType
-                        : SymbolDefinitionDisplayFormats.FullDefinition_NameOnly;
+                    SymbolDisplayFormat format;
+
+                    if (Layout == SymbolDefinitionListLayout.TypeHierarchy)
+                    {
+                        format = SymbolDefinitionDisplayFormats.HierarchyType;
+                    }
+                    else
+                    {
+                        format = (Format.Includes(SymbolDefinitionPartFilter.ContainingNamespace))
+                            ? SymbolDefinitionDisplayFormats.FullDefinition_NameAndContainingTypesAndNamespaces
+                            : SymbolDefinitionDisplayFormats.FullDefinition_NameOnly;
+                    }
 
                     format = Format.Update(format);
 
@@ -87,9 +102,9 @@ namespace Roslynator.Documentation
             {
                 if (_memberFormat == null)
                 {
-                    SymbolDisplayFormat format = (!Format.Includes(SymbolDefinitionPartFilter.ContainingNamespace))
-                        ? SymbolDefinitionDisplayFormats.FullDefinition_NameAndContainingTypes
-                        : SymbolDefinitionDisplayFormats.FullDefinition_NameAndContainingTypesAndNamespaces;
+                    SymbolDisplayFormat format = (Format.Includes(SymbolDefinitionPartFilter.ContainingNamespace))
+                        ? SymbolDefinitionDisplayFormats.FullDefinition_NameAndContainingTypesAndNamespaces
+                        : SymbolDefinitionDisplayFormats.FullDefinition_NameAndContainingTypes;
 
                     format = Format.Update(format);
 
@@ -106,7 +121,7 @@ namespace Roslynator.Documentation
             {
                 if (_explicitInterfaceImplementationFormat == null)
                 {
-                    SymbolDisplayFormat format = MemberFormat.Update(memberOptions: MemberFormat.MemberOptions & ~ SymbolDisplayMemberOptions.IncludeAccessibility);
+                    SymbolDisplayFormat format = MemberFormat.Update(memberOptions: MemberFormat.MemberOptions & ~SymbolDisplayMemberOptions.IncludeAccessibility);
 
                     Interlocked.CompareExchange(ref _explicitInterfaceImplementationFormat, format, null);
                 }
@@ -386,7 +401,7 @@ namespace Roslynator.Documentation
                     .SelectMany(a => a.GetTypes(t => t.ContainingType == null && Filter.IsMatch(t)))
                     .GroupBy(t => t.ContainingNamespace, MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
                     .Where(g => Filter.IsMatch(g.Key))
-                    .OrderBy(g => g.Key, Comparer)
+                    .OrderBy(g => g.Key, Comparer.NamespaceComparer)
                     .ToDictionary(f => f.Key, f => f.AsEnumerable());
             }
 
@@ -408,7 +423,7 @@ namespace Roslynator.Documentation
 
         private void WriteTypeHierarchy(IEnumerable<INamedTypeSymbol> types, CancellationToken cancellationToken = default)
         {
-            TypeHierarchy hierarchy = TypeHierarchy.Create(types, Comparer);
+            TypeHierarchy hierarchy = TypeHierarchy.Create(types, SymbolDefinitionComparer.SystemFirst.TypeComparer);
 
             WriteTypeHierarchy(hierarchy, cancellationToken);
         }
@@ -539,7 +554,7 @@ namespace Roslynator.Documentation
             }
 
             using (IEnumerator<INamespaceSymbol> en = rootNamespaces
-                .OrderBy(f => f, Comparer)
+                .OrderBy(f => f, Comparer.NamespaceComparer)
                 .GetEnumerator())
             {
                 if (en.MoveNext())
@@ -572,7 +587,7 @@ namespace Roslynator.Documentation
                 using (List<INamespaceSymbol>.Enumerator en = nestedNamespaces
                     .Where(f => MetadataNameEqualityComparer<INamespaceSymbol>.Instance.Equals(f.ContainingNamespace, namespaceSymbol))
                     .Distinct(MetadataNameEqualityComparer<INamespaceSymbol>.Instance)
-                    .OrderBy(f => f, Comparer)
+                    .OrderBy(f => f, Comparer.NamespaceComparer)
                     .ToList()
                     .GetEnumerator())
                 {
@@ -603,7 +618,7 @@ namespace Roslynator.Documentation
         private void WriteTypes(IEnumerable<INamedTypeSymbol> types, CancellationToken cancellationToken = default)
         {
             using (IEnumerator<INamedTypeSymbol> en = types
-                .OrderBy(f => f, Comparer)
+                .OrderBy(f => f, Comparer.TypeComparer)
                 .GetEnumerator())
             {
                 if (en.MoveNext())
@@ -676,7 +691,7 @@ namespace Roslynator.Documentation
                 using (IEnumerator<ISymbol> en = type
                     .GetMembers()
                     .Where(f => !f.IsKind(SymbolKind.NamedType) && Filter.IsMatch(f))
-                    .OrderBy(f => f, Comparer)
+                    .OrderBy(f => f, Comparer.MemberComparer)
                     .GetEnumerator())
                 {
                     if (en.MoveNext())
@@ -752,12 +767,10 @@ namespace Roslynator.Documentation
             using (IEnumerator<AttributeData> en = symbol
                 .GetAttributes()
                 .Where(f => Filter.IsMatch(symbol, f))
-                .OrderBy(f => f.AttributeClass, Comparer).GetEnumerator())
+                .OrderBy(f => f.AttributeClass, Comparer.TypeComparer).GetEnumerator())
             {
                 if (en.MoveNext())
                 {
-                    bool assemblyAttribute = symbol.Kind == SymbolKind.Assembly;
-
                     WriteStartAttributes(symbol);
 
                     while (true)

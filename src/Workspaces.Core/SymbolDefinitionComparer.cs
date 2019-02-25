@@ -2,26 +2,61 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
     internal class SymbolDefinitionComparer : IComparer<ISymbol>
     {
-        public static SymbolDefinitionComparer Instance { get; } = new SymbolDefinitionComparer(systemNamespaceFirst: false);
+        private NamespaceSymbolDefinitionComparer _namespaceComparer;
+        private NamedTypeSymbolDefinitionComparer _typeComparer;
+        private MemberSymbolDefinitionComparer _memberComparer;
 
-        public static SymbolDefinitionComparer SystemNamespaceFirstInstance { get; } = new SymbolDefinitionComparer(systemNamespaceFirst: true);
-
-        public bool SystemNamespaceFirst { get; }
-
-        internal SymbolDefinitionComparer(bool systemNamespaceFirst = false)
+        internal SymbolDefinitionComparer(SymbolDefinitionSortOptions options = SymbolDefinitionSortOptions.None)
         {
-            SystemNamespaceFirst = systemNamespaceFirst;
+            Options = options;
         }
 
-        public static SymbolDefinitionComparer GetInstance(bool systemNamespaceFirst)
+        public static SymbolDefinitionComparer Default { get; } = new SymbolDefinitionComparer(SymbolDefinitionSortOptions.None);
+
+        public static SymbolDefinitionComparer SystemFirst { get; } = new SymbolDefinitionComparer(SymbolDefinitionSortOptions.SystemFirst);
+
+        public static SymbolDefinitionComparer SystemFirstOmitContainingNamespace { get; } = new SymbolDefinitionComparer(SymbolDefinitionSortOptions.SystemFirst | SymbolDefinitionSortOptions.OmitContainingNamespace);
+
+        public SymbolDefinitionSortOptions Options { get; }
+
+        public NamespaceSymbolDefinitionComparer NamespaceComparer
         {
-            return (systemNamespaceFirst) ? SystemNamespaceFirstInstance : Instance;
+            get
+            {
+                if (_namespaceComparer == null)
+                    Interlocked.CompareExchange(ref _namespaceComparer, CreateNamespaceComparer(), null);
+
+                return _namespaceComparer;
+            }
+        }
+
+        public NamedTypeSymbolDefinitionComparer TypeComparer
+        {
+            get
+            {
+                if (_typeComparer == null)
+                    Interlocked.CompareExchange(ref _typeComparer, CreateTypeComparer(), null);
+
+                return _typeComparer;
+            }
+        }
+
+        public MemberSymbolDefinitionComparer MemberComparer
+        {
+            get
+            {
+                if (_memberComparer == null)
+                    Interlocked.CompareExchange(ref _memberComparer, CreateMemberComparer(), null);
+
+                return _memberComparer;
+            }
         }
 
         public int Compare(ISymbol x, ISymbol y)
@@ -44,7 +79,7 @@ namespace Roslynator
                         switch (y.Kind)
                         {
                             case SymbolKind.Namespace:
-                                return NamespaceSymbolDefinitionComparer.GetInstance(SystemNamespaceFirst).Compare(namespaceSymbol, (INamespaceSymbol)y);
+                                return NamespaceComparer.Compare(namespaceSymbol, (INamespaceSymbol)y);
                             case SymbolKind.NamedType:
                             case SymbolKind.Event:
                             case SymbolKind.Field:
@@ -101,12 +136,12 @@ namespace Roslynator
 
         private int CompareNamedTypeSymbol(INamedTypeSymbol typeSymbol1, INamedTypeSymbol typeSymbol2)
         {
-            int diff = NamespaceSymbolDefinitionComparer.GetInstance(SystemNamespaceFirst).Compare(typeSymbol1.ContainingNamespace, typeSymbol2.ContainingNamespace);
+            int diff = NamespaceComparer.Compare(typeSymbol1.ContainingNamespace, typeSymbol2.ContainingNamespace);
 
             if (diff != 0)
                 return diff;
 
-            return NamedTypeSymbolDefinitionComparer.Instance.Compare(typeSymbol1, typeSymbol2);
+            return TypeComparer.Compare(typeSymbol1, typeSymbol2);
         }
 
         private int CompareMemberSymbol(ISymbol symbol1, ISymbol symbol2)
@@ -116,12 +151,12 @@ namespace Roslynator
             if (diff != 0)
                 return diff;
 
-            return MemberSymbolDefinitionComparer.Instance.Compare(symbol1, symbol2);
+            return MemberComparer.Compare(symbol1, symbol2);
         }
 
         private int CompareSymbolAndNamespaceSymbol(ISymbol symbol, INamespaceSymbol namespaceSymbol)
         {
-            int diff = NamespaceSymbolDefinitionComparer.GetInstance(SystemNamespaceFirst).Compare(symbol.ContainingNamespace, namespaceSymbol);
+            int diff = NamespaceComparer.Compare(symbol.ContainingNamespace, namespaceSymbol);
 
             if (diff != 0)
                 return diff;
@@ -129,9 +164,9 @@ namespace Roslynator
             return 1;
         }
 
-        private static int CompareSymbolAndNamedTypeSymbol(ISymbol symbol, INamedTypeSymbol typeSymbol)
+        private int CompareSymbolAndNamedTypeSymbol(ISymbol symbol, INamedTypeSymbol typeSymbol)
         {
-            int diff = NamedTypeSymbolDefinitionComparer.Instance.Compare(symbol.ContainingType, typeSymbol);
+            int diff = TypeComparer.Compare(symbol.ContainingType, typeSymbol);
 
             if (diff != 0)
                 return diff;
@@ -142,6 +177,21 @@ namespace Roslynator
         public static int CompareName(ISymbol symbol1, ISymbol symbol2)
         {
             return string.Compare(symbol1.Name, symbol2.Name, StringComparison.Ordinal);
+        }
+
+        protected virtual NamespaceSymbolDefinitionComparer CreateNamespaceComparer()
+        {
+            return new NamespaceSymbolDefinitionComparer(this);
+        }
+
+        protected virtual NamedTypeSymbolDefinitionComparer CreateTypeComparer()
+        {
+            return new NamedTypeSymbolDefinitionComparer(this);
+        }
+
+        protected virtual MemberSymbolDefinitionComparer CreateMemberComparer()
+        {
+            return new MemberSymbolDefinitionComparer(this);
         }
     }
 }

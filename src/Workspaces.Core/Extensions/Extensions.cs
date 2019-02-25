@@ -43,7 +43,9 @@ namespace Roslynator
             {
                 case SymbolKind.Event:
                     {
-                        return MemberDeclarationKind.Event;
+                        return (((IEventSymbol)symbol).ExplicitInterfaceImplementations.Any())
+                            ? MemberDeclarationKind.ExplicitlyImplementedEvent
+                            : MemberDeclarationKind.Event;
                     }
                 case SymbolKind.Field:
                     {
@@ -60,8 +62,9 @@ namespace Roslynator
                         switch (methodSymbol.MethodKind)
                         {
                             case MethodKind.Ordinary:
-                            case MethodKind.ExplicitInterfaceImplementation:
                                 return MemberDeclarationKind.Method;
+                            case MethodKind.ExplicitInterfaceImplementation:
+                                return MemberDeclarationKind.ExplicitlyImplementedMethod;
                             case MethodKind.Constructor:
                                 return MemberDeclarationKind.Constructor;
                             case MethodKind.Destructor:
@@ -80,9 +83,20 @@ namespace Roslynator
                     {
                         var propertySymbol = (IPropertySymbol)symbol;
 
-                        return (propertySymbol.IsIndexer)
-                            ? MemberDeclarationKind.Indexer
-                            : MemberDeclarationKind.Property;
+                        bool explicitlyImplemented = propertySymbol.ExplicitInterfaceImplementations.Any();
+
+                        if (propertySymbol.IsIndexer)
+                        {
+                            return (explicitlyImplemented)
+                                ? MemberDeclarationKind.ExplicitlyImplementedIndexer
+                                : MemberDeclarationKind.Indexer;
+                        }
+                        else
+                        {
+                            return (explicitlyImplemented)
+                                ? MemberDeclarationKind.ExplicitlyImplementedProperty
+                                : MemberDeclarationKind.Property;
+                        }
                     }
             }
 

@@ -17,8 +17,7 @@ namespace Roslynator.Documentation.Xml
             XmlWriter writer,
             SymbolFilterOptions filter = null,
             DefinitionListFormat format = null,
-            SymbolDocumentationProvider documentationProvider = null,
-            IComparer<ISymbol> comparer = null) : base(filter, format, documentationProvider, comparer)
+            SymbolDocumentationProvider documentationProvider = null) : base(filter, format, documentationProvider)
         {
             _writer = writer;
         }
