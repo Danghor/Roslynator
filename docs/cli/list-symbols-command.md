@@ -11,24 +11,20 @@ roslynator list-symbols <PROJECT|SOLUTION>
 [--empty-line-between-members]
 [--file-log]
 [--file-log-verbosity]
-[--format-attributes]
-[--format-base-list]
-[--format-constraints]
-[--format-parameters]
-[--ignored-attribute-names]
-[--ignored-names]
+[--format]
+[--group-by-assembly]
+[--ignored-attributes]
 [--ignored-projects]
-[--include-assembly-attributes]
-[--include-documentation]
+[--ignored-symbols]
+[--documentation]
 [--indent-chars]
 [--language]
+[--layout]
 [--msbuild-path]
-[--nest-namespaces]
-[--no-attribute-arguments]
-[--omit-containing-namespace]
-[--output]
+[-o|--output]
 [--projects]
 [-p|--properties]
+[--references]
 [-v|--verbosity]
 [--visibility]
 ```
@@ -49,41 +45,29 @@ Defines a depth of a documentation. Default value is `member`.
 
 Indicates whether an empty line should be added between two member definitions.
 
-**`[--format-attributes]`**
+**`[--format]`**
 
-Indicates whether attributes should be formatted on a multiple lines.
+Specifies parts of a symbol definition that should be formatted. Allowed values are attributes, parameters, base-list and constraints.
 
-**`[--format-base-list]`**
+**`[--group-by-assembly]`**
 
-Indicates whether a base list should be formatted on a multiple lines.
+Indicates whether symbols should be grouped by assembly.
 
-**`[--format-constraints]`**
+**`[--ignored-attributes]`** `<FULLY_QUALIFIED_METADATA_NAME>`
 
-Indicates whether constraints should be formatted on a multiple lines.
-
-**`[--format-parameters]`**
-
-Indicates whether parameters should be formatted on a multiple lines.
-
-**`[--ignored-attribute-names]`** `<FULLY_QUALIFIED_METADATA_NAME>`
-
-Defines a list of attributes' names that should be ignored, i.e. if the symbol has an attribute with the specified name it will be ignored.
-
-**`[--ignored-names]`** `<FULLY_QUALIFIED_METADATA_NAME>`
-
-Defines a list of metadata names that should be excluded from a documentation. Namespace of type names can be specified.
+Defines a list of attributes that should be ignored.
 
 **`--ignored-projects`** <PROJECT_NAME>
 
 Defines projects that should be skipped.
 
-**`[--include-assembly-attributes]`**
+**`[--ignored-symbols]`** `<FULLY_QUALIFIED_METADATA_NAME>`
 
-Indicates whether assembly attributes should be displayed.
+Defines a list of symbols that should be ignored. Namespace of types can be specified.
 
-**`[--include-documentation]`**
+**`[--documentation]`**
 
-Indicates whether XML documentation should be included. This option is relevant only for XML output.
+Indicates whether a documentation should be included. This option is available for XML and plain text.
 
 **`[--indent-chars]`** `<INDENT_CHARS>`
 
@@ -93,27 +77,19 @@ Defines characters that should be used for indentation. Default value is four sp
 
 Defines project language.
 
+**`--layout`** `{namespace-list|namespace-hierarchy|type-hierarchy}`
+
+Defines layout of a list of symbol definitions. Allowed values are namespace-list, namespace-hierarchy or type-hierarchy. Default value is namespace-list.
+
 **`--msbuild-path`** <MSBUILD_PATH>
 
 Defines a path to MSBuild.
 
 *Note: First found instance of MSBuild will be used if the path to MSBuild is not specified.*
 
-**`[--nest-namespaces]`**
+**`[-o|--output]`** `<OUTPUT_PATH>`
 
-Indicates whether namespaces should be nested.
-
-**`[--no-attribute-arguments]`**
-
-Indicates whether attribute arguments should be omitted when displaying an attribute.
-
-**`[--omit-containing-namespace]`**
-
-Indicates whether containing namespace should be omitted when displayed a symbol.
-
-**`[--output]`** `<OUTPUT_PATH>`
-
-Defines path to file(s) that will store a list of symbol definitions.
+Defines path to file(s) that will store a list of symbol definitions. Possible output formats are XML ('xml' extension), Markdown ('md' extension) or plaintext format."
 
 **`--projects`** <PROJECT_NAME>
 
@@ -122,6 +98,10 @@ Defines projects that should be analyzed.
 **`-p|--properties`** `<NAME=VALUE>`
 
 Defines one or more MSBuild properties.
+
+**`--references`** <ASSEMBLY_FILE>
+
+Defines file name/path to assembly(ies) that should be included.
 
 **`-v|--verbosity`** `{q[uiet]|m[inimal]|n[ormal]|d[etailed]|diag[nostic]}`
 

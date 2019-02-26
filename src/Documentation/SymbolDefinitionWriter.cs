@@ -289,6 +289,9 @@ namespace Roslynator.Documentation
             if (Format.PreferDefaultLiteral)
                 options |= SymbolDisplayAdditionalOptions.PreferDefaultLiteral;
 
+            if (Format.Includes(SymbolDefinitionPartFilter.TrailingSemicolon))
+                options |= SymbolDisplayAdditionalOptions.IncludeTrailingSemicolon;
+
             return options;
         }
 
@@ -704,6 +707,7 @@ namespace Roslynator.Documentation
                         {
                             WriteStartMember(symbol);
                             WriteMember(symbol);
+                            //XTODO: write explicit interface implementations
                             WriteEndMember(symbol);
 
                             if (en.MoveNext())

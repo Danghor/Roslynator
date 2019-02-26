@@ -91,7 +91,7 @@ namespace Roslynator.CommandLine
 
             string text = null;
 
-            SymbolDocumentationProvider documentationProvider = (Options.IncludeDocumentation)
+            SymbolDocumentationProvider documentationProvider = (Options.Documentation)
                 ? new SymbolDocumentationProvider(compilations)
                 : null;
 

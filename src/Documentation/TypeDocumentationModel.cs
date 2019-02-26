@@ -17,7 +17,7 @@ namespace Roslynator.Documentation
 
         internal TypeDocumentationModel(
             INamedTypeSymbol typeSymbol,
-            SymbolFilterOptions  filter)
+            SymbolFilterOptions filter)
         {
             Symbol = typeSymbol;
             Filter = filter;

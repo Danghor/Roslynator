@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Build.Locator;
@@ -188,6 +189,17 @@ namespace Roslynator.CommandLine
 
                 try
                 {
+                    VisualStudioInstance[] instances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
+
+                    if (instances.Length > 1)
+                    {
+                        WriteLine("Multiple MSBuild locations available:", Verbosity.Diagnostic);
+
+                        foreach (VisualStudioInstance visualStudioInstance in instances)
+                            WriteLine($"  {visualStudioInstance.MSBuildPath}", Verbosity.Diagnostic);
+                    }
+
+                    WriteLine("Register default MSBuild instance", Verbosity.Diagnostic);
                     instance = MSBuildLocator.RegisterDefaults();
                 }
                 catch (InvalidOperationException)

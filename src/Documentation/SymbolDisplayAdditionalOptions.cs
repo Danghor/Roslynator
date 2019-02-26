@@ -18,6 +18,7 @@ namespace Roslynator.Documentation
         FormatConstraints = 128,
         FormatParameters = 256,
         OmitIEnumerable = 512,
-        PreferDefaultLiteral = 1024
+        PreferDefaultLiteral = 1024,
+        IncludeTrailingSemicolon = 2048,
     }
 }

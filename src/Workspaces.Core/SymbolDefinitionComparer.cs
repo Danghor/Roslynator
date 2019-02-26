@@ -9,9 +9,9 @@ namespace Roslynator
 {
     internal class SymbolDefinitionComparer : IComparer<ISymbol>
     {
-        private NamespaceSymbolDefinitionComparer _namespaceComparer;
-        private NamedTypeSymbolDefinitionComparer _typeComparer;
-        private MemberSymbolDefinitionComparer _memberComparer;
+        private IComparer<INamespaceSymbol> _namespaceComparer;
+        private IComparer<INamedTypeSymbol> _typeComparer;
+        private IComparer<ISymbol> _memberComparer;
 
         internal SymbolDefinitionComparer(SymbolDefinitionSortOptions options = SymbolDefinitionSortOptions.None)
         {
@@ -26,7 +26,7 @@ namespace Roslynator
 
         public SymbolDefinitionSortOptions Options { get; }
 
-        public NamespaceSymbolDefinitionComparer NamespaceComparer
+        public IComparer<INamespaceSymbol> NamespaceComparer
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Roslynator
             }
         }
 
-        public NamedTypeSymbolDefinitionComparer TypeComparer
+        public IComparer<INamedTypeSymbol> TypeComparer
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Roslynator
             }
         }
 
-        public MemberSymbolDefinitionComparer MemberComparer
+        public IComparer<ISymbol> MemberComparer
         {
             get
             {
@@ -179,17 +179,17 @@ namespace Roslynator
             return string.Compare(symbol1.Name, symbol2.Name, StringComparison.Ordinal);
         }
 
-        protected virtual NamespaceSymbolDefinitionComparer CreateNamespaceComparer()
+        protected virtual IComparer<INamespaceSymbol> CreateNamespaceComparer()
         {
             return new NamespaceSymbolDefinitionComparer(this);
         }
 
-        protected virtual NamedTypeSymbolDefinitionComparer CreateTypeComparer()
+        protected virtual IComparer<INamedTypeSymbol> CreateTypeComparer()
         {
             return new NamedTypeSymbolDefinitionComparer(this);
         }
 
-        protected virtual MemberSymbolDefinitionComparer CreateMemberComparer()
+        protected virtual IComparer<ISymbol> CreateMemberComparer()
         {
             return new MemberSymbolDefinitionComparer(this);
         }

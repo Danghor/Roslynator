@@ -20,6 +20,7 @@ namespace Roslynator.Documentation
         BaseInterfaces = 512,
         BaseList = BaseType | BaseInterfaces,
         Constraints = 1024,
-        All = ContainingNamespace | Attributes | AssemblyAttributes | AttributeArguments | Accessibility | Modifiers | ParameterName | ParameterDefaultValue | BaseList | Constraints
+        TrailingSemicolon = 2048,
+        All = ContainingNamespace | Attributes | AssemblyAttributes | AttributeArguments | Accessibility | Modifiers | ParameterName | ParameterDefaultValue | BaseList | Constraints | TrailingSemicolon
     }
 }
