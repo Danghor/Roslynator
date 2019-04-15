@@ -78,6 +78,7 @@
 | Readability | [Default label should be the last label in a switch section](../../docs/analyzers/RCS1099.md) | RCS1099 | Info |
 | Readability | [Duplicate enum value](../../docs/analyzers/RCS1234.md) | RCS1234 | Info |
 | Readability | [Enum should declare explicit values](../../docs/analyzers/RCS1161.md) | RCS1161 | Hidden |
+| Readability | [Invalid regex](../../docs/analyzers/RCS1235.md) | RCS1235 | Warning |
 | Readability | [Merge preprocessor directives](../../docs/analyzers/RCS1222.md) | RCS1222 | Info |
 | Readability | [Order elements in documentation comment](../../docs/analyzers/RCS1232.md) | RCS1232 | Info |
 | Readability | [Order modifiers](../../docs/analyzers/RCS1019.md) | RCS1019 | None |

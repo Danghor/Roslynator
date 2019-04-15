@@ -234,5 +234,6 @@
     <Rule Id="RCS1232" Action="Info" /> <!-- Order elements in documentation comment. -->
     <Rule Id="RCS1233" Action="Info" /> <!-- Use short-circuiting operator. -->
     <Rule Id="RCS1234" Action="Info" /> <!-- Duplicate enum value. -->
+    <Rule Id="RCS1235" Action="Warning" /> <!-- Invalid regex. -->
   </Rules>
 </RuleSet>

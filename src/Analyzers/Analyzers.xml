@@ -5236,4 +5236,22 @@ public string Foo()
       </Sample>
     </Samples>
   </Analyzer>
+  <Analyzer Identifier="InvalidRegex">
+    <Id>RCS1235</Id>
+    <Title>Invalid regex.</Title>
+    <MessageFormat>Invalid regex.</MessageFormat>
+    <Category>Readability</Category>
+    <DefaultSeverity>Warning</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+    <Summary></Summary>
+    <Samples>
+      <Sample>
+        <Before>
+          <![CDATA[Regex.Match("foobar", @"\pXXX");]]>
+        </Before>
+      </Sample>
+    </Samples>
+  </Analyzer>
 </Analyzers>

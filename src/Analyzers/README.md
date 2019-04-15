@@ -213,6 +213,7 @@
 | RCS1232 | [Order elements in documentation comment](../../docs/analyzers/RCS1232.md) | Readability | Info |
 | RCS1233 | [Use short-circuiting operator](../../docs/analyzers/RCS1233.md) | Usage | Info |
 | RCS1234 | [Duplicate enum value](../../docs/analyzers/RCS1234.md) | Readability | Info |
+| RCS1235 | [Invalid regex](../../docs/analyzers/RCS1235.md) | Readability | Warning |
 
 
 *\(Generated with [DotMarkdown](http://github.com/JosefPihrt/DotMarkdown)\)*
